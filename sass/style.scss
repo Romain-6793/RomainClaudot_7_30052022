@@ -51,20 +51,15 @@ ol, ul {
     margin-bottom: 20px;
 }
 
-// .select {
-//     width: 170px;
-//     height: 69px;
-//     color: #fff;
-//     margin-right: 20px;
-// }
-
 .menu {
 
     position: relative;
+    border: 1px solid black;
+    width: 100%;
+    height: 5000px;
 
     &__ingredients {
         background:#3282F7;
-        z-index: 3;
     }
     &__devices {
         background:#68D9A4;
@@ -77,10 +72,6 @@ ol, ul {
 .tablist {
     display: flex;
     
-}
-
-.menu-item {
-    margin-bottom: 10px;
 }
 
 .menu-check {
@@ -101,10 +92,10 @@ ol, ul {
 
 .menu-nav {
     position: absolute;
+    top: 69px;
     color: #fff;
     height: 100%;
-    width: 90%;
-    max-width: 400px;
+    width: 667px;
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
@@ -135,12 +126,6 @@ ol, ul {
     z-index: 1;
 }
 
-.clickable-screen {
-    background: transparent;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
+.menu-item {
+    margin-bottom: 10px;
 }

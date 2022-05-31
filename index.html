@@ -21,95 +21,42 @@
     <section class="search-section">
         <input type="search" class="search-bar" placeholder="Rechercher une recette...">
         <div class="tags"></div>
-        <div class="menus">
-            <ul class="tablist">
-                <li>
-                    <label for="ingredients-check" class="ingredients-label">
-                        <!-- ce label changera pour ingredients-list -->
-                        <div class="tab menu__ingredients"> Ingrédients</div>
-                    </label>
-                    <input id="ingredients-check" type="checkbox" class="ingredients-check menu-check">
-                    <nav class="menu-nav ingredients-nav">
-                        <ul class="options-list" id="ingredients-list">
-                            <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
-                            <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
-                            <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
-                        </ul>
-                    </nav>
-                </li>
-                <li>
-                    <label for="devices-check" class="devices-label">
-                        <!-- ce label changera pour ingredients-list -->
-                        <div class="tab menu__devices"> Appareils</div>
-                    </label>
-                    <input id="devices-check" type="checkbox" class="devices-check menu-check">
-                    <nav class="menu-nav devices-nav">
-                        <ul class="options-list" id="devices-list">
-                            <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
-                            <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
-                            <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
-                        </ul>
-                    </nav>
-                </li>
-                <li>
-                    <label for="utensils-check" class="utensils-label">
-                        <!-- ce label changera pour ingredients-list -->
-                        <div class="tab menu__utensils">Ustensiles</div>
-                    </label>
-                    <input id="utensils-check" type="checkbox" class="utensils-check menu-check">
-                    <nav class="menu-nav utensils-nav">
-                        <ul class="options-list" id="utensils-list">
-                            <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
-                            <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
-                            <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
-                        </ul>
-                    </nav>
-                </li>
-            </ul>
-
-
-            <!-- <ul class="tabList">
-                <li>
+        <div class="menu">
+            <div class="tablist">
+                <label for="ingredients-check" class="ingredients-label">
                     <div class="tab menu__ingredients"> Ingrédients</div>
-                    <div class="dropdown-options ingredientsOptions">
-                        <ul class="optionsList">
-                            <li>option 1</li>
-                            <li>option 2</li>
-                            <li>option 3</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="tab menu__devices"> Appareils </div>
-                    <div class="dropdown-options devicesOptions">
-                        <ul class="optionsList">
-                            <li>option 1</li>
-                            <li>option 2</li>
-                            <li>option 3</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="tab menu__utensils"> Ustensiles </div>
-                    <div class="dropdown-options utensilsOptions">
-                        <ul class="optionsList">
-                            <li>option 1</li>
-                            <li>option 2</li>
-                            <li>option 3</li>
-                        </ul>
-                    </div>
-                </li>
-
-            </ul> -->
-            <!-- <select class="select menus__ingredients">
-                <option class="option__ingredients">Ingrédients</option>
-            </select>
-            <select class="select menus__appareils">
-                <option class="option__appareils">Appareils</option>
-            </select>
-            <select class="select menus__ustensiles">
-                <option class="option__ustensiles"> Ustensiles</option>
-            </select> -->
+                </label>
+                <input id="ingredients-check" type="checkbox" class="menu-check ingredients-check">
+                <div class="menu-nav ingredients-nav">
+                    <ul class="options-list" id="ingredients-list">
+                        <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
+                        <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
+                        <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
+                    </ul>
+                </div>
+                <label for="devices-check" class="devices-label">
+                    <div class="tab menu__devices"> Appareils</div>
+                </label>
+                <input id="devices-check" type="checkbox" class="menu-check devices-check">
+                <div class="menu-nav devices-nav">
+                    <ul class="options-list" id="devices-list">
+                        <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
+                        <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
+                        <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
+                    </ul>
+                </div>
+                <label for="utensils-check" class="utensils-label">
+                    <div class="tab menu__utensils">Ustensiles</div>
+                </label>
+                <input id="utensils-check" type="checkbox" class="menu-check utensils-check">
+                <div class="menu-nav utensils-nav">
+                    <ul class="options-list" id="utensils-list">
+                        <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
+                        <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
+                        <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
     <section class="card-section">
