@@ -12,10 +12,18 @@ const utensilsMenu = document.querySelector(".menu__utensils")
 // const ingredientsDropdown = document.querySelector(".ingredients-nav")
 // const devicesDropdown = document.querySelector(".devices-nav")
 // const utensilsDropdown = document.querySelector(".utensils-nav")
-let recipesArray = [];
-recipesArray.push(recipes);
-console.log(recipesArray)
-console.log(typeof recipesArray)
+
+const recipesArray = recipes
+
+function findingIngredients(recipes) {
+    for (let i = 0; i < recipes.length; i++) {
+
+        return recipes[i].ingredients
+    }
+}
+
+const findingIngredients2 = findingIngredients(recipes);
+console.log(findingIngredients2)
 
 const displayMenu = (menu1, menu2, menu3) => {
     menu1.checked = true
@@ -85,24 +93,27 @@ function tabListeners() {
     })
 }
 
-function displayRecipes(recipesArray) {
+function displayRecipes(recipes) {
 
-    const recipesSection = document.querySelector(".recipes_section");
+    const recipesSection = document.querySelector(".recipes-section");
 
-    recipesArray.forEach((recipe) => {
+    recipes.forEach((recipe) => {
         const recipeModel = recipesFactory(recipe)
         const userRecipe = recipeModel.getUserRecipe()
-        console.log(userRecipe)
         recipesSection.appendChild(userRecipe)
     });
 
 }
 
+// function displayIngredients(recipes.ingredients)
+
 
 function init() {
-    const { recipesList } = recipesArray
+
     tabListeners()
-    displayRecipes(recipesList)
+    displayRecipes(recipesArray)
+    console.log(recipesArray)
+
 }
 
 init()
