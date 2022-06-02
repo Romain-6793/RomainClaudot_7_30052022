@@ -22,13 +22,15 @@
     <section class="search-section">
         <div class="search-wrapper">
             <input type="search" class="search-bar" placeholder="Rechercher une recette...">
-            <!-- <i class="fa-solid fa-magnifying-glass search-icon"></i> -->
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
         <div class="tags"></div>
         <div class="menu">
             <div class="tablist">
                 <label for="ingredients-check" class="ingredients-label">
-                    <div class="tab menu__ingredients"> Ingrédients</div>
+                    <div class="tab menu__ingredients"><span class="menu-text">Ingrédients</span> <i
+                            class="fa-solid fa-angle-down arrow-icon"></i>
+                    </div>
                 </label>
                 <input id="ingredients-check" type="checkbox" class="menu-check ingredients-check">
                 <div class="menu-nav ingredients-nav">
@@ -39,7 +41,9 @@
                     </ul>
                 </div>
                 <label for="devices-check" class="devices-label">
-                    <div class="tab menu__devices"> Appareils</div>
+                    <div class="tab menu__devices"><span class="menu-text"> Appareils</span> <i
+                            class="fa-solid fa-angle-down arrow-icon"></i>
+                    </div>
                 </label>
                 <input id="devices-check" type="checkbox" class="menu-check devices-check">
                 <div class="menu-nav devices-nav">
@@ -50,7 +54,9 @@
                     </ul>
                 </div>
                 <label for="utensils-check" class="utensils-label">
-                    <div class="tab menu__utensils">Ustensiles</div>
+                    <div class="tab menu__utensils"><span class="menu-text">Ustensiles</span> <i
+                            class="fa-solid fa-angle-down arrow-icon"></i>
+                    </div>
                 </label>
                 <input id="utensils-check" type="checkbox" class="menu-check utensils-check">
                 <div class="menu-nav utensils-nav">
@@ -66,7 +72,7 @@
     <section class="card-section">
     </section>
     <!-- <div class="clickable-screen"></div> -->
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 
 </html>
