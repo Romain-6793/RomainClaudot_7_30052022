@@ -21,50 +21,46 @@
     </header>
     <section class="search-section">
         <div class="search-wrapper">
-            <input type="search" class="search-bar" placeholder="Rechercher une recette...">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input class="search-bar" placeholder="Rechercher une recette...">
+            <!-- <i class="fa-solid fa-magnifying-glass search-icon"></i> -->
+            <button type="button" class="search-button" value="Rechercher"><i class="fas fa-search search-icon"></i>
+            </button>
         </div>
         <div class="tags"></div>
         <div class="menu">
             <div class="tablist">
                 <label for="ingredients-check" class="ingredients-label">
-                    <div class="tab menu__ingredients"><span class="menu-text">Ingrédients</span> <i
-                            class="fa-solid fa-angle-down arrow-icon"></i>
+                    <div class="tab menu__ingredients"><span class="menu-text">Ingrédients</span><button type="button"
+                            class="dropdown-button" value="dropdown"> <i class="fas fa-angle-down arrow-icon"></i>
+                        </button>
                     </div>
                 </label>
                 <input id="ingredients-check" type="checkbox" class="menu-check ingredients-check">
                 <div class="menu-nav ingredients-nav">
-                    <ul class="options-list" id="ingredients-list">
-                        <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
-                        <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
-                        <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
-                    </ul>
+                    <div class="options-list" id="ingredients-list">
+                    </div>
                 </div>
                 <label for="devices-check" class="devices-label">
-                    <div class="tab menu__devices"><span class="menu-text"> Appareils</span> <i
-                            class="fa-solid fa-angle-down arrow-icon"></i>
+                    <div class="tab menu__devices"><span class="menu-text"> Appareils</span> <button type="button"
+                            class="dropdown-button" value="dropdown"> <i class="fas fa-angle-down arrow-icon"></i>
+                        </button>
                     </div>
                 </label>
                 <input id="devices-check" type="checkbox" class="menu-check devices-check">
                 <div class="menu-nav devices-nav">
-                    <ul class="options-list" id="devices-list">
-                        <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
-                        <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
-                        <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
-                    </ul>
+                    <div class="options-list" id="devices-list">
+                    </div>
                 </div>
                 <label for="utensils-check" class="utensils-label">
-                    <div class="tab menu__utensils"><span class="menu-text">Ustensiles</span> <i
-                            class="fa-solid fa-angle-down arrow-icon"></i>
+                    <div class="tab menu__utensils"><span class="menu-text">Ustensiles</span> <button type="button"
+                            class="dropdown-button" value="dropdown"> <i class="fas fa-angle-down arrow-icon"></i>
+                        </button>
                     </div>
                 </label>
                 <input id="utensils-check" type="checkbox" class="menu-check utensils-check">
                 <div class="menu-nav utensils-nav">
-                    <ul class="options-list" id="utensils-list">
-                        <li class="menu-item"><a href="" class="menu-link">option 1</a></li>
-                        <li class="menu-item"><a href="" class="menu-link">option 2</a></li>
-                        <li class="menu-item"><a href="" class="menu-link">option 3</a></li>
-                    </ul>
+                    <div class="options-list" id="utensils-list">
+                    </div>
                 </div>
             </div>
         </div>
