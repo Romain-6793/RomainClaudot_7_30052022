@@ -29,34 +29,39 @@
         <div class="tags"></div>
         <div class="menu">
             <div class="tablist">
-                <label for="ingredients-check" class="ingredients-label">
-                    <div class="tab menu__ingredients"><span class="menu-text">Ingrédients</span><button type="button"
-                            class="dropdown-button" value="dropdown"> <i class="fas fa-angle-down arrow-icon"></i>
-                        </button>
-                    </div>
-                </label>
+
+                <div class="tab menu__ingredients"> <button type="button"
+                        class="ingredients-searchbutton input-button"><span
+                            class="menu-text">Ingrédients</span></button>
+                    <input class="ingredients-searchbar mini-searchbar" placeholder="Rechercher un ingrédient"> <label
+                        for="ingredients-check" class="ingredients-label dropdown-button"> <i
+                            class="fas fa-angle-down arrow-icon ingredients-arrow"></i>
+                    </label>
+                </div>
                 <input id="ingredients-check" type="checkbox" class="menu-check ingredients-check">
                 <div class="menu-nav ingredients-nav">
                     <div class="options-list" id="ingredients-list">
                     </div>
                 </div>
-                <label for="devices-check" class="devices-label">
-                    <div class="tab menu__devices"><span class="menu-text"> Appareils</span> <button type="button"
-                            class="dropdown-button" value="dropdown"> <i class="fas fa-angle-down arrow-icon"></i>
-                        </button>
-                    </div>
-                </label>
+                <div class="tab menu__devices"> <button type="button" class="devices-searchbutton input-button"><span
+                            class="menu-text">Appareils</span></button>
+                    <input class="devices-searchbar mini-searchbar" placeholder="Rechercher un appareil"> <label
+                        for="devices-check" class="devices-label dropdown-button"> <i
+                            class="fas fa-angle-down arrow-icon devices-arrow"></i>
+                    </label>
+                </div>
                 <input id="devices-check" type="checkbox" class="menu-check devices-check">
                 <div class="menu-nav devices-nav">
                     <div class="options-list" id="devices-list">
                     </div>
                 </div>
-                <label for="utensils-check" class="utensils-label">
-                    <div class="tab menu__utensils"><span class="menu-text">Ustensiles</span> <button type="button"
-                            class="dropdown-button" value="dropdown"> <i class="fas fa-angle-down arrow-icon"></i>
-                        </button>
-                    </div>
-                </label>
+                <div class="tab menu__utensils"> <button type="button" class="utensils-searchbutton input-button"><span
+                            class="menu-text">Ustensiles</span></button>
+                    <input class="utensils-searchbar mini-searchbar" placeholder="Rechercher un ustensile"> <label
+                        for="utensils-check" class="utensils-label dropdown-button"> <i
+                            class="fas fa-angle-down arrow-icon utensils-arrow"></i>
+                    </label>
+                </div>
                 <input id="utensils-check" type="checkbox" class="menu-check utensils-check">
                 <div class="menu-nav utensils-nav">
                     <div class="options-list" id="utensils-list">

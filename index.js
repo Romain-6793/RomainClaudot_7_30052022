@@ -9,6 +9,13 @@ const utensilsInput = document.getElementById("utensils-check")
 const ingredientsMenu = document.querySelector(".menu__ingredients")
 const devicesMenu = document.querySelector(".menu__devices")
 const utensilsMenu = document.querySelector(".menu__utensils")
+const ingredientsSearchBar = document.querySelector(".ingredients-searchbar")
+const devicesSearchBar = document.querySelector(".devices-searchbar")
+const utensilsSearchBar = document.querySelector(".utensils-searchbar")
+const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
+const devicesSearchButton = document.querySelector(".devices-searchbutton")
+const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
+
 
 const recipesArray = recipes
 let ingredientsArray = []
@@ -37,18 +44,18 @@ function findingIngredients(recipes) {
 
 function findingDevices(recipes) {
 
-
+    let temp = [];
 
     for (let i = 0; i < recipes.length; i++) {
 
-        devicesArray.push(recipes[i].appliance)
+        temp.push(recipes[i].appliance)
     }
 
-    console.log(devicesArray)
+    console.log(temp)
 
-    devicesArray = [...new Set(devicesArray)]
+    temp = [...new Set(temp)]
 
-    return devicesArray;
+    return temp;
 }
 
 function findingUtensils(recipes) {
@@ -98,6 +105,30 @@ function findingDescriptions(recipes) {
 }
 
 
+// function search() {
+
+//     const searchInput = document.querySelector(".search-bar")
+
+
+//     function launchResearch() {
+
+//         // rajouter le filter après
+
+//         let searchingString = `${ingredientsArray} ${namesArray} ${descriptionsArray}`
+//         console.log(searchingString)
+
+//         let index = searchingString.indexOf(searchInput.value)
+
+//         if (index !== -1 && searchInput.value.length >= 3) {
+//             alert("ça marche !")
+//         } else {
+//             console.log("ça ne marche pas !")
+//         }
+
+//         console.log(index)
+
+//     }
+
 function search() {
 
     const searchInput = document.querySelector(".search-bar")
@@ -107,31 +138,46 @@ function search() {
 
         // rajouter le filter après
 
-        let searchingString = `${ingredientsArray} ${namesArray} ${descriptionsArray}`
-        console.log(searchingString)
+        let recipesFilter2 = searchInput.value
 
-        let index = searchingString.indexOf(searchInput.value)
-
-        if (index !== -1 && searchInput.value.length >= 3) {
-            alert("ça marche !")
-        } else {
-            console.log("ça ne marche pas !")
+        function textFilter(recipes, recipesFilter) {
+            return recipes.filter((recipeObj) => {
+                return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
+                // Mettre des OU
+                // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+            })
         }
 
-        console.log(index)
+        console.log(textFilter(recipes, recipesFilter2))
 
 
-        // if (photosId === photographerId2) {
-        //     return elem.photographerId === photosId;
-        // }
+
+
+        console.log(selectedRecipes);
+
     }
+
+    // selectedRecipes = recipes.filter((elem) => {
+    //     if (photosId === photographerId2) {
+    //         return elem.photographerId === photosId;
+    //     }
+    // });
+
+    // const fruits = ['pomme', 'banane', 'raisin', 'mangue'];
+
+    const selectedRecipes = (recipes, recipeFilter) => {
+        return recipes.filter(el => el.toLowerCase().indexOf(recipeFilter.toLowerCase()) !== -1);
+    }
+
+    // console.log(filtreTexte(fruits, 'an')); // ['banane', 'mangue'];
+    // console.log(filtreTexte(fruits, 'm')); // ['pomme', 'mangue'];
 
 
     searchInput.addEventListener("input", () => {
-        // if (searchData.length >= 3) {
-        //     launchResearch()
-        // }
-        launchResearch()
+        if (searchInput.value.length >= 3) {
+            launchResearch()
+        }
+        // launchResearch()
     })
 }
 
@@ -140,13 +186,20 @@ const displayMenu = (menu1, menu2, menu3) => {
     menu1.checked = true
     menu2.checked = false
     menu3.checked = false
-    menu1.addEventListener("click", () => {
-        closeMenu(menu1)
-    })
+    removeTabListeners()
+    menu1.addEventListener("click",
+        closeMenu(menu1))
 }
 
 function closeMenu(menu) {
     menu.checked = false
+
+    menu.removeEventListener("click",
+        closeMenu(menu))
+
+
+
+
     ingredientsMenu.style.transform = "translateX(" + 0 + "px)"
     devicesMenu.style.transform = "translateX(" + 0 + "px)"
     utensilsMenu.style.transform = "translateX(" + 0 + "px)"
@@ -154,7 +207,10 @@ function closeMenu(menu) {
     devicesMenu.style.width = 170 + "px"
     utensilsMenu.style.width = 170 + "px"
 
-    tabListeners()
+    // removeTabListeners()
+    // tabListeners()
+    // removeMiniSearchBar()
+    // displayMiniSearchBarL()
 }
 
 function shiftMenu(input, sidemenu1, sidemenu2) {
@@ -178,6 +234,10 @@ function shiftMenu(input, sidemenu1, sidemenu2) {
 
 function growMenu(menu) {
     menu.style.width = 667 + "px"
+}
+
+function growMenu2(menu) {
+    menu.style.width = 225 + "px"
 }
 
 function displayIngredientsList(ingredientsArray) {
@@ -215,28 +275,103 @@ function displayUtensilsList(utensilsArray) {
 
 }
 
+function ingredientsListener() {
+    displayMenu(ingredientsInput, devicesInput, utensilsInput)
+    shiftMenu(ingredientsInput, devicesMenu, utensilsMenu)
+    growMenu(ingredientsMenu)
+    // removeTabListeners()
+    // tabListeners()
+}
+
+function devicesListener() {
+    displayMenu(devicesInput, utensilsInput, ingredientsInput)
+    shiftMenu(devicesInput, ingredientsMenu, utensilsMenu)
+    growMenu(devicesMenu)
+    // removeTabListeners()
+    // tabListeners()
+}
+
+function utensilsListener() {
+    displayMenu(utensilsInput, ingredientsInput, devicesInput)
+    shiftMenu(utensilsInput, ingredientsMenu, devicesMenu)
+    growMenu(utensilsMenu)
+    // removeTabListeners()
+    // tabListeners()
+}
+
 function tabListeners() {
 
-    ingredientsInput.addEventListener("click", () => {
-        displayMenu(ingredientsInput, devicesInput, utensilsInput)
-        shiftMenu(ingredientsInput, devicesMenu, utensilsMenu)
-        growMenu(ingredientsMenu)
+    ingredientsInput.addEventListener("click", () => ingredientsListener)
+    devicesInput.addEventListener("click", () => devicesListener)
+    utensilsInput.addEventListener("click", () => utensilsListener)
+}
 
-    })
-    const devicesInput = document.getElementById("devices-check")
-    devicesInput.addEventListener("click", () => {
-        displayMenu(devicesInput, utensilsInput, ingredientsInput)
-        shiftMenu(devicesInput, ingredientsMenu, utensilsMenu)
-        growMenu(devicesMenu)
+function removeTabListeners() {
 
-    })
-    const utensilsInput = document.getElementById("utensils-check")
-    utensilsInput.addEventListener("click", () => {
-        displayMenu(utensilsInput, ingredientsInput, devicesInput)
-        shiftMenu(utensilsInput, ingredientsMenu, devicesMenu)
-        growMenu(utensilsMenu)
+    ingredientsInput.removeEventListener("click", () => ingredientsListener)
 
-    })
+    // const devicesInput = document.getElementById("devices-check")
+    devicesInput.removeEventListener("click", () => devicesListener)
+    // const utensilsInput = document.getElementById("utensils-check")
+    utensilsInput.removeEventListener("click", () => utensilsListener)
+
+}
+
+function displayIngSearchBar() {
+
+    ingredientsSearchBar.style.display = "block";
+    ingredientsSearchButton.style.display = "none";
+    if (ingredientsMenu.style.width < 667 + "px") {
+        growMenu2(ingredientsMenu)
+    }
+}
+
+function displayDevSearchBar() {
+    devicesSearchBar.style.display = "block";
+    devicesSearchButton.style.display = "none";
+    if (devicesMenu.style.width < 667 + "px") {
+        growMenu2(devicesMenu)
+    }
+}
+
+function displayUteSearchBar() {
+    utensilsSearchBar.style.display = "block";
+    utensilsSearchButton.style.display = "none";
+    if (utensilsMenu.style.width < 667 + "px") {
+        growMenu2(utensilsMenu)
+    }
+}
+
+function displayMiniSearchBarL() {
+
+    ingredientsSearchButton.addEventListener("click", displayIngSearchBar)
+
+    devicesSearchButton.addEventListener("click", displayDevSearchBar)
+
+    utensilsSearchButton.addEventListener("click", displayUteSearchBar)
+
+}
+
+function removeMiniSearchBar() {
+
+    const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
+    const ingredientsSearchBar = document.querySelector(".ingredients-searchbar")
+    ingredientsSearchButton.removeEventListener("click", displayIngSearchBar)
+    ingredientsSearchBar.style.display = "none";
+    ingredientsSearchButton.style.display = "block";
+
+    const devicesSearchButton = document.querySelector(".devices-searchbutton")
+    const devicesSearchBar = document.querySelector(".devices-searchbar")
+    devicesSearchButton.removeEventListener("click", displayDevSearchBar)
+    devicesSearchBar.style.display = "none";
+    devicesSearchButton.style.display = "block";
+
+    const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
+    const utensilsSearchBar = document.querySelector(".utensils-searchbar")
+    utensilsSearchButton.removeEventListener("click", displayUteSearchBar)
+    utensilsSearchBar.style.display = "none";
+    utensilsSearchButton.style.display = "block";
+
 }
 
 function displayRecipes(recipes) {
@@ -271,7 +406,7 @@ function init() {
     tabListeners()
     console.log(recipes)
     findingIngredients(recipes)
-    findingDevices(recipes)
+    devicesArray = findingDevices(recipes)
     findingUtensils(recipes)
     findingNames(recipes)
     findingDescriptions(recipes)
@@ -279,6 +414,7 @@ function init() {
     displayIngredientsList(ingredientsArray)
     displayDevicesList(devicesArray)
     displayUtensilsList(utensilsArray)
+    displayMiniSearchBarL()
     displayRecipes(recipesArray)
 
 }
