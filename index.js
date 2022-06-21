@@ -143,7 +143,7 @@ function search() {
         function textFilter(recipes, recipesFilter) {
             return recipes.filter((recipeObj) => {
                 return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
-                // Mettre des OU
+                // Mettre des OU pour les ingredients et la description.
                 // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
             })
         }
@@ -189,16 +189,14 @@ const displayMenu = (menu1, menu2, menu3) => {
     removeTabListeners()
     menu1.addEventListener("click",
         closeMenu(menu1))
+    if (closeMenu(menu1)) {
+        menu1.removeEventListener("click",
+            closeMenu(menu1))
+    }
 }
 
 function closeMenu(menu) {
     menu.checked = false
-
-    menu.removeEventListener("click",
-        closeMenu(menu))
-
-
-
 
     ingredientsMenu.style.transform = "translateX(" + 0 + "px)"
     devicesMenu.style.transform = "translateX(" + 0 + "px)"
@@ -209,8 +207,8 @@ function closeMenu(menu) {
 
     // removeTabListeners()
     // tabListeners()
-    // removeMiniSearchBar()
-    // displayMiniSearchBarL()
+    removeMiniSearchBar()
+    displayMiniSearchBarL()
 }
 
 function shiftMenu(input, sidemenu1, sidemenu2) {
@@ -301,19 +299,19 @@ function utensilsListener() {
 
 function tabListeners() {
 
-    ingredientsInput.addEventListener("click", () => ingredientsListener)
-    devicesInput.addEventListener("click", () => devicesListener)
-    utensilsInput.addEventListener("click", () => utensilsListener)
+    ingredientsInput.addEventListener("click", ingredientsListener)
+    devicesInput.addEventListener("click", devicesListener)
+    utensilsInput.addEventListener("click", utensilsListener)
 }
 
 function removeTabListeners() {
 
-    ingredientsInput.removeEventListener("click", () => ingredientsListener)
+    ingredientsInput.removeEventListener("click", ingredientsListener)
 
     // const devicesInput = document.getElementById("devices-check")
-    devicesInput.removeEventListener("click", () => devicesListener)
+    devicesInput.removeEventListener("click", devicesListener)
     // const utensilsInput = document.getElementById("utensils-check")
-    utensilsInput.removeEventListener("click", () => utensilsListener)
+    utensilsInput.removeEventListener("click", utensilsListener)
 
 }
 
