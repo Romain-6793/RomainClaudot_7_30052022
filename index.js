@@ -35,7 +35,7 @@ function findingIngredients(recipes) {
         }
     }
 
-    console.log(ingredientsArray)
+    // console.log(ingredientsArray)
 
     ingredientsArray = [...new Set(ingredientsArray)]
 
@@ -69,7 +69,7 @@ function findingUtensils(recipes) {
         }
     }
 
-    console.log(utensilsArray)
+    // console.log(utensilsArray)
 
     utensilsArray = [...new Set(utensilsArray)]
 
@@ -85,7 +85,7 @@ function findingNames(recipes) {
         namesArray.push(recipes[i].name)
     }
 
-    console.log(namesArray)
+    // console.log(namesArray)
 
     return namesArray;
 }
@@ -99,7 +99,7 @@ function findingDescriptions(recipes) {
         descriptionsArray.push(recipes[i].description)
     }
 
-    console.log(descriptionsArray)
+    // console.log(descriptionsArray)
 
     return descriptionsArray;
 }
@@ -138,23 +138,29 @@ function search() {
 
         // rajouter le filter après
 
-        let recipesFilter2 = searchInput.value
+        let searchValue = searchInput.value
 
-        function textFilter(recipes, recipesFilter) {
+        function inputFilter(recipes, recipesFilter) {
+
+
             return recipes.filter((recipeObj) => {
-                return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
-                // Mettre des OU pour les ingredients et la description.
-                // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+
+                for (let i = 0; i < recipeObj.ingredients.length; i++) {
+
+                    return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                        || recipeObj.description.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                        || recipeObj.ingredients[i].ingredient.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
+
+                    // Mettre des OU pour les ingredients et la description.
+                    // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                }
             })
+
         }
 
-        console.log(textFilter(recipes, recipesFilter2))
+        console.log(inputFilter(recipes, searchValue))
 
-
-
-
-        console.log(selectedRecipes);
-
+        // console.log(selectedRecipes);
     }
 
     // selectedRecipes = recipes.filter((elem) => {
@@ -165,9 +171,9 @@ function search() {
 
     // const fruits = ['pomme', 'banane', 'raisin', 'mangue'];
 
-    const selectedRecipes = (recipes, recipeFilter) => {
-        return recipes.filter(el => el.toLowerCase().indexOf(recipeFilter.toLowerCase()) !== -1);
-    }
+    // const selectedRecipes = (recipes, recipeFilter) => {
+    //     return recipes.filter(el => el.toLowerCase().indexOf(recipeFilter.toLowerCase()) !== -1);
+    // }
 
     // console.log(filtreTexte(fruits, 'an')); // ['banane', 'mangue'];
     // console.log(filtreTexte(fruits, 'm')); // ['pomme', 'mangue'];
@@ -181,60 +187,75 @@ function search() {
     })
 }
 
+// Cette fonction closeMenu, prend en paramètres input et menu. 
+// Lorsque cette fonction est appellée, l'input (checkbox) passé en argument n'est plus coché. Donc son
+// dropdown n'apparaît plus. Sa position revient à 0px, et sa taille à 170px.
 
-const displayMenu = (menu1, menu2, menu3) => {
-    menu1.checked = true
-    menu2.checked = false
-    menu3.checked = false
-    removeTabListeners()
-    menu1.addEventListener("click",
-        closeMenu(menu1))
-    if (closeMenu(menu1)) {
-        menu1.removeEventListener("click",
-            closeMenu(menu1))
-    }
-}
+// (On y fait un console.trace pour connaître tous les endroits où elle est appellée).
 
-function closeMenu(menu) {
-    menu.checked = false
+function closeMenu(input, menu) {
+    // console.trace(closeMenu)
+    input.checked = false
+    menu.style.transform = "translateX(" + 0 + "px)"
+    menu.style.width = 170 + "px"
 
-    ingredientsMenu.style.transform = "translateX(" + 0 + "px)"
-    devicesMenu.style.transform = "translateX(" + 0 + "px)"
-    utensilsMenu.style.transform = "translateX(" + 0 + "px)"
-    ingredientsMenu.style.width = 170 + "px"
-    devicesMenu.style.width = 170 + "px"
-    utensilsMenu.style.width = 170 + "px"
-
-    // removeTabListeners()
-    // tabListeners()
-    removeMiniSearchBar()
-    displayMiniSearchBarL()
-}
-
-function shiftMenu(input, sidemenu1, sidemenu2) {
     if (input === ingredientsInput) {
-        ingredientsMenu.style.transform = "translateX(" + 0 + "px)"
-        sidemenu1.style.transform = "translateX(" + 0 + "px)"
-        sidemenu2.style.transform = "translateX(" + 0 + "px)"
+        ingredientsSearchButton.style.display = "block"
+        ingredientsSearchBar.style.display = "none"
     }
     else if (input === devicesInput) {
-        devicesMenu.style.transform = "translateX(" + -190 + "px)"
-        sidemenu1.style.transform = "translateX(" + 687 + "px)"
-        sidemenu2.style.transform = "translateX(" + 0 + "%)"
+        devicesSearchButton.style.display = "block"
+        devicesSearchBar.style.display = "none"
     }
     else if (input === utensilsInput) {
-        utensilsMenu.style.transform = "translateX(" + -380 + "px)"
-        sidemenu1.style.transform = "translateX(" + 687 + "px)"
-        sidemenu2.style.transform = "translateX(" + 687 + "px)"
+        utensilsSearchButton.style.display = "block"
+        utensilsSearchBar.style.display = "none"
     }
 
+
+
+}
+
+// Cette fonction prend en paramètres l'input(checkbox), le menu concerné et ses sidemenus. On commence par 
+// y mettre un état initial : chaque menu est à 0 px . Ensuite, on pose les conditions, si l'input est 
+// coché, et on bouge les positions selon l'input qui est coché.
+
+function translateMenus(input, menu, sidemenu1, sidemenu2) {
+    menu.style.transform = "translateX(" + 0 + "px)"
+    sidemenu1.style.transform = "translateX(" + 0 + "px)"
+    sidemenu2.style.transform = "translateX(" + 0 + "px)"
+
+    if (input.checked) {
+        if (input === ingredientsInput) {
+            menu.style.transform = "translateX(" + 0 + "px)"
+            sidemenu1.style.transform = "translateX(" + 0 + "px)"
+            sidemenu2.style.transform = "translateX(" + 0 + "px)"
+        }
+        else if (input === devicesInput) {
+            menu.style.transform = "translateX(" + -190 + "px)"
+            sidemenu1.style.transform = "translateX(" + 687 + "px)"
+            sidemenu2.style.transform = "translateX(" + 0 + "%)"
+        }
+        else if (input === utensilsInput) {
+            menu.style.transform = "translateX(" + -380 + "px)"
+            sidemenu1.style.transform = "translateX(" + 687 + "px)"
+            sidemenu2.style.transform = "translateX(" + 687 + "px)"
+        }
+    }
+}
+
+// Cette fonction détermine la taille que doit prendre un menu avec input coché ou non .
+
+function toggleWidthMenu(input, menu) {
+    // console.log(menu, input.checked)
+    if (input.checked) {
+        menu.style.width = 667 + "px"
+    } else {
+        menu.style.width = 170 + "px"
+    }
 }
 
 function growMenu(menu) {
-    menu.style.width = 667 + "px"
-}
-
-function growMenu2(menu) {
     menu.style.width = 225 + "px"
 }
 
@@ -273,28 +294,55 @@ function displayUtensilsList(utensilsArray) {
 
 }
 
+// Les trois fonctions suivantes sont appellées avec tabListeners. si le menu x n'a pas l'input coché,
+// alors on invoquera closemenu pour le menu x . Sinon, on invoquera closeMenu pour les 2 autres menus.
+// On invoque également toggleWidthMenu pour l'input x et son menu, et translateMenus avec comme arguments
+// les deux mêmes que toggleWidthMenu + les sidemenus.
+
 function ingredientsListener() {
-    displayMenu(ingredientsInput, devicesInput, utensilsInput)
-    shiftMenu(ingredientsInput, devicesMenu, utensilsMenu)
-    growMenu(ingredientsMenu)
-    // removeTabListeners()
-    // tabListeners()
+    // console.log(ingredientsListener)
+
+    if (!ingredientsInput.checked) {
+        closeMenu(ingredientsInput, ingredientsMenu)
+    }
+    closeMenu(devicesInput, devicesMenu)
+    closeMenu(utensilsInput, utensilsMenu)
+
+    toggleWidthMenu(ingredientsInput, ingredientsMenu)
+
+    translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
+
 }
 
 function devicesListener() {
-    displayMenu(devicesInput, utensilsInput, ingredientsInput)
-    shiftMenu(devicesInput, ingredientsMenu, utensilsMenu)
-    growMenu(devicesMenu)
-    // removeTabListeners()
-    // tabListeners()
+    // console.log(devicesListener)
+
+    if (!devicesInput.checked) {
+        closeMenu(devicesInput, devicesMenu)
+    }
+    closeMenu(ingredientsInput, ingredientsMenu)
+    closeMenu(utensilsInput, utensilsMenu)
+
+    toggleWidthMenu(devicesInput, devicesMenu)
+
+    translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
+
 }
 
 function utensilsListener() {
-    displayMenu(utensilsInput, ingredientsInput, devicesInput)
-    shiftMenu(utensilsInput, ingredientsMenu, devicesMenu)
-    growMenu(utensilsMenu)
-    // removeTabListeners()
-    // tabListeners()
+    // console.log(devicesListener)
+
+    if (!utensilsInput.checked) {
+        closeMenu(utensilsInput, utensilsMenu)
+    }
+
+    closeMenu(devicesInput, devicesMenu)
+    closeMenu(ingredientsInput, ingredientsMenu)
+
+    toggleWidthMenu(utensilsInput, utensilsMenu)
+
+    translateMenus(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
+
 }
 
 function tabListeners() {
@@ -304,73 +352,75 @@ function tabListeners() {
     utensilsInput.addEventListener("click", utensilsListener)
 }
 
-function removeTabListeners() {
+// function removeTabListeners() {
 
-    ingredientsInput.removeEventListener("click", ingredientsListener)
+//     ingredientsInput.removeEventListener("click", ingredientsListener)
 
-    // const devicesInput = document.getElementById("devices-check")
-    devicesInput.removeEventListener("click", devicesListener)
-    // const utensilsInput = document.getElementById("utensils-check")
-    utensilsInput.removeEventListener("click", utensilsListener)
+//     // const devicesInput = document.getElementById("devices-check")
+//     devicesInput.removeEventListener("click", devicesListener)
+//     // const utensilsInput = document.getElementById("utensils-check")
+//     utensilsInput.removeEventListener("click", utensilsListener)
 
-}
+// }
 
-function displayIngSearchBar() {
+function controlIngSearchBar() {
 
-    ingredientsSearchBar.style.display = "block";
-    ingredientsSearchButton.style.display = "none";
+    if (ingredientsSearchBar.style.display = "none") {
+        ingredientsSearchBar.style.display = "block"
+        ingredientsSearchButton.style.display = "none"
+    }
     if (ingredientsMenu.style.width < 667 + "px") {
-        growMenu2(ingredientsMenu)
+        growMenu(ingredientsMenu)
     }
 }
 
-function displayDevSearchBar() {
+function controlDevSearchBar() {
     devicesSearchBar.style.display = "block";
     devicesSearchButton.style.display = "none";
     if (devicesMenu.style.width < 667 + "px") {
-        growMenu2(devicesMenu)
+        growMenu(devicesMenu)
     }
 }
 
-function displayUteSearchBar() {
+function controlUteSearchBar() {
     utensilsSearchBar.style.display = "block";
     utensilsSearchButton.style.display = "none";
     if (utensilsMenu.style.width < 667 + "px") {
-        growMenu2(utensilsMenu)
+        growMenu(utensilsMenu)
     }
 }
 
 function displayMiniSearchBarL() {
 
-    ingredientsSearchButton.addEventListener("click", displayIngSearchBar)
+    ingredientsSearchButton.addEventListener("click", controlIngSearchBar)
 
-    devicesSearchButton.addEventListener("click", displayDevSearchBar)
+    devicesSearchButton.addEventListener("click", controlDevSearchBar)
 
-    utensilsSearchButton.addEventListener("click", displayUteSearchBar)
-
-}
-
-function removeMiniSearchBar() {
-
-    const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
-    const ingredientsSearchBar = document.querySelector(".ingredients-searchbar")
-    ingredientsSearchButton.removeEventListener("click", displayIngSearchBar)
-    ingredientsSearchBar.style.display = "none";
-    ingredientsSearchButton.style.display = "block";
-
-    const devicesSearchButton = document.querySelector(".devices-searchbutton")
-    const devicesSearchBar = document.querySelector(".devices-searchbar")
-    devicesSearchButton.removeEventListener("click", displayDevSearchBar)
-    devicesSearchBar.style.display = "none";
-    devicesSearchButton.style.display = "block";
-
-    const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
-    const utensilsSearchBar = document.querySelector(".utensils-searchbar")
-    utensilsSearchButton.removeEventListener("click", displayUteSearchBar)
-    utensilsSearchBar.style.display = "none";
-    utensilsSearchButton.style.display = "block";
+    utensilsSearchButton.addEventListener("click", controlUteSearchBar)
 
 }
+
+// function removeMiniSearchBar() {
+
+//     const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
+//     const ingredientsSearchBar = document.querySelector(".ingredients-searchbar")
+//     ingredientsSearchButton.removeEventListener("click", displayIngSearchBar)
+//     ingredientsSearchBar.style.display = "none";
+//     ingredientsSearchButton.style.display = "block";
+
+//     const devicesSearchButton = document.querySelector(".devices-searchbutton")
+//     const devicesSearchBar = document.querySelector(".devices-searchbar")
+//     devicesSearchButton.removeEventListener("click", displayDevSearchBar)
+//     devicesSearchBar.style.display = "none";
+//     devicesSearchButton.style.display = "block";
+
+//     const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
+//     const utensilsSearchBar = document.querySelector(".utensils-searchbar")
+//     utensilsSearchButton.removeEventListener("click", displayUteSearchBar)
+//     utensilsSearchBar.style.display = "none";
+//     utensilsSearchButton.style.display = "block";
+
+// }
 
 function displayRecipes(recipes) {
 
@@ -399,10 +449,14 @@ function displayRecipes(recipes) {
 
 }
 
+// function displaySelectedRecipes() {
+
+// }
+
 function init() {
 
     tabListeners()
-    console.log(recipes)
+    // console.log(recipes)
     findingIngredients(recipes)
     devicesArray = findingDevices(recipes)
     findingUtensils(recipes)
