@@ -3,6 +3,7 @@
 import { recipes } from "./recipes.js"
 import { recipesFactory, ingredientsListFactory, devicesListFactory, utensilsListFactory } from "./factories.js"
 
+
 const ingredientsInput = document.getElementById("ingredients-check")
 const devicesInput = document.getElementById("devices-check")
 const utensilsInput = document.getElementById("utensils-check")
@@ -22,88 +23,88 @@ const recipesArray = recipes
 let ingredientsArray = []
 let devicesArray = []
 let utensilsArray = []
-let namesArray = []
-let descriptionsArray = []
+// let namesArray = []
+// let descriptionsArray = []
 
 function findingIngredients(recipes) {
 
-
+    let tempIngredients = [];
 
     for (let i = 0; i < recipes.length; i++) {
 
         for (let j = 0; j < recipes[i].ingredients.length; j++) {
-            ingredientsArray.push(recipes[i].ingredients[j].ingredient)
+            tempIngredients.push(recipes[i].ingredients[j].ingredient)
         }
     }
 
-    // console.log(ingredientsArray)
+    console.log(tempIngredients)
 
-    ingredientsArray = [...new Set(ingredientsArray)]
+    tempIngredients = [...new Set(tempIngredients)]
 
-    return ingredientsArray;
+    return tempIngredients;
 }
 
 function findingDevices(recipes) {
 
-    let temp = [];
+    let tempDevices = [];
 
     for (let i = 0; i < recipes.length; i++) {
 
-        temp.push(recipes[i].appliance)
+        tempDevices.push(recipes[i].appliance)
     }
 
-    console.log(temp)
+    console.log(tempDevices)
 
-    temp = [...new Set(temp)]
+    tempDevices = [...new Set(tempDevices)]
 
-    return temp;
+    return tempDevices;
 }
 
 function findingUtensils(recipes) {
 
-
+    let tempUtensils = [];
 
     for (let i = 0; i < recipes.length; i++) {
 
         for (let j = 0; j < recipes[i].ustensils.length; j++) {
-            utensilsArray.push(recipes[i].ustensils[j])
+            tempUtensils.push(recipes[i].ustensils[j])
         }
     }
 
-    // console.log(utensilsArray)
+    console.log(tempUtensils)
 
-    utensilsArray = [...new Set(utensilsArray)]
+    tempUtensils = [...new Set(tempUtensils)]
 
-    return utensilsArray;
+    return tempUtensils;
 }
 
-function findingNames(recipes) {
+// function findingNames(recipes) {
 
 
 
-    for (let i = 0; i < recipes.length; i++) {
+//     for (let i = 0; i < recipes.length; i++) {
 
-        namesArray.push(recipes[i].name)
-    }
+//         namesArray.push(recipes[i].name)
+//     }
 
-    // console.log(namesArray)
+//     // console.log(namesArray)
 
-    return namesArray;
-}
+//     return namesArray;
+// }
 
-function findingDescriptions(recipes) {
+// function findingDescriptions(recipes) {
 
 
 
-    for (let i = 0; i < recipes.length; i++) {
+//     for (let i = 0; i < recipes.length; i++) {
 
-        descriptionsArray.push(recipes[i].description)
-    }
+//         descriptionsArray.push(recipes[i].description)
+//     }
 
-    // console.log(descriptionsArray)
+//     // console.log(descriptionsArray)
 
-    return descriptionsArray;
-}
+//     return descriptionsArray;
+// }
 
 
 function search() {
@@ -324,7 +325,7 @@ function tabListeners() {
 
 function controlIngSearchBar() {
 
-    if (ingredientsSearchBar.style.display = "none") {
+    if (ingredientsSearchBar.style.display === "none") {
         ingredientsSearchBar.style.display = "block"
         ingredientsSearchButton.style.display = "none"
     }
@@ -334,16 +335,20 @@ function controlIngSearchBar() {
 }
 
 function controlDevSearchBar() {
-    devicesSearchBar.style.display = "block";
-    devicesSearchButton.style.display = "none";
+    if (devicesSearchBar.style.display === "none") {
+        devicesSearchBar.style.display = "block"
+        devicesSearchButton.style.display = "none"
+    }
     if (devicesMenu.style.width < 667 + "px") {
         growMenu(devicesMenu)
     }
 }
 
 function controlUteSearchBar() {
-    utensilsSearchBar.style.display = "block";
-    utensilsSearchButton.style.display = "none";
+    if (utensilsSearchBar.style.display === "none") {
+        utensilsSearchBar.style.display = "block"
+        utensilsSearchButton.style.display = "none"
+    }
     if (utensilsMenu.style.width < 667 + "px") {
         growMenu(utensilsMenu)
     }
@@ -416,11 +421,11 @@ function init() {
 
     tabListeners()
     // console.log(recipes)
-    findingIngredients(recipes)
+    ingredientsArray = findingIngredients(recipes)
     devicesArray = findingDevices(recipes)
-    findingUtensils(recipes)
-    findingNames(recipes)
-    findingDescriptions(recipes)
+    utensilsArray = findingUtensils(recipes)
+    // findingNames(recipes)
+    // findingDescriptions(recipes)
     search()
     displayIngredientsList(ingredientsArray)
     displayDevicesList(devicesArray)
