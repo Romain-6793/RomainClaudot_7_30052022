@@ -15,6 +15,7 @@ const utensilsSearchBar = document.querySelector(".utensils-searchbar")
 const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
 const devicesSearchButton = document.querySelector(".devices-searchbutton")
 const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
+const recipesSection = document.querySelector(".recipes-section")
 
 
 const recipesArray = recipes
@@ -105,30 +106,6 @@ function findingDescriptions(recipes) {
 }
 
 
-// function search() {
-
-//     const searchInput = document.querySelector(".search-bar")
-
-
-//     function launchResearch() {
-
-//         // rajouter le filter après
-
-//         let searchingString = `${ingredientsArray} ${namesArray} ${descriptionsArray}`
-//         console.log(searchingString)
-
-//         let index = searchingString.indexOf(searchInput.value)
-
-//         if (index !== -1 && searchInput.value.length >= 3) {
-//             alert("ça marche !")
-//         } else {
-//             console.log("ça ne marche pas !")
-//         }
-
-//         console.log(index)
-
-//     }
-
 function search() {
 
     const searchInput = document.querySelector(".search-bar")
@@ -136,7 +113,6 @@ function search() {
 
     function launchResearch() {
 
-        // rajouter le filter après
 
         let searchValue = searchInput.value
 
@@ -151,39 +127,22 @@ function search() {
                         || recipeObj.description.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
                         || recipeObj.ingredients[i].ingredient.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
 
-                    // Mettre des OU pour les ingredients et la description.
                     // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
                 }
             })
 
         }
 
-        console.log(inputFilter(recipes, searchValue))
+        let selectedRecipes = inputFilter(recipes, searchValue)
+        changeRecipesSection()
+        displayRecipes(selectedRecipes)
 
-        // console.log(selectedRecipes);
     }
-
-    // selectedRecipes = recipes.filter((elem) => {
-    //     if (photosId === photographerId2) {
-    //         return elem.photographerId === photosId;
-    //     }
-    // });
-
-    // const fruits = ['pomme', 'banane', 'raisin', 'mangue'];
-
-    // const selectedRecipes = (recipes, recipeFilter) => {
-    //     return recipes.filter(el => el.toLowerCase().indexOf(recipeFilter.toLowerCase()) !== -1);
-    // }
-
-    // console.log(filtreTexte(fruits, 'an')); // ['banane', 'mangue'];
-    // console.log(filtreTexte(fruits, 'm')); // ['pomme', 'mangue'];
-
 
     searchInput.addEventListener("input", () => {
         if (searchInput.value.length >= 3) {
             launchResearch()
         }
-        // launchResearch()
     })
 }
 
@@ -449,9 +408,9 @@ function displayRecipes(recipes) {
 
 }
 
-// function displaySelectedRecipes() {
-
-// }
+function changeRecipesSection() {
+    recipesSection.innerHTML = ""
+}
 
 function init() {
 
