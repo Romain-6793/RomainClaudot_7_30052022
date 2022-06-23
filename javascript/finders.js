@@ -49,3 +49,32 @@ export function findingUtensils(recipes) {
 
     return tempUtensils;
 }
+
+
+// function findingNames(recipes) {
+
+
+
+//     for (let i = 0; i < recipes.length; i++) {
+
+//         namesArray.push(recipes[i].name)
+//     }
+
+//     // console.log(namesArray)
+
+//     return namesArray;
+// }
+
+// function findingDescriptions(recipes) {
+
+
+
+//     for (let i = 0; i < recipes.length; i++) {
+
+//         descriptionsArray.push(recipes[i].description)
+//     }
+
+//     // console.log(descriptionsArray)
+
+//     return descriptionsArray;
+// }

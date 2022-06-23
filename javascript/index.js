@@ -3,7 +3,7 @@
 import { recipes } from "./recipes.js"
 import { recipesFactory } from "./factories.js"
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
-import { displayIngredientsList, displayDevicesList, displayUtensilsList, tabListeners, displayMiniSearchBarL } from "./tabs.js"
+import { displayIngredientsList, displayDevicesList, displayUtensilsList, tabListeners, displayMiniSearchBarL, tabSearchers } from "./tabs.js"
 
 
 const recipesSection = document.querySelector(".recipes-section")
@@ -18,33 +18,6 @@ let utensilsArray = []
 
 
 
-// function findingNames(recipes) {
-
-
-
-//     for (let i = 0; i < recipes.length; i++) {
-
-//         namesArray.push(recipes[i].name)
-//     }
-
-//     // console.log(namesArray)
-
-//     return namesArray;
-// }
-
-// function findingDescriptions(recipes) {
-
-
-
-//     for (let i = 0; i < recipes.length; i++) {
-
-//         descriptionsArray.push(recipes[i].description)
-//     }
-
-//     // console.log(descriptionsArray)
-
-//     return descriptionsArray;
-// }
 
 
 function search() {
@@ -132,6 +105,7 @@ function init() {
     displayDevicesList(devicesArray)
     displayUtensilsList(utensilsArray)
     displayMiniSearchBarL()
+    tabSearchers()
     displayRecipes(recipesArray)
 
 }

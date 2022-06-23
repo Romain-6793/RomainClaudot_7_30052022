@@ -1,6 +1,8 @@
 
 
 import { ingredientsListFactory, devicesListFactory, utensilsListFactory } from "./factories.js"
+import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
+import { recipes } from "./recipes.js"
 
 const ingredientsInput = document.getElementById("ingredients-check")
 const devicesInput = document.getElementById("devices-check")
@@ -14,6 +16,15 @@ const utensilsSearchBar = document.querySelector(".utensils-searchbar")
 const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
 const devicesSearchButton = document.querySelector(".devices-searchbutton")
 const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
+const ingredientsList = document.getElementById("ingredients-list")
+const devicesList = document.getElementById("devices-list")
+const utensilsList = document.getElementById("utensils-list")
+
+
+let ingredientsArray = []
+let devicesArray = []
+let utensilsArray = []
+
 
 
 // Cette fonction closeMenu, prend en paramètres input et menu. 
@@ -89,7 +100,6 @@ export function growMenu(menu) {
 }
 
 export function displayIngredientsList(ingredientsArray) {
-    const ingredientsList = document.getElementById("ingredients-list")
 
     ingredientsArray.forEach((ingredient) => {
         const ingredientsListModel = ingredientsListFactory(ingredient)
@@ -254,3 +264,154 @@ export function displayMiniSearchBarL() {
 //     utensilsSearchButton.style.display = "block";
 
 // }
+
+export function ingTabSearch() {
+
+    const ingTabSearchInput = document.querySelector(".ingredients-searchbar")
+
+
+    function launchResearch() {
+
+
+        let searchValue = ingTabSearchInput.value
+        ingredientsArray = findingIngredients(recipes)
+        // revoir ce paramètre
+
+        function inputFilter(ingArray, itemsFilter) {
+
+
+            return ingArray.filter((recipeObj) => {
+
+                // for (let i = 0; i < recipeObj.ingredients.length; i++) {
+
+                //     return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                //         || recipeObj.description.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                //         || recipeObj.ingredients[i].ingredient.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
+
+                //     // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                // }
+
+                return recipeObj.toLowerCase().indexOf(itemsFilter.toLowerCase()) !== -1
+
+            })
+
+        }
+
+        let selectedIngredients = inputFilter(ingredientsArray, searchValue)
+        changeIngList()
+        displayIngredientsList(selectedIngredients)
+
+    }
+
+    ingTabSearchInput.addEventListener("input", () => {
+        if (ingTabSearchInput.value.length >= 3) {
+            launchResearch()
+        }
+    })
+}
+
+export function devTabSearch() {
+
+    const devTabSearchInput = document.querySelector(".devices-searchbar")
+
+
+    function launchResearch() {
+
+
+        let searchValue = devTabSearchInput.value
+        devicesArray = findingDevices(recipes)
+
+        function inputFilter(devArray, itemsFilter) {
+
+
+            return devArray.filter((recipeObj) => {
+
+                // for (let i = 0; i < recipeObj.ingredients.length; i++) {
+
+                //     return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                //         || recipeObj.description.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                //         || recipeObj.ingredients[i].ingredient.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
+
+                //     // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                // }
+
+                return recipeObj.toLowerCase().indexOf(itemsFilter.toLowerCase()) !== -1
+
+            })
+
+        }
+
+        let selectedDevices = inputFilter(devicesArray, searchValue)
+        changeDevList()
+        displayDevicesList(selectedDevices)
+
+    }
+
+    devTabSearchInput.addEventListener("input", () => {
+        if (devTabSearchInput.value.length >= 3) {
+            launchResearch()
+        }
+    })
+}
+
+export function uteTabSearch() {
+
+    const uteTabSearchInput = document.querySelector(".utensils-searchbar")
+
+
+    function launchResearch() {
+
+
+        let searchValue = uteTabSearchInput.value
+        utensilsArray = findingUtensils(recipes)
+
+        function inputFilter(uteArray, itemsFilter) {
+
+
+            return uteArray.filter((recipeObj) => {
+
+                // for (let i = 0; i < recipeObj.ingredients.length; i++) {
+
+                //     return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                //         || recipeObj.description.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
+                //         || recipeObj.ingredients[i].ingredient.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
+
+                //     // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                // }
+
+                return recipeObj.toLowerCase().indexOf(itemsFilter.toLowerCase()) !== -1
+
+            })
+
+        }
+
+        let selectedUtensils = inputFilter(utensilsArray, searchValue)
+        changeUteList()
+        displayUtensilsList(selectedUtensils)
+
+    }
+
+    uteTabSearchInput.addEventListener("input", () => {
+        if (uteTabSearchInput.value.length >= 3) {
+            launchResearch()
+        }
+    })
+}
+
+function changeIngList() {
+    ingredientsList.innerHTML = ""
+}
+
+function changeDevList() {
+    devicesList.innerHTML = ""
+}
+
+function changeUteList() {
+    utensilsList.innerHTML = ""
+}
+
+export function tabSearchers() {
+    ingTabSearch()
+    devTabSearch()
+    uteTabSearch()
+}
