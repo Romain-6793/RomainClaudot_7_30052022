@@ -1,9 +1,11 @@
 
 
-import { ingredientsListFactory, devicesListFactory, utensilsListFactory } from "./factories.js"
+import { ingredientsListFactory, devicesListFactory, utensilsListFactory, recipesFactory } from "./factories.js"
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
 import { recipes } from "./recipes.js"
 
+
+const recipesSection = document.querySelector(".recipes-section")
 const ingredientsInput = document.getElementById("ingredients-check")
 const devicesInput = document.getElementById("devices-check")
 const utensilsInput = document.getElementById("utensils-check")
@@ -24,8 +26,79 @@ const utensilsList = document.getElementById("utensils-list")
 let ingredientsArray = []
 let devicesArray = []
 let utensilsArray = []
+let selectedRecipesArray = []
+
+export function search() {
+
+    const searchInput = document.querySelector(".search-bar")
+
+    function launchResearch() {
 
 
+        let searchValue = searchInput.value
+        let selectedRecipes = inputFilter(recipes, searchValue)
+
+        function inputFilter(recipes, recipesFilter) {
+
+
+            return recipes.filter((recipeObj) => {
+
+                return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                    || recipeObj.description.toLowerCase().includes(recipesFilter.toLowerCase())
+                    || recipeObj.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
+
+                // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
+
+            })
+
+        }
+
+
+        changeRecipesSection()
+        displayRecipes(selectedRecipes)
+        selectedRecipesArray.push(selectedRecipes)
+
+    }
+
+    searchInput.addEventListener("input", () => {
+        if (searchInput.value.length >= 3) {
+            launchResearch()
+        }
+    })
+
+
+}
+
+export function changeRecipesSection() {
+    recipesSection.innerHTML = ""
+}
+
+export function displayRecipes(recipes) {
+
+    recipes.sort((a, b) => {
+        a = a.name;
+        b = b.name;
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.name - b.name;
+        }
+    })
+
+    const recipesSection = document.querySelector(".recipes-section");
+
+    recipes.forEach((recipe) => {
+        const recipeModel = recipesFactory(recipe)
+        const userRecipe = recipeModel.getUserRecipe()
+        recipesSection.appendChild(userRecipe)
+    });
+
+}
 
 // Cette fonction closeMenu, prend en paramètres input et menu. 
 // Lorsque cette fonction est appellée, l'input (checkbox) passé en argument n'est plus coché. Donc son
@@ -263,27 +336,6 @@ export function displayMiniSearchBarL() {
 
 }
 
-// function removeMiniSearchBar() {
-
-//     const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
-//     const ingredientsSearchBar = document.querySelector(".ingredients-searchbar")
-//     ingredientsSearchButton.removeEventListener("click", displayIngSearchBar)
-//     ingredientsSearchBar.style.display = "none";
-//     ingredientsSearchButton.style.display = "block";
-
-//     const devicesSearchButton = document.querySelector(".devices-searchbutton")
-//     const devicesSearchBar = document.querySelector(".devices-searchbar")
-//     devicesSearchButton.removeEventListener("click", displayDevSearchBar)
-//     devicesSearchBar.style.display = "none";
-//     devicesSearchButton.style.display = "block";
-
-//     const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
-//     const utensilsSearchBar = document.querySelector(".utensils-searchbar")
-//     utensilsSearchButton.removeEventListener("click", displayUteSearchBar)
-//     utensilsSearchBar.style.display = "none";
-//     utensilsSearchButton.style.display = "block";
-
-// }
 
 export function ingTabSearch() {
 
