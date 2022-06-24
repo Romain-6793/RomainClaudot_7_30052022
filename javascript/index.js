@@ -35,14 +35,12 @@ function search() {
 
             return recipes.filter((recipeObj) => {
 
-                for (let i = 0; i < recipeObj.ingredients.length; i++) {
+                // for (let i = 0; i < recipeObj.ingredients.length; i++) {
 
-                    return recipeObj.name.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
-                        || recipeObj.description.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1
-                        || recipeObj.ingredients[i].ingredient.toLowerCase().indexOf(recipesFilter.toLowerCase()) !== -1;
+                return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                    || recipeObj.description.toLowerCase().includes(recipesFilter.toLowerCase())
+                    || recipeObj.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
 
-                    // return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
-                }
             })
 
         }
@@ -111,3 +109,4 @@ function init() {
 }
 
 init()
+
