@@ -347,12 +347,19 @@ export function ingTabSearch() {
         function inputFilter(ingArray, textValue) {
 
 
+            // Ce filtre agit de la façon suivante : en paramètre 1 je vais avoir mon tableau d'ingrédients,
+            // en paramètre 2, je vais avoir ma valeur d'input.
+            // Cela me retourne l'objet x (les mots clés qui vont apparaître), contenant des valeurs de
+            // 3 lettres similaires à ce qui est rentré dans l'input.
+
             return ingArray.filter((recipeObj) => {
 
 
                 return recipeObj.toLowerCase().includes(textValue.toLowerCase())
 
             })
+
+
 
         }
 
