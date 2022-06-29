@@ -27,8 +27,12 @@ let ingredientsArray = []
 let devicesArray = []
 let utensilsArray = []
 let selectedRecipesArray = []
+let selectedIngredientsArray = []
 
 export function search() {
+
+    selectedRecipesArray = []
+    selectedIngredientsArray = []
 
     const searchInput = document.querySelector(".search-bar")
 
@@ -57,8 +61,25 @@ export function search() {
         changeRecipesSection()
         displayRecipes(selectedRecipes)
         selectedRecipesArray.push(selectedRecipes)
+        console.log(selectedRecipesArray)
+
+        function saveSelectedIngredients(slctRecipesArr) {
+            for (let i = 0; i < slctRecipesArr.length; i++) {
+
+                for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
+                    console.log(slctRecipesArr[i].ingredients[j].ingredient)
+                    selectedIngredientsArray.push(slctRecipesArr[i].ingredients[j].ingredient)
+                }
+            }
+        }
+
+        saveSelectedIngredients(selectedRecipesArray)
+        console.log(selectedIngredientsArray)
+
 
     }
+
+
 
     searchInput.addEventListener("input", () => {
         if (searchInput.value.length >= 3) {
