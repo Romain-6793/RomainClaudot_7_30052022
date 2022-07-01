@@ -34,20 +34,37 @@ let utensilsArray = []
 let selectedRecipesArray = []
 let selectedIngredients = ""
 let selectedIngredientsArray = []
+let selectedDevices = ""
+let selectedDevicesArray = []
+let selectedUtensils = ""
+let selectedUtensilsArray = []
+
 
 export function search() {
 
-    // selectedRecipesArray = []
-    // selectedIngredientsArray = []
+    // Cette fonction (initiée à init), contrôle toutes les modalités de la barre de recherche principale,
+    // son élément clé est l'eventListener qui se trouve en bas de la fonction.
 
-
+    // launchResearch s'active au moment où l'input contient 3 caractères. On y déclare une searchValue, 
+    // variable qui sontient la valeur d'input (3 caractères), ainsi que selectedRecipes, liste des recettes
+    // passées à la moulinette de l'inputFilter.
+    // Cette fonction est capitale, elle fait plusieurs choses : 1) elle passe l'input au filtre
+    // 2) elle gère l'affichage des recettes avec la valeur passée au filtre 3) elle crée des tableaux 
+    // avec les données x utilisées pour une recherche x, avant chaque nouvelle recherche, ces tableaux
+    // se remettent à zéro.
 
     function launchResearch() {
 
-        selectedRecipesArray = []
+        // selectedRecipesArray = []
         let searchValue = searchInput.value
         let selectedRecipes = inputFilter(recipes, searchValue)
 
+        // Voici donc l'inputFilter qui vérifie que la valeur d'input matche avec le contenu des noms, 
+        // descriptions ou ingredients de certaines recettes (les seules qui seront affichées) => 
+        // selectedRecipes. Pour vérifier cela, on utilise la méthode includes() 
+        // Tout y est mis en lowerCase pour ignorer les majuscules.
+        // recipeObj est le paramètre de l'argument "recipes".
+        // recipesFilter est le paramètre de l'argument "searchValue".
 
         function inputFilter(recipes, recipesFilter) {
 
@@ -64,12 +81,30 @@ export function search() {
 
         }
 
+        // D'abord on appelle changeRecipesSection() afin de vider le contenu de la section avant un nouvel
+        // affichage.
 
         changeRecipesSection()
+
+        // Puis on affiche les recettes selon selectedRecipes, variable qui est elle-même le résultat 
+        // de l'inputFilter.
+
         displayRecipes(selectedRecipes)
-        // selectedRecipesArray.push(selectedRecipes)
+
+        // Ci dessous, on attribue un nouveau tableau à selectedRecipesArray (qui était vide), on le fait 
+        // à l'aide des ... Cette solution a permis de tout refondre dans un seul tableau
+        // au lieu de renvoyer un tableau de tableaux.
+
         selectedRecipesArray = [...selectedRecipes]
         console.log(selectedRecipesArray)
+
+        // Ci-dessous, on enregistre les ingrédients sélectionnés par le filtre car l'on passera 
+        // selectedRecipesArray en argument. 
+        // On commence par une boucle for qui explore toutes les recettes, on fait une 2ème boucle pour 
+        // examiner tous les ingredients un par un puis on les push dans un tableau que l'on met 
+        // ensuite en new Set pour éviter les doublons.
+        // Le procédé en 2 boucles est quasiment le même pour enregistrer les ustensiles. 
+        // Pour les appareils, c'est la même idée mais avec une boucle.
 
         function saveSelectedIngredients(slctRecipesArr) {
             for (let i = 0; i < slctRecipesArr.length; i++) {
@@ -87,12 +122,50 @@ export function search() {
 
         }
 
-        saveSelectedIngredients(selectedRecipesArray)
-        // console.log(selectedIngredientsArray)
+        function saveSelectedDevices(slctRecipesArr) {
+            for (let i = 0; i < slctRecipesArr.length; i++) {
+                console.log(slctRecipesArr)
 
+                selectedDevices = slctRecipesArr[i].appliance
+                console.log(selectedDevices)
+                selectedDevicesArray.push(selectedDevices)
+
+                selectedDevicesArray = [...new Set(selectedDevicesArray)]
+                console.log(selectedDevicesArray)
+            }
+
+
+        }
+
+        function saveSelectedUtensils(slctRecipesArr) {
+            for (let i = 0; i < slctRecipesArr.length; i++) {
+                // console.log(slctRecipesArr)
+
+                for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
+                    selectedUtensils = slctRecipesArr[i].ustensils[j]
+                    console.log(selectedUtensils)
+                    selectedUtensilsArray.push(selectedUtensils)
+                }
+                selectedUtensilsArray = [...new Set(selectedUtensilsArray)]
+                console.log(selectedUtensilsArray)
+            }
+
+
+        }
+
+        // Ici, on appelle les 3 fonctions de sauvegarde des éléments avec comme paramètre le tableau
+        // selectedRecipesArray (résultat du filtre), ainsi on pourra réutiliser ces éléments sauvegardés,
+        // pour l'affichage dans les onglets par exemple.
+
+        saveSelectedIngredients(selectedRecipesArray)
+        saveSelectedDevices(selectedRecipesArray)
+        saveSelectedUtensils(selectedRecipesArray)
 
     }
 
+    // Enfin nous avons l'eventListener duquel tout part. Si l'input est égal à 3 caractères ou plus, une 
+    // nouvelle recherche est lancée. 
+    // Sinon, on remet tous les tableaux utilisés à zéro.
 
 
     searchInput.addEventListener("input", () => {
@@ -101,6 +174,9 @@ export function search() {
         } else {
             selectedRecipesArray = []
             selectedIngredientsArray = []
+            selectedDevicesArray = []
+            selectedUtensilsArray = []
+
         }
     })
 
@@ -439,14 +515,14 @@ export function devTabSearch() {
         }
 
         let searchValue = devTabSearchInput.value
-        let selectedDevices = inputFilter(devicesArray, searchValue)
+        let selectedDevices2 = inputFilter(devicesArray, searchValue)
 
         if (devTabSearchInput.value.length >= 3) {
             changeDevList()
-            displayDevicesList(selectedDevices)
+            displayDevicesList(selectedDevices2)
         } else {
             changeDevList()
-            displayDevicesList(devicesArray)
+            displayDevicesList(selectedDevicesArray)
         }
     })
 }
@@ -471,15 +547,15 @@ export function uteTabSearch() {
         }
 
         let searchValue = uteTabSearchInput.value
-        let selectedUtensils = inputFilter(utensilsArray, searchValue)
+        let selectedUtensils2 = inputFilter(utensilsArray, searchValue)
 
         if (uteTabSearchInput.value.length >= 3) {
             changeUteList()
             // launchResearch()
-            displayUtensilsList(selectedUtensils)
+            displayUtensilsList(selectedUtensils2)
         } else {
             changeUteList()
-            displayUtensilsList(utensilsArray)
+            displayUtensilsList(selectedUtensilsArray)
         }
     })
 }

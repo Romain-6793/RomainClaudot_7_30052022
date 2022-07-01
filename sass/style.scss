@@ -156,15 +156,19 @@ ol, ul
     top: 63px;
     color: #fff;
     // height: 403px;
-    height: 3000px;
+    height: 300px;
     width: 667px;
-    transform: translateY(-200%);
+    transform: translateY(-300%);
     border-radius: 5px;
     opacity: 0;
     // overflow-wrap: normal;
     transition: transform 0.3s ease-in-out;
     transition: opacity 0.3s ease-in-out;
-  }
+}
+
+.ingredients-nav {
+    height: 1600px;
+}
 
 .options-list {
     width: 667px;
