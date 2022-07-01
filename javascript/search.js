@@ -1,7 +1,8 @@
 
 
 import { ingredientsListFactory, devicesListFactory, utensilsListFactory, recipesFactory } from "./factories.js"
-import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
+import { findingDevices, findingUtensils } from "./finders.js"
+// import { findingIngredients } from "./finders.js"
 import { recipes } from "./recipes.js"
 
 
@@ -21,26 +22,32 @@ const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
 const ingredientsList = document.getElementById("ingredients-list")
 const devicesList = document.getElementById("devices-list")
 const utensilsList = document.getElementById("utensils-list")
+const searchInput = document.querySelector(".search-bar")
 
 
-let ingredientsArray = []
+// let ingredientsArray = []
 let devicesArray = []
 let utensilsArray = []
+
+// Les trois variables suivantes sont transformées par search()
+
 let selectedRecipesArray = []
+let selectedIngredients = ""
 let selectedIngredientsArray = []
 
 export function search() {
 
-    selectedRecipesArray = []
-    selectedIngredientsArray = []
+    // selectedRecipesArray = []
+    // selectedIngredientsArray = []
 
-    const searchInput = document.querySelector(".search-bar")
+
 
     function launchResearch() {
 
-
+        selectedRecipesArray = []
         let searchValue = searchInput.value
         let selectedRecipes = inputFilter(recipes, searchValue)
+
 
         function inputFilter(recipes, recipesFilter) {
 
@@ -60,21 +67,28 @@ export function search() {
 
         changeRecipesSection()
         displayRecipes(selectedRecipes)
-        selectedRecipesArray.push(selectedRecipes)
+        // selectedRecipesArray.push(selectedRecipes)
+        selectedRecipesArray = [...selectedRecipes]
         console.log(selectedRecipesArray)
 
         function saveSelectedIngredients(slctRecipesArr) {
             for (let i = 0; i < slctRecipesArr.length; i++) {
+                console.log(slctRecipesArr)
 
                 for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
-                    console.log(slctRecipesArr[i].ingredients[j].ingredient)
-                    selectedIngredientsArray.push(slctRecipesArr[i].ingredients[j].ingredient)
+                    selectedIngredients = slctRecipesArr[i].ingredients[j].ingredient
+                    console.log(selectedIngredients)
+                    selectedIngredientsArray.push(selectedIngredients)
                 }
+                selectedIngredientsArray = [...new Set(selectedIngredientsArray)]
+                console.log(selectedIngredientsArray)
             }
+
+
         }
 
         saveSelectedIngredients(selectedRecipesArray)
-        console.log(selectedIngredientsArray)
+        // console.log(selectedIngredientsArray)
 
 
     }
@@ -84,6 +98,9 @@ export function search() {
     searchInput.addEventListener("input", () => {
         if (searchInput.value.length >= 3) {
             launchResearch()
+        } else {
+            selectedRecipesArray = []
+            selectedIngredientsArray = []
         }
     })
 
@@ -193,9 +210,9 @@ export function growMenu(menu) {
     menu.style.width = 225 + "px"
 }
 
-export function displayIngredientsList(ingredientsArray) {
+export function displayIngredientsList(ingredientsL) {
 
-    ingredientsArray.forEach((ingredient) => {
+    ingredientsL.forEach((ingredient) => {
         const ingredientsListModel = ingredientsListFactory(ingredient)
         const userIngredientsList = ingredientsListModel.getUserIngredientsList()
         ingredientsList.appendChild(userIngredientsList)
@@ -203,12 +220,12 @@ export function displayIngredientsList(ingredientsArray) {
 
 }
 
-export function displayDevicesList(devicesArray) {
+export function displayDevicesList(devicesL) {
 
 
     const devicesList = document.getElementById("devices-list")
 
-    devicesArray.forEach((device) => {
+    devicesL.forEach((device) => {
         const devicesListModel = devicesListFactory(device)
         const userDevicesList = devicesListModel.getUserDevicesList()
         devicesList.appendChild(userDevicesList)
@@ -216,10 +233,10 @@ export function displayDevicesList(devicesArray) {
 
 }
 
-export function displayUtensilsList(utensilsArray) {
+export function displayUtensilsList(utensilsL) {
     const utensilsList = document.getElementById("utensils-list")
 
-    utensilsArray.forEach((utensil) => {
+    utensilsL.forEach((utensil) => {
         const utensilsListModel = utensilsListFactory(utensil)
         const userUtensilsList = utensilsListModel.getUserUtensilsList()
         utensilsList.appendChild(userUtensilsList)
@@ -362,7 +379,7 @@ export function ingTabSearch() {
 
     const ingTabSearchInput = document.querySelector(".ingredients-searchbar")
 
-    ingredientsArray = findingIngredients(recipes)
+    // ingredientsArray = findingIngredients(recipes)
 
     ingTabSearchInput.addEventListener("input", () => {
         function inputFilter(ingArray, textValue) {
@@ -385,15 +402,19 @@ export function ingTabSearch() {
         }
 
         let searchValue = ingTabSearchInput.value
-        let selectedIngredients = inputFilter(ingredientsArray, searchValue)
+        let selectedIngredients2 = inputFilter(selectedIngredientsArray, searchValue)
 
         if (ingTabSearchInput.value.length >= 3) {
             changeIngList()
-            // launchResearch()
-            displayIngredientsList(selectedIngredients)
-        } else {
+            displayIngredientsList(selectedIngredients2)
+        }
+        // else if (ingTabSearchInput.value.length < 3 && searchInput.value >= 3) {
+        //     changeIngList()
+        //     displayIngredientsList(selectedIngredientsArray)
+        // } 
+        else {
             changeIngList()
-            displayIngredientsList(ingredientsArray)
+            displayIngredientsList(selectedIngredientsArray)
         }
     })
 }

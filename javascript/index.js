@@ -6,7 +6,8 @@ import { search, displayRecipes, displayIngredientsList, displayDevicesList, dis
 
 
 
-const recipesArray = recipes
+let recipesArray = recipes
+// let filterBySearch = [...recipes];
 let ingredientsArray = []
 let devicesArray = []
 let utensilsArray = []
@@ -28,6 +29,8 @@ function init() {
     // findingNames(recipes)
     // findingDescriptions(recipes)
     search()
+    // filterBySearch = inputFilter(recipes, searchValue)
+    // const result = inputFilterBytag(filterBySearch)
     displayIngredientsList(ingredientsArray)
     displayDevicesList(devicesArray)
     displayUtensilsList(utensilsArray)

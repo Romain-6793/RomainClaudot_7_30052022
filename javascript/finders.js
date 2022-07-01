@@ -25,7 +25,7 @@ export function findingDevices(recipes) {
         tempDevices.push(recipes[i].appliance)
     }
 
-    console.log(tempDevices)
+    // console.log(tempDevices)
 
     tempDevices = [...new Set(tempDevices)]
 
@@ -43,7 +43,7 @@ export function findingUtensils(recipes) {
         }
     }
 
-    console.log(tempUtensils)
+    // console.log(tempUtensils)
 
     tempUtensils = [...new Set(tempUtensils)]
 
