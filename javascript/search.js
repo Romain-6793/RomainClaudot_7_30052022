@@ -1,7 +1,7 @@
 
 
 import { ingredientsListFactory, devicesListFactory, utensilsListFactory, recipesFactory } from "./factories.js"
-import { findingDevices, findingUtensils } from "./finders.js"
+// import { findingDevices, findingUtensils } from "./finders.js"
 // import { findingIngredients } from "./finders.js"
 import { recipes } from "./recipes.js"
 
@@ -26,8 +26,8 @@ const searchInput = document.querySelector(".search-bar")
 
 
 // let ingredientsArray = []
-let devicesArray = []
-let utensilsArray = []
+// let devicesArray = []
+// let utensilsArray = []
 
 // Les trois variables suivantes sont transformées par search()
 
@@ -499,7 +499,7 @@ export function devTabSearch() {
 
     const devTabSearchInput = document.querySelector(".devices-searchbar")
 
-    devicesArray = findingDevices(recipes)
+    // devicesArray = findingDevices(recipes)
 
     devTabSearchInput.addEventListener("input", () => {
         function inputFilter(devArray, textValue) {
@@ -515,7 +515,7 @@ export function devTabSearch() {
         }
 
         let searchValue = devTabSearchInput.value
-        let selectedDevices2 = inputFilter(devicesArray, searchValue)
+        let selectedDevices2 = inputFilter(selectedDevicesArray, searchValue)
 
         if (devTabSearchInput.value.length >= 3) {
             changeDevList()
@@ -531,7 +531,7 @@ export function uteTabSearch() {
 
     const uteTabSearchInput = document.querySelector(".utensils-searchbar")
 
-    utensilsArray = findingUtensils(recipes)
+    // utensilsArray = findingUtensils(recipes)
 
     uteTabSearchInput.addEventListener("input", () => {
         function inputFilter(uteArray, textValue) {
@@ -547,7 +547,7 @@ export function uteTabSearch() {
         }
 
         let searchValue = uteTabSearchInput.value
-        let selectedUtensils2 = inputFilter(utensilsArray, searchValue)
+        let selectedUtensils2 = inputFilter(selectedUtensilsArray, searchValue)
 
         if (uteTabSearchInput.value.length >= 3) {
             changeUteList()
