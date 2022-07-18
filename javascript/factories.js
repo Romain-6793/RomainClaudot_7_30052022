@@ -64,33 +64,33 @@ export function recipesFactory(data) {
 
 }
 
-export function ingredientsListFactory(ingredientsArray) {
+export function ingredientsListFactory(ingArray) {
 
     function getUserIngredientsList() {
-        const a = document.createElement("a")
-        a.setAttribute("class", "menu-link")
-        const span = document.createElement("a")
+        const div = document.createElement("div")
+        div.setAttribute("class", "menu-tag")
+        const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
 
-        for (let i = 0; i < ingredientsArray.length; i++) {
-            span.textContent = `${ingredientsArray} `
+        for (let i = 0; i < ingArray.length; i++) {
+            span.textContent = `${ingArray} `
         }
 
-        a.appendChild(span)
-        return (a)
+        div.appendChild(span)
+        return (div)
     }
     return { getUserIngredientsList }
 }
 
-export function devicesListFactory(devicesArray) {
+export function devicesListFactory(devArray) {
 
     function getUserDevicesList() {
         const a = document.createElement("a")
         a.setAttribute("class", "menu-link")
         const span = document.createElement("a")
         span.setAttribute("class", "menu-name")
-        for (let i = 0; i < devicesArray.length; i++) {
-            span.textContent = devicesArray
+        for (let i = 0; i < devArray.length; i++) {
+            span.textContent = devArray
         }
 
         a.appendChild(span)
@@ -100,7 +100,7 @@ export function devicesListFactory(devicesArray) {
     return { getUserDevicesList }
 }
 
-export function utensilsListFactory(utensilsArray) {
+export function utensilsListFactory(uteArray) {
 
     function getUserUtensilsList() {
         const a = document.createElement("a")
@@ -108,8 +108,8 @@ export function utensilsListFactory(utensilsArray) {
         const span = document.createElement("a")
         span.setAttribute("class", "menu-name")
 
-        for (let i = 0; i < utensilsArray.length; i++) {
-            span.textContent = utensilsArray
+        for (let i = 0; i < uteArray.length; i++) {
+            span.textContent = uteArray
         }
 
         a.appendChild(span)

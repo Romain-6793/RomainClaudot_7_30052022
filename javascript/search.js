@@ -21,6 +21,7 @@ export let selectedDevices = ""
 export let selectedDevicesArray = []
 export let selectedUtensils = ""
 export let selectedUtensilsArray = []
+export let tagsArray = []
 
 
 const screen = {
@@ -697,6 +698,48 @@ export function tabSearchers() {
     devTabSearch()
     uteTabSearch()
 }
+
+// export function createTag(label, dataProperty) {
+//     const div = document.createElement("div")
+//     div.setAttribute("class", "tag")
+//     div.setAttribute("data-property", dataProperty)
+//     const span = document.createElement("span")
+//     span.innerHTML = label
+//     const closeBtn = document.createElement("i")
+//     closeBtn.classList.add("fas")
+//     closeBtn.classList.add("fa-times")
+//     closeBtn.classList.add("close-button")
+//     closeBtn.setAttribute("data-item", label)
+//     closeBtn.addEventListener("click", closeTag)
+
+//     function closeTag(e) {
+
+//         const value = e.target.getAttribute("data-item")
+//         // const index = tagsArray.indexOf(value)
+//         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
+//         console.log(index)
+//         if (index === -1) {
+//             return alert("PAS TROUVE")
+//         }
+//         tagsArray.splice(index, 1)
+//         console.log(tagsArray)
+//         selectedRecipesArray = [...recipes]
+//         tagsArray.forEach((tag) => {
+//             // dynamicObjects = [...objects]
+//             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+//             console.log(selectedRecipesArray)
+//         });
+//         closeBtn.parentElement.remove()
+//         changeRecipesSection()
+
+//         displayRecipes(selectedRecipesArray)
+//     }
+
+//     div.appendChild(span)
+//     div.appendChild(closeBtn)
+
+//     return div
+// }
 
 // RECYCLE BIN
 

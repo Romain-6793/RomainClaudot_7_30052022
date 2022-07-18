@@ -169,18 +169,6 @@ ol, ul {
   }
 }
 
-.ingredients-nav {
-  height: 1600px;
-}
-
-.devices-nav {
-  height: 200px;
-}
-
-.utensils-nav {
-  height: 350px;
-}
-
 .options-list {
   width: 667px;
   display: grid;
@@ -195,19 +183,23 @@ ol, ul {
 
 .ingredients-nav {
   background: #3282F7;
+  height: 1600px;
 }
 
 .devices-nav {
   background: #68D9A4;
+  height: 200px;
 }
 
 .utensils-nav {
   background: #ED6454;
+  height: 350px;
 }
 
-.menu-link {
+.menu-tag {
   margin-bottom: 10px;
   margin-right: 100px;
+  cursor: pointer;
 }
 
 .recipes-section {
