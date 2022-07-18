@@ -1,3 +1,6 @@
+
+import { createIngTag, createDevTag, createUteTag } from "./search.js"
+
 export function recipesFactory(data) {
 
     const { name, time, ingredients, description } = data
@@ -76,6 +79,11 @@ export function ingredientsListFactory(ingArray) {
             span.textContent = `${ingArray} `
         }
 
+        div.addEventListener("click", () => {
+            if (!document.getElementById(span.textContent)) {
+                createIngTag(span.textContent, span.textContent, span.textContent)
+            }
+        })
         div.appendChild(span)
         return (div)
     }
@@ -85,16 +93,21 @@ export function ingredientsListFactory(ingArray) {
 export function devicesListFactory(devArray) {
 
     function getUserDevicesList() {
-        const a = document.createElement("a")
-        a.setAttribute("class", "menu-link")
-        const span = document.createElement("a")
+        const div = document.createElement("div")
+        div.setAttribute("class", "menu-tag")
+        const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
         for (let i = 0; i < devArray.length; i++) {
             span.textContent = devArray
         }
+        div.addEventListener("click", () => {
+            if (!document.getElementById(span.textContent)) {
+                createDevTag(span.textContent, span.textContent, span.textContent)
+            }
+        })
 
-        a.appendChild(span)
-        return (a)
+        div.appendChild(span)
+        return (div)
     }
 
     return { getUserDevicesList }
@@ -103,17 +116,22 @@ export function devicesListFactory(devArray) {
 export function utensilsListFactory(uteArray) {
 
     function getUserUtensilsList() {
-        const a = document.createElement("a")
-        a.setAttribute("class", "menu-link")
-        const span = document.createElement("a")
+        const div = document.createElement("div")
+        div.setAttribute("class", "menu-tag")
+        const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
 
         for (let i = 0; i < uteArray.length; i++) {
             span.textContent = uteArray
         }
+        div.addEventListener("click", () => {
+            if (!document.getElementById(span.textContent)) {
+                createUteTag(span.textContent, span.textContent, span.textContent)
+            }
+        })
 
-        a.appendChild(span)
-        return (a)
+        div.appendChild(span)
+        return (div)
     }
 
 

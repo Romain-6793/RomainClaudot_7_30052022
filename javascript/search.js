@@ -6,7 +6,7 @@ import {
     searchInput, recipesSection, ingredientsInput, devicesInput, utensilsInput, ingredientsMenu,
     devicesMenu, utensilsMenu, ingredientsSearchBar, devicesSearchBar, utensilsSearchBar,
     ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
-    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav,
+    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, tagsSpace
 } from "./index.js"
 // import { selectedRecipesArray, selectedIngredients, selectedIngredientsArray, selectedDevices, selectedDevicesArray, selectedUtensils, selectedUtensilsArray } from "./index.js"
 
@@ -699,47 +699,150 @@ export function tabSearchers() {
     uteTabSearch()
 }
 
-// export function createTag(label, dataProperty) {
-//     const div = document.createElement("div")
-//     div.setAttribute("class", "tag")
-//     div.setAttribute("data-property", dataProperty)
-//     const span = document.createElement("span")
-//     span.innerHTML = label
-//     const closeBtn = document.createElement("i")
-//     closeBtn.classList.add("fas")
-//     closeBtn.classList.add("fa-times")
-//     closeBtn.classList.add("close-button")
-//     closeBtn.setAttribute("data-item", label)
-//     closeBtn.addEventListener("click", closeTag)
+export function createIngTag(label, dataProperty, id) {
+    const div = document.createElement("div")
+    div.setAttribute("class", "tag")
+    div.classList.add("ing-tag")
+    div.setAttribute("data-property", dataProperty)
+    div.setAttribute("id", id)
+    const span = document.createElement("span")
+    span.setAttribute("class", "tag-span")
+    span.innerHTML = label
+    const closeBtn = document.createElement("i")
+    closeBtn.classList.add("fas")
+    closeBtn.classList.add("fa-times")
+    closeBtn.classList.add("close-button")
+    closeBtn.setAttribute("data-item", label)
+    closeBtn.addEventListener("click", closeTag)
 
-//     function closeTag(e) {
+    function closeTag(e) {
 
-//         const value = e.target.getAttribute("data-item")
-//         // const index = tagsArray.indexOf(value)
-//         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
-//         console.log(index)
-//         if (index === -1) {
-//             return alert("PAS TROUVE")
-//         }
-//         tagsArray.splice(index, 1)
-//         console.log(tagsArray)
-//         selectedRecipesArray = [...recipes]
-//         tagsArray.forEach((tag) => {
-//             // dynamicObjects = [...objects]
-//             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-//             console.log(selectedRecipesArray)
-//         });
-//         closeBtn.parentElement.remove()
-//         changeRecipesSection()
+        const value = e.target.getAttribute("data-item")
+        // const index = tagsArray.indexOf(value)
+        const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
+        console.log(index)
+        if (index === -1) {
+            return alert("PAS TROUVE")
+        }
+        tagsArray.splice(index, 1)
+        console.log(tagsArray)
+        // selectedRecipesArray = [...recipes]
+        // tagsArray.forEach((tag) => {
+        //     // dynamicObjects = [...objects]
+        //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+        //     console.log(selectedRecipesArray)
+        // });
+        closeBtn.parentElement.remove()
+        // changeRecipesSection()
 
-//         displayRecipes(selectedRecipesArray)
-//     }
+        // displayRecipes(selectedRecipesArray)
+    }
 
-//     div.appendChild(span)
-//     div.appendChild(closeBtn)
+    tagsSpace.appendChild(div)
+    div.appendChild(span)
+    div.appendChild(closeBtn)
+    tagsArray.push(div)
+    console.log(tagsArray)
 
-//     return div
-// }
+    return div
+}
+
+
+export function createDevTag(label, dataProperty, id) {
+    const div = document.createElement("div")
+    div.setAttribute("class", "tag")
+    div.classList.add("dev-tag")
+    div.setAttribute("data-property", dataProperty)
+    div.setAttribute("id", id)
+    const span = document.createElement("span")
+    span.setAttribute("class", "tag-span")
+    span.innerHTML = label
+    const closeBtn = document.createElement("i")
+    closeBtn.classList.add("fas")
+    closeBtn.classList.add("fa-times")
+    closeBtn.classList.add("close-button")
+    closeBtn.setAttribute("data-item", label)
+    closeBtn.addEventListener("click", closeTag)
+
+    function closeTag(e) {
+
+        const value = e.target.getAttribute("data-item")
+        // const index = tagsArray.indexOf(value)
+        const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
+        console.log(index)
+        if (index === -1) {
+            return alert("PAS TROUVE")
+        }
+        tagsArray.splice(index, 1)
+        console.log(tagsArray)
+        // selectedRecipesArray = [...recipes]
+        // tagsArray.forEach((tag) => {
+        //     // dynamicObjects = [...objects]
+        //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+        //     console.log(selectedRecipesArray)
+        // });
+        closeBtn.parentElement.remove()
+        // changeRecipesSection()
+
+        // displayRecipes(selectedRecipesArray)
+    }
+
+    tagsSpace.appendChild(div)
+    div.appendChild(span)
+    div.appendChild(closeBtn)
+    tagsArray.push(div)
+    console.log(tagsArray)
+
+    return div
+}
+
+export function createUteTag(label, dataProperty, id) {
+    const div = document.createElement("div")
+    div.setAttribute("class", "tag")
+    div.classList.add("ute-tag")
+    div.setAttribute("data-property", dataProperty)
+    div.setAttribute("id", id)
+    const span = document.createElement("span")
+    span.setAttribute("class", "tag-span")
+    span.innerHTML = label
+    const closeBtn = document.createElement("i")
+    closeBtn.classList.add("fas")
+    closeBtn.classList.add("fa-times")
+    closeBtn.classList.add("close-button")
+    closeBtn.setAttribute("data-item", label)
+    closeBtn.addEventListener("click", closeTag)
+
+    function closeTag(e) {
+
+        const value = e.target.getAttribute("data-item")
+        // const index = tagsArray.indexOf(value)
+        const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
+        console.log(index)
+        if (index === -1) {
+            return alert("PAS TROUVE")
+        }
+        tagsArray.splice(index, 1)
+        console.log(tagsArray)
+        // selectedRecipesArray = [...recipes]
+        // tagsArray.forEach((tag) => {
+        //     // dynamicObjects = [...objects]
+        //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+        //     console.log(selectedRecipesArray)
+        // });
+        closeBtn.parentElement.remove()
+        // changeRecipesSection()
+
+        // displayRecipes(selectedRecipesArray)
+    }
+
+    tagsSpace.appendChild(div)
+    div.appendChild(span)
+    div.appendChild(closeBtn)
+    tagsArray.push(div)
+    console.log(tagsArray)
+
+    return div
+}
 
 // RECYCLE BIN
 

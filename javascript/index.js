@@ -33,6 +33,7 @@ export const utensilsNav = document.querySelector(".utensils-nav")
 export const ingredientsArrow = document.querySelector(".ingredients-arrow")
 export const devicesArrow = document.querySelector(".devices-arrow")
 export const utensilsArrow = document.querySelector(".utensils-arrow")
+export const tagsSpace = document.querySelector(".tags-space")
 
 
 
