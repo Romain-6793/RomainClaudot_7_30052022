@@ -6,8 +6,7 @@ import {
     searchInput, recipesSection, ingredientsInput, devicesInput, utensilsInput, ingredientsMenu,
     devicesMenu, utensilsMenu, ingredientsSearchBar, devicesSearchBar, utensilsSearchBar,
     ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
-    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, ingredientsInput2,
-    devicesInput2, utensilsInput2, ingredientsArrow, utensilsArrow, devicesArrow
+    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav,
 } from "./index.js"
 // import { selectedRecipesArray, selectedIngredients, selectedIngredientsArray, selectedDevices, selectedDevicesArray, selectedUtensils, selectedUtensilsArray } from "./index.js"
 
@@ -243,11 +242,13 @@ export function displayRecipes(recipes) {
 
 // (On y fait un console.trace pour connaître tous les endroits où elle est appellée).
 
-export function closeMenu(input, menu) {
+export function closeMenu(input, menu, nav) {
     // console.trace(closeMenu)
     input.checked = false
     menu.style.transform = "translateX(" + 0 + "px)"
     menu.style.width = 170 + "px"
+    nav.style.opacity = 0
+    nav.style.zIndex = 0
 
 
     if (input === ingredientsInput) {
@@ -255,7 +256,7 @@ export function closeMenu(input, menu) {
         ingredientsSearchButton.style.display = "block"
         ingredientsSearchBar.style.display = "none"
 
-        removeMiniSBspeParams(ingredientsNav)
+
 
     }
     else if (input === devicesInput) {
@@ -263,7 +264,6 @@ export function closeMenu(input, menu) {
         devicesSearchButton.style.display = "block"
         devicesSearchBar.style.display = "none"
 
-        removeMiniSBspeParams(devicesNav)
 
     }
     else if (input === utensilsInput) {
@@ -271,7 +271,7 @@ export function closeMenu(input, menu) {
         utensilsSearchButton.style.display = "block"
         utensilsSearchBar.style.display = "none"
 
-        removeMiniSBspeParams(utensilsNav)
+
 
     }
 
@@ -281,44 +281,7 @@ export function closeMenu(input, menu) {
 
 }
 
-export function closeMiniMenu(input, nav, menu) {
-    // console.trace(closeMenu)
-    input.checked = false
-    nav.style.opacity = "0"
-    menu.style.transform = "translateX(" + 0 + "px)"
-    menu.style.width = 170 + "px"
 
-
-    if (nav === ingredientsNav) {
-        // resetArrow(ingredientsArrow)
-        ingredientsSearchButton.style.display = "block"
-        ingredientsSearchBar.style.display = "none"
-
-        removeMiniSBspeParams(ingredientsNav)
-
-    }
-    else if (nav === devicesNav) {
-        // resetArrow(devicesArrow)
-        devicesSearchButton.style.display = "block"
-        devicesSearchBar.style.display = "none"
-
-        removeMiniSBspeParams(devicesNav)
-
-    }
-    else if (nav === utensilsNav) {
-        // resetArrow(utensilsArrow)
-        utensilsSearchButton.style.display = "block"
-        utensilsSearchBar.style.display = "none"
-
-        removeMiniSBspeParams(utensilsNav)
-
-    }
-
-    tabListeners()
-
-
-
-}
 
 
 // Cette fonction prend en paramètres l'input(checkbox), le menu concerné et ses sidemenus. On commence par 
@@ -349,42 +312,7 @@ export function translateMenus(input, menu, sidemenu1, sidemenu2) {
     }
 }
 
-// Cette fonction est la même que la précédente, mais seulement dans le cas où ce sont uniquement les mini 
-// SB qui sont ouvertes.
 
-export function translateXMiniMenus(input, menu, sidemenu1, sidemenu2) {
-    menu.style.transform = "translateX(" + 0 + "px)"
-    sidemenu1.style.transform = "translateX(" + 0 + "px)"
-    sidemenu2.style.transform = "translateX(" + 0 + "px)"
-
-    if (input.checked === true) {
-        if (input === ingredientsInput2) {
-            menu.style.transform = "translateX(" + 0 + "px)"
-            sidemenu1.style.transform = "translateX(" + 0 + "px)"
-            sidemenu2.style.transform = "translateX(" + 0 + "px)"
-        }
-        else if (input === devicesInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
-            menu.style.transform = "translateX(" + -190 + "px)"
-            sidemenu1.style.transform = "translateX(" + 245 + "px)"
-            sidemenu2.style.transform = "translateX(" + 0 + "%)"
-        }
-        else if (input === utensilsInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
-            menu.style.transform = "translateX(" + -380 + "px)"
-            sidemenu1.style.transform = "translateX(" + 245 + "px)"
-            sidemenu2.style.transform = "translateX(" + 245 + "px)"
-        }
-    }
-}
-
-export function translateYMiniMenus(input, nav) {
-    if (input.checked === true) {
-        nav.style.top = 210 + "px"
-    }
-}
-
-export function cancelTranslateYMiniMenus(nav) {
-    nav.style.top = 63 + "px"
-}
 
 // Cette fonction détermine la taille que doit prendre un menu avec input coché ou non .
 
@@ -441,160 +369,92 @@ export function displayUtensilsList(utensilsL) {
 // les deux mêmes que toggleWidthMenu + les sidemenus.
 
 export function ingredientsListener() {
-    // console.log(ingredientsListener)
 
-    // closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-    // closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-    // closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
-
-    if (ingredientsInput2.checked === true) {
-        ingredientsInput2.checked = false
-        devicesInput2.checked = false
-        utensilsInput2.checked = false
-        closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-        closeMenu(ingredientsInput, ingredientsMenu)
-        console.log(ingredientsInput.checked)
-        removeMiniSBspeParams(ingredientsNav)
-        cancelTranslateYMiniMenus(ingredientsNav)
-        // miniSBListeners()
-        // tabListeners()
-
-    }
-
+    console.log(ingredientsInput.checked)
 
 
     if (ingredientsInput.checked) {
-        ingredientsNav.style.opacity = 1
-        ingredientsNav.style.transform = "translateX(0)"
-        ingredientsNav.style.zIndex = 1
-        ingredientsNav.style.top = 63 + "px"
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        displayNav(ingredientsNav)
+        toggleWidthMenu(ingredientsInput, ingredientsMenu)
+
+        // rotateArrow(ingredientsArrow)
+
+
     }
 
     if (!ingredientsInput.checked) {
-        closeMenu(ingredientsInput, ingredientsMenu)
-        resetArrow(ingredientsArrow)
-        ingredientsNav.style.opacity = 0
-        ingredientsNav.style.zIndex = 0
-
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        // resetArrow(ingredientsArrow)
     }
-    closeMenu(devicesInput, devicesMenu)
-    closeMenu(utensilsInput, utensilsMenu)
-
-    toggleWidthMenu(ingredientsInput, ingredientsMenu)
-
-    rotateArrow(ingredientsArrow)
 
     translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
+
+
 
 }
 
 export function devicesListener() {
-    // console.log(devicesListener)
-
-
-    // closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-    // closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-    // closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
-
-
-    if (devicesInput2.checked === true) {
-        ingredientsInput2.checked = false
-        devicesInput2.checked = false
-        utensilsInput2.checked = false
-        closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-        closeMenu(devicesInput, devicesMenu)
-        removeMiniSBspeParams(devicesNav)
-        cancelTranslateYMiniMenus(devicesNav)
-        // miniSBListeners()
-        // tabListeners()
-
-    }
-
-
-    removeMiniSBspeParams(devicesNav)
-    cancelTranslateYMiniMenus(devicesNav)
 
 
     console.log(devicesInput.checked)
-    console.log(devicesInput2.checked)
+
+
 
     if (devicesInput.checked) {
-        devicesNav.style.opacity = 1
-        devicesNav.style.transform = "translateX(0)"
-        devicesNav.style.zIndex = 1
-        devicesNav.style.top = 63 + "px"
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        displayNav(devicesNav)
+        toggleWidthMenu(devicesInput, devicesMenu)
+
+        // rotateArrow(devicesArrow)
+
+
     }
 
     if (!devicesInput.checked) {
-        closeMenu(devicesInput, devicesMenu)
-        resetArrow(devicesArrow)
-        devicesNav.style.opacity = 0
-        devicesNav.style.zIndex = 0
+        closeMenu(devicesInput, devicesMenu, devicesNav)
         // resetArrow(devicesArrow)
-
     }
 
-    closeMenu(ingredientsInput, ingredientsMenu)
-    closeMenu(utensilsInput, utensilsMenu)
-
-    toggleWidthMenu(devicesInput, devicesMenu)
-
-    rotateArrow(devicesArrow)
-
     translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
+
+
 
 }
 
 export function utensilsListener() {
-    // console.log(devicesListener)
-
-    // closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-    // closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-    // closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
-
-    if (utensilsInput2.checked === true) {
-        ingredientsInput2.checked = false
-        devicesInput2.checked = false
-        utensilsInput2.checked = false
-        closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
-        closeMenu(utensilsInput, utensilsMenu)
-        removeMiniSBspeParams(utensilsNav)
-        cancelTranslateYMiniMenus(utensilsNav)
-        // miniSBListeners()
-        // tabListeners()
-
-    }
-
-    removeMiniSBspeParams(utensilsNav)
-    cancelTranslateYMiniMenus(utensilsNav)
-
 
     console.log(utensilsInput.checked)
-    console.log(utensilsInput2.checked)
+
 
     if (utensilsInput.checked) {
-        utensilsNav.style.opacity = 1
-        utensilsNav.style.transform = "translateX(0)"
-        utensilsNav.style.zIndex = 1
-        utensilsNav.style.top = 63 + "px"
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        displayNav(utensilsNav)
+        toggleWidthMenu(utensilsInput, utensilsMenu)
+
+        // rotateArrow(utensilsArrow)
+
+
     }
+
     if (!utensilsInput.checked) {
-        closeMenu(utensilsInput, utensilsMenu)
-        resetArrow(utensilsArrow)
-        utensilsNav.style.opacity = 0
-        utensilsNav.style.zIndex = 0
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
         // resetArrow(utensilsArrow)
-
     }
 
-    closeMenu(devicesInput, devicesMenu)
-    closeMenu(ingredientsInput, ingredientsMenu)
+    translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
 
-    toggleWidthMenu(utensilsInput, utensilsMenu)
+}
 
-    rotateArrow(utensilsArrow)
+export function displayNav(nav) {
 
-    translateMenus(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
+    nav.style.opacity = 1
+    nav.style.transform = "translateX(0)"
+    nav.style.zIndex = 1
+    nav.style.top = 63 + "px"
 
 }
 
@@ -617,222 +477,113 @@ export function tabListeners() {
 }
 
 
-export function controlIngMiniMenu() {
 
-    if (ingredientsInput.checked === false && devicesInput.checked === false
-        && utensilsInput.checked === false) {
-        ingredientsInput2.checked = true
-        if (ingredientsInput2.checked === true) {
-            if (ingredientsSearchBar.style.display === "none") {
-                ingredientsSearchBar.style.display = "block"
-                ingredientsSearchButton.style.display = "none"
-                closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-                closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
 
-                translateXMiniMenus(ingredientsInput2, ingredientsMenu, devicesMenu, utensilsMenu)
-                translateYMiniMenus(ingredientsInput2, ingredientsNav)
+function controlIngMiniSB() {
 
-                miniSBspeParams(ingredientsNav, ingredientsMenu)
-            }
-
-        }
-    } else {
+    if (ingredientsSearchBar.style.display === "none") {
+        ingredientsSearchBar.style.display = "block"
+        ingredientsSearchButton.style.display = "none"
         ingredientsInput.checked = true
-        if (ingredientsSearchBar.style.display === "none") {
-            ingredientsSearchBar.style.display = "block"
-            ingredientsSearchButton.style.display = "none"
 
-        }
 
-        // removeMiniSBspeParams(ingredientsNav)
-        // cancelTranslateYMiniMenus(ingredientsNav)
-        // tabListeners()
     }
 
-    tabListeners()
+    if (ingredientsInput.checked) {
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        displayNav(ingredientsNav)
+        toggleWidthMenu(ingredientsInput, ingredientsMenu)
+
+        // rotateArrow(ingredientsArrow)
 
 
-
-
-
-    // if (ingredientsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
-    //     miniSBtabletParams(ingredientsNav, ingredientsMenu)
-    // }
-    // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
-    //     miniSBmobileParams(ingredientsNav, ingredientsMenu)
-    // }
-
-}
-
-export function controlDevMiniMenu() {
-
-
-    if (ingredientsInput.checked === false && devicesInput.checked === false
-        && utensilsInput.checked === false) {
-        devicesInput2.checked = true
-        if (devicesInput2.checked === true) {
-            if (devicesSearchBar.style.display === "none") {
-                devicesSearchBar.style.display = "block"
-                devicesSearchButton.style.display = "none"
-            }
-            closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-            closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
-
-            translateXMiniMenus(devicesInput2, devicesMenu, ingredientsMenu, utensilsMenu)
-            translateYMiniMenus(devicesInput2, devicesNav)
-
-            miniSBspeParams(devicesNav, devicesMenu)
-        }
-    } else {
-        devicesInput.checked = true
-        if (devicesSearchBar.style.display === "none") {
-            devicesSearchBar.style.display = "block"
-            devicesSearchButton.style.display = "none"
-
-        }
-
-        // removeMiniSBspeParams(devicesNav)
-        // cancelTranslateYMiniMenus(devicesNav)
-        // tabListeners()
     }
-    // if (devicesMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
-    //     miniSBtabletParams(devicesNav, devicesMenu)
-    // }
-    // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
-    //     miniSBmobileParams(devicesNav, devicesMenu)
-    // }
 
-    tabListeners()
-
-}
-
-export function controlUteMiniMenu() {
-
-    if (ingredientsInput.checked === false && devicesInput.checked === false
-        && utensilsInput.checked === false) {
-        utensilsInput2.checked = true
-        if (utensilsInput2.checked === true) {
-            if (utensilsSearchBar.style.display === "none") {
-                utensilsSearchBar.style.display = "block"
-                utensilsSearchButton.style.display = "none"
-
-            }
-            closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-            closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-
-            translateXMiniMenus(utensilsInput2, utensilsMenu, devicesMenu, ingredientsMenu)
-            translateYMiniMenus(utensilsInput2, utensilsNav)
-
-            miniSBspeParams(utensilsNav, utensilsMenu)
-
-        }
-    } else {
-        utensilsInput.checked = true
-        if (utensilsSearchBar.style.display === "none") {
-            utensilsSearchBar.style.display = "block"
-            utensilsSearchButton.style.display = "none"
-
-        }
-
-        removeMiniSBspeParams(utensilsNav)
-        cancelTranslateYMiniMenus(utensilsNav)
-        // tabListeners()
+    if (!ingredientsInput.checked) {
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        // resetArrow(ingredientsArrow)
     }
-    // if (utensilsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
-    //     console.log(screen)
-    //     miniSBtabletParams(utensilsNav, utensilsMenu)
-    // }
-    // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
-    //     miniSBmobileParams(utensilsNav, utensilsMenu)
-    // }
 
-    tabListeners()
+    translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
 }
 
-// function controlIngMiniSB() {
+function controlDevMiniSB() {
+    if (devicesSearchBar.style.display === "none") {
+        devicesSearchBar.style.display = "block"
+        devicesSearchButton.style.display = "none"
+        devicesInput.checked = "true"
 
-//     if (ingredientsSearchBar.style.display === "none") {
-//         ingredientsSearchBar.style.display = "block"
-//         ingredientsSearchButton.style.display = "none"
-//         // translateMenus2(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
-//     }
-// }
+    }
 
-// function controlDevMiniSB() {
-//     if (devicesSearchBar.style.display === "none") {
-//         devicesSearchBar.style.display = "block"
-//         devicesSearchButton.style.display = "none"
-//         // translateMenus2(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
-//     }
+    if (devicesInput.checked) {
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        displayNav(devicesNav)
+        toggleWidthMenu(devicesInput, devicesMenu)
 
-// }
+        // rotateArrow(devicesArrow)
 
-// function controlUteMiniSB() {
-//     if (utensilsSearchBar.style.display === "none") {
-//         utensilsSearchBar.style.display = "block"
-//         utensilsSearchButton.style.display = "none"
-//         // translateMenus2(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
-//     }
 
-// }
+    }
 
-function miniSBspeParams(nav, menu) {
-    nav.style.width = `${225}px`
-    nav.style.height = `${50}px`
-    nav.style.opacity = 1
-    nav.style.overflow = "hidden"
-    nav.style.paddingTop = `${20}px`
-    nav.style.top = `${209}px`
-    menu.style.width = `${225}px`
+    if (!devicesInput.checked) {
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        // resetArrow(devicesArrow)
+    }
+
+    translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
+
+
+
 }
 
-// function miniSBmobileParams(nav, menu) {
-//     nav.style.width = 100 + "%"
-//     nav.style.height = 50 + "px"
-//     nav.style.overflow = "hidden"
-//     nav.style.paddingTop = `${20}px`
-//     menu.style.width = 100 + "%"
-// }
+function controlUteMiniSB() {
+    if (utensilsSearchBar.style.display === "none") {
+        utensilsSearchBar.style.display = "block"
+        utensilsSearchButton.style.display = "none"
+        utensilsInput.checked = "true"
 
-// function miniSBtabletParams(nav, menu) {
-//     nav.style.width = `${50}px`
-//     nav.style.height = 50 + "px"
-//     nav.style.overflow = "hidden"
-//     nav.style.paddingTop = `${20}px`
-//     menu.style.width = `${50}px`
-// }
+    }
 
-function removeMiniSBspeParams(nav) {
-    nav.style.width = 667 + "px"
-    nav.style.height = 1600 + "px"
+    if (utensilsInput.checked) {
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        displayNav(utensilsNav)
+        toggleWidthMenu(utensilsInput, utensilsMenu)
+
+        // rotateArrow(utensilsArrow)
+
+
+    }
+
+    if (!utensilsInput.checked) {
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        // resetArrow(utensilsArrow)
+    }
+
+    translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
+
 }
+
+
+
 
 export function miniSBListeners() {
 
-    // if ((allChecks.checked === false)) {
-    ingredientsSearchButton.addEventListener("click", controlIngMiniMenu)
 
-    devicesSearchButton.addEventListener("click", controlDevMiniMenu)
+    ingredientsSearchButton.addEventListener("click", controlIngMiniSB)
 
-    utensilsSearchButton.addEventListener("click", controlUteMiniMenu)
-    // } else {
-    //     ingredientsSearchButton.addEventListener("click", controlIngMiniSB)
+    devicesSearchButton.addEventListener("click", controlDevMiniSB)
 
-    //     devicesSearchButton.addEventListener("click", controlDevMiniSB)
+    utensilsSearchButton.addEventListener("click", controlUteMiniSB)
 
-    //     utensilsSearchButton.addEventListener("click", controlUteMiniSB)
-    // }
-
-    // && (screen.desktopMQuery.matches
-    //     || screen.tabletMQuery.matches)
 }
 
 
 export function ingTabSearch() {
 
     const ingTabSearchInput = document.querySelector(".ingredients-searchbar")
-
-    // ingredientsArray = findingIngredients(recipes)
 
     ingTabSearchInput.addEventListener("input", () => {
         function inputFilter(ingArray, textValue) {
@@ -861,10 +612,6 @@ export function ingTabSearch() {
             changeIngList()
             displayIngredientsList(selectedIngredients2)
         }
-        // else if (ingTabSearchInput.value.length < 3 && searchInput.value >= 3) {
-        //     changeIngList()
-        //     displayIngredientsList(selectedIngredientsArray)
-        // } 
         else {
             changeIngList()
             displayIngredientsList(selectedIngredientsArray)
@@ -875,8 +622,6 @@ export function ingTabSearch() {
 export function devTabSearch() {
 
     const devTabSearchInput = document.querySelector(".devices-searchbar")
-
-    // devicesArray = findingDevices(recipes)
 
     devTabSearchInput.addEventListener("input", () => {
         function inputFilter(devArray, textValue) {
@@ -908,8 +653,6 @@ export function uteTabSearch() {
 
     const uteTabSearchInput = document.querySelector(".utensils-searchbar")
 
-    // utensilsArray = findingUtensils(recipes)
-
     uteTabSearchInput.addEventListener("input", () => {
         function inputFilter(uteArray, textValue) {
 
@@ -928,7 +671,6 @@ export function uteTabSearch() {
 
         if (uteTabSearchInput.value.length >= 3) {
             changeUteList()
-            // launchResearch()
             displayUtensilsList(selectedUtensils2)
         } else {
             changeUteList()
@@ -955,3 +697,236 @@ export function tabSearchers() {
     devTabSearch()
     uteTabSearch()
 }
+
+// RECYCLE BIN
+
+// function miniSBspeParams(nav, menu) {
+//     nav.style.width = `${225}px`
+//     nav.style.height = `${50}px`
+//     nav.style.opacity = 1
+//     nav.style.overflow = "hidden"
+//     nav.style.paddingTop = `${20}px`
+//     nav.style.top = `${209}px`
+//     menu.style.width = `${225}px`
+// }
+
+// function miniSBmobileParams(nav, menu) {
+//     nav.style.width = 100 + "%"
+//     nav.style.height = 50 + "px"
+//     nav.style.overflow = "hidden"
+//     nav.style.paddingTop = `${20}px`
+//     menu.style.width = 100 + "%"
+// }
+
+// function miniSBtabletParams(nav, menu) {
+//     nav.style.width = `${50}px`
+//     nav.style.height = 50 + "px"
+//     nav.style.overflow = "hidden"
+//     nav.style.paddingTop = `${20}px`
+//     menu.style.width = `${50}px`
+// }
+
+// export function controlIngMiniSB() {
+
+//     if (ingredientsInput.checked === true) {
+//         ingredientsInput2.checked = true
+//         if (ingredientsInput2.checked === true) {
+//             if (ingredientsSearchBar.style.display === "none") {
+//                 ingredientsSearchBar.style.display = "block"
+//                 ingredientsSearchButton.style.display = "none"
+
+//             }
+
+//         }
+//     } else {
+//         ingredientsInput.checked = true
+//         if (ingredientsSearchBar.style.display === "none") {
+//             ingredientsSearchBar.style.display = "block"
+//             ingredientsSearchButton.style.display = "none"
+
+//         }
+
+//         // removeMiniSBspeParams(ingredientsNav)
+//         // cancelTranslateYMiniMenus(ingredientsNav)
+//         // tabListeners()
+//     }
+
+//     tabListeners()
+
+
+
+
+
+//     // if (ingredientsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
+//     //     miniSBtabletParams(ingredientsNav, ingredientsMenu)
+//     // }
+//     // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
+//     //     miniSBmobileParams(ingredientsNav, ingredientsMenu)
+//     // }
+
+// }
+
+// export function controlDevMiniSB() {
+
+
+//     if (devicesInput.checked === true) {
+//         devicesInput2.checked = true
+//         if (devicesInput2.checked === true) {
+//             if (devicesSearchBar.style.display === "none") {
+//                 devicesSearchBar.style.display = "block"
+//                 devicesSearchButton.style.display = "none"
+//             }
+//             closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+//             closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+
+//             translateXMiniMenus(devicesInput2, devicesMenu, ingredientsMenu, utensilsMenu)
+//             translateYMiniMenus(devicesInput2, devicesNav)
+
+//             // miniSBspeParams(devicesNav, devicesMenu)
+//         }
+//     } else {
+//         devicesInput.checked = true
+//         if (devicesSearchBar.style.display === "none") {
+//             devicesSearchBar.style.display = "block"
+//             devicesSearchButton.style.display = "none"
+
+//         }
+
+//         // removeMiniSBspeParams(devicesNav)
+//         // cancelTranslateYMiniMenus(devicesNav)
+//         // tabListeners()
+//     }
+//     // if (devicesMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
+//     //     miniSBtabletParams(devicesNav, devicesMenu)
+//     // }
+//     // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
+//     //     miniSBmobileParams(devicesNav, devicesMenu)
+//     // }
+
+//     tabListeners()
+
+// }
+
+// export function controlUteMiniSB() {
+
+//     if (utensilsInput.checked === true) {
+//         utensilsInput2.checked = true
+//         if (utensilsInput2.checked === true) {
+//             if (utensilsSearchBar.style.display === "none") {
+//                 utensilsSearchBar.style.display = "block"
+//                 utensilsSearchButton.style.display = "none"
+
+//             }
+//             closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+//             closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+
+//             translateXMiniMenus(utensilsInput2, utensilsMenu, devicesMenu, ingredientsMenu)
+//             translateYMiniMenus(utensilsInput2, utensilsNav)
+
+//             // miniSBspeParams(utensilsNav, utensilsMenu)
+
+//         }
+//     } else {
+//         utensilsInput.checked = true
+//         if (utensilsSearchBar.style.display === "none") {
+//             utensilsSearchBar.style.display = "block"
+//             utensilsSearchButton.style.display = "none"
+
+//         }
+
+//         removeMiniSBspeParams(utensilsNav)
+//         cancelTranslateYMiniMenus(utensilsNav)
+//         // tabListeners()
+//     }
+//     // if (utensilsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
+//     //     console.log(screen)
+//     //     miniSBtabletParams(utensilsNav, utensilsMenu)
+//     // }
+//     // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
+//     //     miniSBmobileParams(utensilsNav, utensilsMenu)
+//     // }
+
+//     tabListeners()
+// }
+
+
+// function removeMiniSBspeParams(nav) {
+//     nav.style.width = 667 + "px"
+//     nav.style.height = 1600 + "px"
+// }
+
+// export function closeMiniMenu(input, nav, menu) {
+//     // console.trace(closeMenu)
+//     input.checked = false
+//     nav.style.opacity = "0"
+//     menu.style.transform = "translateX(" + 0 + "px)"
+//     menu.style.width = 170 + "px"
+
+
+//     if (nav === ingredientsNav) {
+//         // resetArrow(ingredientsArrow)
+//         ingredientsSearchButton.style.display = "block"
+//         ingredientsSearchBar.style.display = "none"
+
+
+
+//     }
+//     else if (nav === devicesNav) {
+//         // resetArrow(devicesArrow)
+//         devicesSearchButton.style.display = "block"
+//         devicesSearchBar.style.display = "none"
+
+
+
+//     }
+//     else if (nav === utensilsNav) {
+//         // resetArrow(utensilsArrow)
+//         utensilsSearchButton.style.display = "block"
+//         utensilsSearchBar.style.display = "none"
+
+
+
+//     }
+
+//     tabListeners()
+
+
+
+// }
+
+// Cette fonction est la même que la précédente, mais seulement dans le cas où ce sont uniquement les mini
+// SB qui sont ouvertes.
+
+// export function translateXMiniMenus(input, menu, sidemenu1, sidemenu2) {
+//     menu.style.transform = "translateX(" + 0 + "px)"
+//     sidemenu1.style.transform = "translateX(" + 0 + "px)"
+//     sidemenu2.style.transform = "translateX(" + 0 + "px)"
+
+//     if (input.checked === true) {
+//         if (input === ingredientsInput2) {
+//             menu.style.transform = "translateX(" + 0 + "px)"
+//             sidemenu1.style.transform = "translateX(" + 0 + "px)"
+//             sidemenu2.style.transform = "translateX(" + 0 + "px)"
+//         }
+//         else if (input === devicesInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
+//             menu.style.transform = "translateX(" + -190 + "px)"
+//             sidemenu1.style.transform = "translateX(" + 245 + "px)"
+//             sidemenu2.style.transform = "translateX(" + 0 + "%)"
+//         }
+//         else if (input === utensilsInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
+//             menu.style.transform = "translateX(" + -380 + "px)"
+//             sidemenu1.style.transform = "translateX(" + 245 + "px)"
+//             sidemenu2.style.transform = "translateX(" + 245 + "px)"
+//         }
+//     }
+// }
+
+// export function translateYMiniMenus(input, nav) {
+//     if (input.checked === true) {
+//         nav.style.top = 210 + "px"
+//     }
+// }
+
+// export function cancelTranslateYMiniMenus(nav) {
+//     nav.style.top = 63 + "px"
+// }

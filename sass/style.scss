@@ -120,6 +120,7 @@ ol, ul
     left: -500px;
 }
 
+
 .tab {
     width: 170px;
     height: 69px;
@@ -181,7 +182,6 @@ ol, ul
     position: absolute;
     top: 63px;
     color: #fff;
-    height: 400px;
     width: 667px;
     transform: translateY(-300%);
     border-radius: 5px;
@@ -198,6 +198,14 @@ ol, ul
 
 .ingredients-nav {
     height: 1600px;
+}
+
+.devices-nav {
+    height: 200px
+}
+
+.utensils-nav {
+    height: 350px
 }
 
 .options-list {
@@ -223,22 +231,6 @@ ol, ul
     background:#ED6454;
 }
 
-// .ingredients-check:checked ~ .ingredients-nav,  .devices-check:checked ~ .devices-nav, .utensils-check:checked ~ .utensils-nav
-// {
-//     transform: translateX(0);
-//     opacity: 1;
-//     z-index: 1;
-// }
-
-
-// .ingredients-check:checked  .ingredients-arrow, .devices-check:checked ~ .devices-arrow, .utensils-check:checked ~ .utensils-arrow {
-//     transform : translate(-50%, -50%) rotate(90deg);
-
-// }
-
-// .dropdown-button::after {
-//     transform : translate(-50%, -50%) rotate(90deg);
-// }
 
 .menu-link {
     margin-bottom: 10px;
@@ -330,3 +322,22 @@ ol, ul
 .recipe-description {
     left: 190px;
 }
+
+// RECYCLE BIN
+
+// .ingredients-check:checked ~ .ingredients-nav,  .devices-check:checked ~ .devices-nav, .utensils-check:checked ~ .utensils-nav
+// {
+//     transform: translateX(0);
+//     opacity: 1;
+//     z-index: 1;
+// }
+
+
+// .ingredients-check:checked  .ingredients-arrow, .devices-check:checked ~ .devices-arrow, .utensils-check:checked ~ .utensils-arrow {
+//     transform : translate(-50%, -50%) rotate(90deg);
+
+// }
+
+// .dropdown-button::after {
+//     transform : translate(-50%, -50%) rotate(90deg);
+// }
