@@ -13,6 +13,11 @@ body {
   margin-left: 100px;
   margin-right: 100px;
 }
+@media all and (max-width: 767px) {
+  body {
+    margin: 0;
+  }
+}
 
 ol, ul {
   list-style: none;
@@ -22,6 +27,7 @@ ol, ul {
 .header_flex {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .lpp_logo {
@@ -80,8 +86,13 @@ ol, ul {
 .tablist {
   display: flex;
 }
+@media all and (max-width: 767px) {
+  .tablist {
+    flex-flow: column wrap;
+  }
+}
 
-.menu-check {
+.menu-check, .menu-check2 {
   position: absolute;
   left: -500px;
 }
@@ -94,6 +105,12 @@ ol, ul {
   display: flex;
   align-items: center;
   position: relative;
+}
+@media all and (max-width: 767px) {
+  .tab {
+    margin-bottom: 20px;
+    width: 100%;
+  }
 }
 
 .input-button {
@@ -125,6 +142,11 @@ ol, ul {
   transform: scale(1.2);
   transition: transform 0.3s;
 }
+@media all and (max-width: 767px) {
+  .dropdown-button {
+    display: none;
+  }
+}
 
 .arrow-icon {
   font-size: 26px;
@@ -134,13 +156,18 @@ ol, ul {
   position: absolute;
   top: 63px;
   color: #fff;
-  height: 300px;
+  height: 400px;
   width: 667px;
   transform: translateY(-300%);
   border-radius: 5px;
   opacity: 0;
   transition: transform 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
+}
+@media all and (max-width: 767px) {
+  .menu-nav {
+    width: 100%;
+  }
 }
 
 .ingredients-nav {
@@ -152,6 +179,11 @@ ol, ul {
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
   padding-left: 20px;
+}
+@media all and (max-width: 767px) {
+  .options-list {
+    width: 100%;
+  }
 }
 
 .ingredients-nav {
@@ -166,16 +198,6 @@ ol, ul {
   background: #ED6454;
 }
 
-.ingredients-check:checked ~ .ingredients-nav, .devices-check:checked ~ .devices-nav, .utensils-check:checked ~ .utensils-nav {
-  transform: translateX(0);
-  opacity: 1;
-  z-index: 1;
-}
-
-.ingredients-check:checked .ingredients-arrow, .devices-check:checked ~ .devices-arrow, .utensils-check:checked ~ .utensils-arrow {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
 .menu-link {
   margin-bottom: 10px;
   margin-right: 100px;
@@ -186,6 +208,11 @@ ol, ul {
   flex-flow: row wrap;
   margin-top: 82px;
 }
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  .recipes-section {
+    justify-content: center;
+  }
+}
 
 .recipe-article {
   height: 364px;
@@ -195,11 +222,22 @@ ol, ul {
   margin-bottom: 50px;
   overflow: hidden;
 }
+@media all and (max-width: 767px) {
+  .recipe-article {
+    width: 100%;
+    margin-right: 0;
+  }
+}
 
 .picture-div {
   height: 178px;
   width: 380px;
   background: #C7BEBE;
+}
+@media all and (max-width: 767px) {
+  .picture-div {
+    width: 100%;
+  }
 }
 
 .recipe-div {
@@ -214,6 +252,11 @@ ol, ul {
 .recipe-name {
   max-width: 220px;
   margin-bottom: 20px;
+}
+@media all and (max-width: 767px) {
+  .recipe-name {
+    max-width: 200px;
+  }
 }
 
 .time-span, .time-icon {
@@ -235,6 +278,11 @@ ol, ul {
   top: 60px;
   border: 1px solid black;
   font-size: 12px;
+}
+@media all and (max-width: 767px) {
+  .ingredients-list, .recipe-description {
+    width: 150px;
+  }
 }
 
 .recipe-description {

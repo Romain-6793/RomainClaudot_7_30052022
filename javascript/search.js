@@ -1,44 +1,56 @@
 
 
 import { ingredientsListFactory, devicesListFactory, utensilsListFactory, recipesFactory } from "./factories.js"
-// import { findingDevices, findingUtensils } from "./finders.js"
-// import { findingIngredients } from "./finders.js"
 import { recipes } from "./recipes.js"
+import {
+    searchInput, recipesSection, ingredientsInput, devicesInput, utensilsInput, ingredientsMenu,
+    devicesMenu, utensilsMenu, ingredientsSearchBar, devicesSearchBar, utensilsSearchBar,
+    ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
+    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, ingredientsInput2,
+    devicesInput2, utensilsInput2, ingredientsArrow, utensilsArrow, devicesArrow
+} from "./index.js"
+// import { selectedRecipesArray, selectedIngredients, selectedIngredientsArray, selectedDevices, selectedDevicesArray, selectedUtensils, selectedUtensilsArray } from "./index.js"
 
 
-const recipesSection = document.querySelector(".recipes-section")
-const ingredientsInput = document.getElementById("ingredients-check")
-const devicesInput = document.getElementById("devices-check")
-const utensilsInput = document.getElementById("utensils-check")
-const ingredientsMenu = document.querySelector(".menu__ingredients")
-const devicesMenu = document.querySelector(".menu__devices")
-const utensilsMenu = document.querySelector(".menu__utensils")
-const ingredientsSearchBar = document.querySelector(".ingredients-searchbar")
-const devicesSearchBar = document.querySelector(".devices-searchbar")
-const utensilsSearchBar = document.querySelector(".utensils-searchbar")
-const ingredientsSearchButton = document.querySelector(".ingredients-searchbutton")
-const devicesSearchButton = document.querySelector(".devices-searchbutton")
-const utensilsSearchButton = document.querySelector(".utensils-searchbutton")
-const ingredientsList = document.getElementById("ingredients-list")
-const devicesList = document.getElementById("devices-list")
-const utensilsList = document.getElementById("utensils-list")
-const searchInput = document.querySelector(".search-bar")
+// Les variables suivantes sont transformées par search()
 
 
-// let ingredientsArray = []
-// let devicesArray = []
-// let utensilsArray = []
+export let selectedRecipesArray = []
+export let selectedIngredients = ""
+export let selectedIngredientsArray = []
+export let selectedDevices = ""
+export let selectedDevicesArray = []
+export let selectedUtensils = ""
+export let selectedUtensilsArray = []
 
-// Les trois variables suivantes sont transformées par search()
 
-let selectedRecipesArray = []
-let selectedIngredients = ""
-let selectedIngredientsArray = []
-let selectedDevices = ""
-let selectedDevicesArray = []
-let selectedUtensils = ""
-let selectedUtensilsArray = []
+const screen = {
 
+    mobileMMQuery: window.matchMedia("(max-width: 424px)"),
+    mobileLMQuery: window.matchMedia("(min-width: 425px)"),
+    tabletMQuery: window.matchMedia("(min-width: 768px)"),
+    desktopMQuery: window.matchMedia("(min-width: 1024px)"),
+
+
+
+};
+
+
+
+// eslint-disable-next-line no-unused-vars
+for (let [scr, mq] of Object.entries(screen)) {
+    if (mq) mq.addEventListener('change', mqHandler);
+}
+
+function mqHandler() {
+
+    let size = null;
+    for (let [scr, mq] of Object.entries(screen)) {
+        if (!mq || mq.matches) size = scr;
+    }
+
+    console.log(size);
+}
 
 export function search() {
 
@@ -95,6 +107,7 @@ export function search() {
         // à l'aide des ... Cette solution a permis de tout refondre dans un seul tableau
         // au lieu de renvoyer un tableau de tableaux.
 
+        // eslint-disable-next-line no-import-assign
         selectedRecipesArray = [...selectedRecipes]
         console.log(selectedRecipesArray)
 
@@ -111,10 +124,12 @@ export function search() {
                 console.log(slctRecipesArr)
 
                 for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
+                    // eslint-disable-next-line no-import-assign
                     selectedIngredients = slctRecipesArr[i].ingredients[j].ingredient
                     console.log(selectedIngredients)
                     selectedIngredientsArray.push(selectedIngredients)
                 }
+                // eslint-disable-next-line no-import-assign
                 selectedIngredientsArray = [...new Set(selectedIngredientsArray)]
                 console.log(selectedIngredientsArray)
             }
@@ -126,10 +141,12 @@ export function search() {
             for (let i = 0; i < slctRecipesArr.length; i++) {
                 console.log(slctRecipesArr)
 
+                // eslint-disable-next-line no-import-assign
                 selectedDevices = slctRecipesArr[i].appliance
                 console.log(selectedDevices)
                 selectedDevicesArray.push(selectedDevices)
 
+                // eslint-disable-next-line no-import-assign
                 selectedDevicesArray = [...new Set(selectedDevicesArray)]
                 console.log(selectedDevicesArray)
             }
@@ -142,10 +159,12 @@ export function search() {
                 // console.log(slctRecipesArr)
 
                 for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
+                    // eslint-disable-next-line no-import-assign
                     selectedUtensils = slctRecipesArr[i].ustensils[j]
                     console.log(selectedUtensils)
                     selectedUtensilsArray.push(selectedUtensils)
                 }
+                // eslint-disable-next-line no-import-assign
                 selectedUtensilsArray = [...new Set(selectedUtensilsArray)]
                 console.log(selectedUtensilsArray)
             }
@@ -172,9 +191,13 @@ export function search() {
         if (searchInput.value.length >= 3) {
             launchResearch()
         } else {
+            // eslint-disable-next-line no-import-assign
             selectedRecipesArray = []
+            // eslint-disable-next-line no-import-assign
             selectedIngredientsArray = []
+            // eslint-disable-next-line no-import-assign
             selectedDevicesArray = []
+            // eslint-disable-next-line no-import-assign
             selectedUtensilsArray = []
 
         }
@@ -226,22 +249,77 @@ export function closeMenu(input, menu) {
     menu.style.transform = "translateX(" + 0 + "px)"
     menu.style.width = 170 + "px"
 
+
     if (input === ingredientsInput) {
+        // resetArrow(ingredientsArrow)
         ingredientsSearchButton.style.display = "block"
         ingredientsSearchBar.style.display = "none"
+
+        removeMiniSBspeParams(ingredientsNav)
+
     }
     else if (input === devicesInput) {
+        // resetArrow(devicesArrow)
         devicesSearchButton.style.display = "block"
         devicesSearchBar.style.display = "none"
+
+        removeMiniSBspeParams(devicesNav)
+
     }
     else if (input === utensilsInput) {
+        // resetArrow(utensilsArrow)
         utensilsSearchButton.style.display = "block"
         utensilsSearchBar.style.display = "none"
+
+        removeMiniSBspeParams(utensilsNav)
+
     }
+
+    tabListeners()
 
 
 
 }
+
+export function closeMiniMenu(input, nav, menu) {
+    // console.trace(closeMenu)
+    input.checked = false
+    nav.style.opacity = "0"
+    menu.style.transform = "translateX(" + 0 + "px)"
+    menu.style.width = 170 + "px"
+
+
+    if (nav === ingredientsNav) {
+        // resetArrow(ingredientsArrow)
+        ingredientsSearchButton.style.display = "block"
+        ingredientsSearchBar.style.display = "none"
+
+        removeMiniSBspeParams(ingredientsNav)
+
+    }
+    else if (nav === devicesNav) {
+        // resetArrow(devicesArrow)
+        devicesSearchButton.style.display = "block"
+        devicesSearchBar.style.display = "none"
+
+        removeMiniSBspeParams(devicesNav)
+
+    }
+    else if (nav === utensilsNav) {
+        // resetArrow(utensilsArrow)
+        utensilsSearchButton.style.display = "block"
+        utensilsSearchBar.style.display = "none"
+
+        removeMiniSBspeParams(utensilsNav)
+
+    }
+
+    tabListeners()
+
+
+
+}
+
 
 // Cette fonction prend en paramètres l'input(checkbox), le menu concerné et ses sidemenus. On commence par 
 // y mettre un état initial : chaque menu est à 0 px . Ensuite, on pose les conditions, si l'input est 
@@ -258,12 +336,12 @@ export function translateMenus(input, menu, sidemenu1, sidemenu2) {
             sidemenu1.style.transform = "translateX(" + 0 + "px)"
             sidemenu2.style.transform = "translateX(" + 0 + "px)"
         }
-        else if (input === devicesInput) {
+        else if (input === devicesInput && screen.desktopMQuery.matches) {
             menu.style.transform = "translateX(" + -190 + "px)"
             sidemenu1.style.transform = "translateX(" + 687 + "px)"
             sidemenu2.style.transform = "translateX(" + 0 + "%)"
         }
-        else if (input === utensilsInput) {
+        else if (input === utensilsInput && screen.desktopMQuery.matches) {
             menu.style.transform = "translateX(" + -380 + "px)"
             sidemenu1.style.transform = "translateX(" + 687 + "px)"
             sidemenu2.style.transform = "translateX(" + 687 + "px)"
@@ -271,20 +349,57 @@ export function translateMenus(input, menu, sidemenu1, sidemenu2) {
     }
 }
 
+// Cette fonction est la même que la précédente, mais seulement dans le cas où ce sont uniquement les mini 
+// SB qui sont ouvertes.
+
+export function translateXMiniMenus(input, menu, sidemenu1, sidemenu2) {
+    menu.style.transform = "translateX(" + 0 + "px)"
+    sidemenu1.style.transform = "translateX(" + 0 + "px)"
+    sidemenu2.style.transform = "translateX(" + 0 + "px)"
+
+    if (input.checked === true) {
+        if (input === ingredientsInput2) {
+            menu.style.transform = "translateX(" + 0 + "px)"
+            sidemenu1.style.transform = "translateX(" + 0 + "px)"
+            sidemenu2.style.transform = "translateX(" + 0 + "px)"
+        }
+        else if (input === devicesInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
+            menu.style.transform = "translateX(" + -190 + "px)"
+            sidemenu1.style.transform = "translateX(" + 245 + "px)"
+            sidemenu2.style.transform = "translateX(" + 0 + "%)"
+        }
+        else if (input === utensilsInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
+            menu.style.transform = "translateX(" + -380 + "px)"
+            sidemenu1.style.transform = "translateX(" + 245 + "px)"
+            sidemenu2.style.transform = "translateX(" + 245 + "px)"
+        }
+    }
+}
+
+export function translateYMiniMenus(input, nav) {
+    if (input.checked === true) {
+        nav.style.top = 210 + "px"
+    }
+}
+
+export function cancelTranslateYMiniMenus(nav) {
+    nav.style.top = 63 + "px"
+}
+
 // Cette fonction détermine la taille que doit prendre un menu avec input coché ou non .
 
 export function toggleWidthMenu(input, menu) {
     // console.log(menu, input.checked)
-    if (input.checked) {
+    if (input.checked && screen.desktopMQuery.matches) {
         menu.style.width = 667 + "px"
+        // } else if (input.checked && screen.mobileMMQuery.matches) {
+        //     menu.style.width = 90 + "%"
     } else {
         menu.style.width = 170 + "px"
     }
 }
 
-export function growMenu(menu) {
-    menu.style.width = 225 + "px"
-}
+
 
 export function displayIngredientsList(ingredientsL) {
 
@@ -328,13 +443,46 @@ export function displayUtensilsList(utensilsL) {
 export function ingredientsListener() {
     // console.log(ingredientsListener)
 
+    // closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+    // closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+    // closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+
+    if (ingredientsInput2.checked === true) {
+        ingredientsInput2.checked = false
+        devicesInput2.checked = false
+        utensilsInput2.checked = false
+        closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+        closeMenu(ingredientsInput, ingredientsMenu)
+        console.log(ingredientsInput.checked)
+        removeMiniSBspeParams(ingredientsNav)
+        cancelTranslateYMiniMenus(ingredientsNav)
+        // miniSBListeners()
+        // tabListeners()
+
+    }
+
+
+
+    if (ingredientsInput.checked) {
+        ingredientsNav.style.opacity = 1
+        ingredientsNav.style.transform = "translateX(0)"
+        ingredientsNav.style.zIndex = 1
+        ingredientsNav.style.top = 63 + "px"
+    }
+
     if (!ingredientsInput.checked) {
         closeMenu(ingredientsInput, ingredientsMenu)
+        resetArrow(ingredientsArrow)
+        ingredientsNav.style.opacity = 0
+        ingredientsNav.style.zIndex = 0
+
     }
     closeMenu(devicesInput, devicesMenu)
     closeMenu(utensilsInput, utensilsMenu)
 
     toggleWidthMenu(ingredientsInput, ingredientsMenu)
+
+    rotateArrow(ingredientsArrow)
 
     translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
 
@@ -343,13 +491,55 @@ export function ingredientsListener() {
 export function devicesListener() {
     // console.log(devicesListener)
 
+
+    // closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+    // closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+    // closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+
+
+    if (devicesInput2.checked === true) {
+        ingredientsInput2.checked = false
+        devicesInput2.checked = false
+        utensilsInput2.checked = false
+        closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+        closeMenu(devicesInput, devicesMenu)
+        removeMiniSBspeParams(devicesNav)
+        cancelTranslateYMiniMenus(devicesNav)
+        // miniSBListeners()
+        // tabListeners()
+
+    }
+
+
+    removeMiniSBspeParams(devicesNav)
+    cancelTranslateYMiniMenus(devicesNav)
+
+
+    console.log(devicesInput.checked)
+    console.log(devicesInput2.checked)
+
+    if (devicesInput.checked) {
+        devicesNav.style.opacity = 1
+        devicesNav.style.transform = "translateX(0)"
+        devicesNav.style.zIndex = 1
+        devicesNav.style.top = 63 + "px"
+    }
+
     if (!devicesInput.checked) {
         closeMenu(devicesInput, devicesMenu)
+        resetArrow(devicesArrow)
+        devicesNav.style.opacity = 0
+        devicesNav.style.zIndex = 0
+        // resetArrow(devicesArrow)
+
     }
+
     closeMenu(ingredientsInput, ingredientsMenu)
     closeMenu(utensilsInput, utensilsMenu)
 
     toggleWidthMenu(devicesInput, devicesMenu)
+
+    rotateArrow(devicesArrow)
 
     translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
 
@@ -358,8 +548,43 @@ export function devicesListener() {
 export function utensilsListener() {
     // console.log(devicesListener)
 
+    // closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+    // closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+    // closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+
+    if (utensilsInput2.checked === true) {
+        ingredientsInput2.checked = false
+        devicesInput2.checked = false
+        utensilsInput2.checked = false
+        closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+        closeMenu(utensilsInput, utensilsMenu)
+        removeMiniSBspeParams(utensilsNav)
+        cancelTranslateYMiniMenus(utensilsNav)
+        // miniSBListeners()
+        // tabListeners()
+
+    }
+
+    removeMiniSBspeParams(utensilsNav)
+    cancelTranslateYMiniMenus(utensilsNav)
+
+
+    console.log(utensilsInput.checked)
+    console.log(utensilsInput2.checked)
+
+    if (utensilsInput.checked) {
+        utensilsNav.style.opacity = 1
+        utensilsNav.style.transform = "translateX(0)"
+        utensilsNav.style.zIndex = 1
+        utensilsNav.style.top = 63 + "px"
+    }
     if (!utensilsInput.checked) {
         closeMenu(utensilsInput, utensilsMenu)
+        resetArrow(utensilsArrow)
+        utensilsNav.style.opacity = 0
+        utensilsNav.style.zIndex = 0
+        // resetArrow(utensilsArrow)
+
     }
 
     closeMenu(devicesInput, devicesMenu)
@@ -367,9 +592,22 @@ export function utensilsListener() {
 
     toggleWidthMenu(utensilsInput, utensilsMenu)
 
+    rotateArrow(utensilsArrow)
+
     translateMenus(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
 
 }
+
+export function rotateArrow(arrow) {
+    arrow.style.transform = "translate(50%,50%)"
+    arrow.style.transform = "rotate(180deg)"
+}
+
+export function resetArrow(arrow) {
+    arrow.style.transform = "translate(0,0)"
+    arrow.style.transform = "rotate(0)"
+}
+
 
 export function tabListeners() {
 
@@ -378,76 +616,215 @@ export function tabListeners() {
     utensilsInput.addEventListener("click", utensilsListener)
 }
 
-// function removeTabListeners() {
 
-//     ingredientsInput.removeEventListener("click", ingredientsListener)
+export function controlIngMiniMenu() {
 
-//     // const devicesInput = document.getElementById("devices-check")
-//     devicesInput.removeEventListener("click", devicesListener)
-//     // const utensilsInput = document.getElementById("utensils-check")
-//     utensilsInput.removeEventListener("click", utensilsListener)
+    if (ingredientsInput.checked === false && devicesInput.checked === false
+        && utensilsInput.checked === false) {
+        ingredientsInput2.checked = true
+        if (ingredientsInput2.checked === true) {
+            if (ingredientsSearchBar.style.display === "none") {
+                ingredientsSearchBar.style.display = "block"
+                ingredientsSearchButton.style.display = "none"
+                closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+                closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+
+                translateXMiniMenus(ingredientsInput2, ingredientsMenu, devicesMenu, utensilsMenu)
+                translateYMiniMenus(ingredientsInput2, ingredientsNav)
+
+                miniSBspeParams(ingredientsNav, ingredientsMenu)
+            }
+
+        }
+    } else {
+        ingredientsInput.checked = true
+        if (ingredientsSearchBar.style.display === "none") {
+            ingredientsSearchBar.style.display = "block"
+            ingredientsSearchButton.style.display = "none"
+
+        }
+
+        // removeMiniSBspeParams(ingredientsNav)
+        // cancelTranslateYMiniMenus(ingredientsNav)
+        // tabListeners()
+    }
+
+    tabListeners()
+
+
+
+
+
+    // if (ingredientsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
+    //     miniSBtabletParams(ingredientsNav, ingredientsMenu)
+    // }
+    // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
+    //     miniSBmobileParams(ingredientsNav, ingredientsMenu)
+    // }
+
+}
+
+export function controlDevMiniMenu() {
+
+
+    if (ingredientsInput.checked === false && devicesInput.checked === false
+        && utensilsInput.checked === false) {
+        devicesInput2.checked = true
+        if (devicesInput2.checked === true) {
+            if (devicesSearchBar.style.display === "none") {
+                devicesSearchBar.style.display = "block"
+                devicesSearchButton.style.display = "none"
+            }
+            closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+            closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
+
+            translateXMiniMenus(devicesInput2, devicesMenu, ingredientsMenu, utensilsMenu)
+            translateYMiniMenus(devicesInput2, devicesNav)
+
+            miniSBspeParams(devicesNav, devicesMenu)
+        }
+    } else {
+        devicesInput.checked = true
+        if (devicesSearchBar.style.display === "none") {
+            devicesSearchBar.style.display = "block"
+            devicesSearchButton.style.display = "none"
+
+        }
+
+        // removeMiniSBspeParams(devicesNav)
+        // cancelTranslateYMiniMenus(devicesNav)
+        // tabListeners()
+    }
+    // if (devicesMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
+    //     miniSBtabletParams(devicesNav, devicesMenu)
+    // }
+    // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
+    //     miniSBmobileParams(devicesNav, devicesMenu)
+    // }
+
+    tabListeners()
+
+}
+
+export function controlUteMiniMenu() {
+
+    if (ingredientsInput.checked === false && devicesInput.checked === false
+        && utensilsInput.checked === false) {
+        utensilsInput2.checked = true
+        if (utensilsInput2.checked === true) {
+            if (utensilsSearchBar.style.display === "none") {
+                utensilsSearchBar.style.display = "block"
+                utensilsSearchButton.style.display = "none"
+
+            }
+            closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
+            closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
+
+            translateXMiniMenus(utensilsInput2, utensilsMenu, devicesMenu, ingredientsMenu)
+            translateYMiniMenus(utensilsInput2, utensilsNav)
+
+            miniSBspeParams(utensilsNav, utensilsMenu)
+
+        }
+    } else {
+        utensilsInput.checked = true
+        if (utensilsSearchBar.style.display === "none") {
+            utensilsSearchBar.style.display = "block"
+            utensilsSearchButton.style.display = "none"
+
+        }
+
+        removeMiniSBspeParams(utensilsNav)
+        cancelTranslateYMiniMenus(utensilsNav)
+        // tabListeners()
+    }
+    // if (utensilsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
+    //     console.log(screen)
+    //     miniSBtabletParams(utensilsNav, utensilsMenu)
+    // }
+    // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
+    //     miniSBmobileParams(utensilsNav, utensilsMenu)
+    // }
+
+    tabListeners()
+}
+
+// function controlIngMiniSB() {
+
+//     if (ingredientsSearchBar.style.display === "none") {
+//         ingredientsSearchBar.style.display = "block"
+//         ingredientsSearchButton.style.display = "none"
+//         // translateMenus2(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
+//     }
+// }
+
+// function controlDevMiniSB() {
+//     if (devicesSearchBar.style.display === "none") {
+//         devicesSearchBar.style.display = "block"
+//         devicesSearchButton.style.display = "none"
+//         // translateMenus2(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
+//     }
 
 // }
 
-export function controlIngSearchBar() {
+// function controlUteMiniSB() {
+//     if (utensilsSearchBar.style.display === "none") {
+//         utensilsSearchBar.style.display = "block"
+//         utensilsSearchButton.style.display = "none"
+//         // translateMenus2(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
+//     }
 
-    ingredientsInput.checked = true
-    closeMenu(devicesInput, devicesMenu)
-    closeMenu(utensilsInput, utensilsMenu)
-    toggleWidthMenu(ingredientsInput, ingredientsMenu)
-    translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
+// }
 
-    if (ingredientsSearchBar.style.display === "none") {
-        ingredientsSearchBar.style.display = "block"
-        ingredientsSearchButton.style.display = "none"
-    }
-    if (ingredientsMenu.style.width < 667 + "px") {
-        growMenu(ingredientsMenu)
-    }
+function miniSBspeParams(nav, menu) {
+    nav.style.width = `${225}px`
+    nav.style.height = `${50}px`
+    nav.style.opacity = 1
+    nav.style.overflow = "hidden"
+    nav.style.paddingTop = `${20}px`
+    nav.style.top = `${209}px`
+    menu.style.width = `${225}px`
 }
 
-export function controlDevSearchBar() {
+// function miniSBmobileParams(nav, menu) {
+//     nav.style.width = 100 + "%"
+//     nav.style.height = 50 + "px"
+//     nav.style.overflow = "hidden"
+//     nav.style.paddingTop = `${20}px`
+//     menu.style.width = 100 + "%"
+// }
 
-    devicesInput.checked = true
-    closeMenu(ingredientsInput, ingredientsMenu)
-    closeMenu(utensilsInput, utensilsMenu)
-    toggleWidthMenu(devicesInput, devicesMenu)
-    translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
+// function miniSBtabletParams(nav, menu) {
+//     nav.style.width = `${50}px`
+//     nav.style.height = 50 + "px"
+//     nav.style.overflow = "hidden"
+//     nav.style.paddingTop = `${20}px`
+//     menu.style.width = `${50}px`
+// }
 
-    if (devicesSearchBar.style.display === "none") {
-        devicesSearchBar.style.display = "block"
-        devicesSearchButton.style.display = "none"
-    }
-    if (devicesMenu.style.width < 667 + "px") {
-        growMenu(devicesMenu)
-    }
+function removeMiniSBspeParams(nav) {
+    nav.style.width = 667 + "px"
+    nav.style.height = 1600 + "px"
 }
 
-export function controlUteSearchBar() {
+export function miniSBListeners() {
 
-    utensilsInput.checked = true
-    closeMenu(ingredientsInput, ingredientsMenu)
-    closeMenu(devicesInput, devicesMenu)
-    toggleWidthMenu(utensilsInput, utensilsMenu)
-    translateMenus(utensilsInput, utensilsMenu, ingredientsMenu, devicesMenu)
+    // if ((allChecks.checked === false)) {
+    ingredientsSearchButton.addEventListener("click", controlIngMiniMenu)
 
-    if (utensilsSearchBar.style.display === "none") {
-        utensilsSearchBar.style.display = "block"
-        utensilsSearchButton.style.display = "none"
-    }
-    if (utensilsMenu.style.width < 667 + "px") {
-        growMenu(utensilsMenu)
-    }
-}
+    devicesSearchButton.addEventListener("click", controlDevMiniMenu)
 
-export function displayMiniSearchBarL() {
+    utensilsSearchButton.addEventListener("click", controlUteMiniMenu)
+    // } else {
+    //     ingredientsSearchButton.addEventListener("click", controlIngMiniSB)
 
-    ingredientsSearchButton.addEventListener("click", controlIngSearchBar)
+    //     devicesSearchButton.addEventListener("click", controlDevMiniSB)
 
-    devicesSearchButton.addEventListener("click", controlDevSearchBar)
+    //     utensilsSearchButton.addEventListener("click", controlUteMiniSB)
+    // }
 
-    utensilsSearchButton.addEventListener("click", controlUteSearchBar)
-
+    // && (screen.desktopMQuery.matches
+    //     || screen.tabletMQuery.matches)
 }
 
 
