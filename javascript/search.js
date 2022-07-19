@@ -14,7 +14,10 @@ import {
 // Les variables suivantes sont transformées par search()
 
 
-export let selectedRecipesArray = []
+export let selectedRecipesArray = [...recipes]
+
+// Modifié pour les besoins du test
+
 export let selectedIngredients = ""
 export let selectedIngredientsArray = []
 export let selectedDevices = ""
@@ -726,12 +729,12 @@ export function createIngTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
         console.log(tagsArray)
-        // selectedRecipesArray = [...recipes]
-        // tagsArray.forEach((tag) => {
+        selectedRecipesArray.prop = [...recipes]
+        tagsArray.forEach((tag) => {
 
-        //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-        //     console.log(selectedRecipesArray)
-        // });
+            selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+            console.log(selectedRecipesArray.prop)
+        });
         closeBtn.parentElement.remove()
         changeRecipesSection()
 
@@ -844,12 +847,15 @@ export function createUteTag(label, dataProperty, id) {
     return div
 }
 
-// export function filterByTags(recipesArr, tag) {
-//     const result = recipesArr.filter((object) => object.ingredients.ingredient.includes(tag.dataset.property)
-//     );
-//     return result;
+export function filterByTags(recipesArr, tag) {
+    const result = recipesArr.filter((object) => object.ingredients.some((ingObj) =>
+        ingObj.ingredient.toLowerCase().includes(tag.dataset.property.toLowerCase())
+    )
+    );
 
-// }
+    return result;
+
+}
 
 // RECYCLE BIN
 

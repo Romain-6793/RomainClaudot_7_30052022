@@ -1,5 +1,7 @@
 
-import { createIngTag, createDevTag, createUteTag } from "./search.js"
+
+import { createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray, changeRecipesSection, displayRecipes } from "./search.js"
+import { recipes } from "./recipes.js"
 
 export function recipesFactory(data) {
 
@@ -81,11 +83,15 @@ export function ingredientsListFactory(ingArray) {
 
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
-                createIngTag(span.textContent, span.textContent, span.textContent)
-                // tagsArray.forEach((tag) => {
-                //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-                //     console.log(selectedRecipesArray)
-                // });
+                createIngTag(span.textContent, span.textContent.toLowerCase(), span.textContent)
+                tagsArray.forEach((tag) => {
+                    selectedRecipesArray.prop = [...recipes]
+                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    console.log(selectedRecipesArray.prop)
+                });
+
+                changeRecipesSection()
+                displayRecipes(selectedRecipesArray.prop)
             }
         })
         div.appendChild(span)
