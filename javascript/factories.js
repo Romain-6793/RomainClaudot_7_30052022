@@ -82,6 +82,10 @@ export function ingredientsListFactory(ingArray) {
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
                 createIngTag(span.textContent, span.textContent, span.textContent)
+                // tagsArray.forEach((tag) => {
+                //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+                //     console.log(selectedRecipesArray)
+                // });
             }
         })
         div.appendChild(span)

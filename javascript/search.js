@@ -709,8 +709,8 @@ export function createIngTag(label, dataProperty, id) {
     span.setAttribute("class", "tag-span")
     span.innerHTML = label
     const closeBtn = document.createElement("i")
-    closeBtn.classList.add("fas")
-    closeBtn.classList.add("fa-times")
+    closeBtn.classList.add("far")
+    closeBtn.classList.add("fa-times-circle")
     closeBtn.classList.add("close-button")
     closeBtn.setAttribute("data-item", label)
     closeBtn.addEventListener("click", closeTag)
@@ -728,14 +728,14 @@ export function createIngTag(label, dataProperty, id) {
         console.log(tagsArray)
         // selectedRecipesArray = [...recipes]
         // tagsArray.forEach((tag) => {
-        //     // dynamicObjects = [...objects]
+
         //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
         //     console.log(selectedRecipesArray)
         // });
         closeBtn.parentElement.remove()
-        // changeRecipesSection()
+        changeRecipesSection()
 
-        // displayRecipes(selectedRecipesArray)
+        displayRecipes(selectedRecipesArray)
     }
 
     tagsSpace.appendChild(div)
@@ -758,8 +758,8 @@ export function createDevTag(label, dataProperty, id) {
     span.setAttribute("class", "tag-span")
     span.innerHTML = label
     const closeBtn = document.createElement("i")
-    closeBtn.classList.add("fas")
-    closeBtn.classList.add("fa-times")
+    closeBtn.classList.add("far")
+    closeBtn.classList.add("fa-times-circle")
     closeBtn.classList.add("close-button")
     closeBtn.setAttribute("data-item", label)
     closeBtn.addEventListener("click", closeTag)
@@ -777,7 +777,7 @@ export function createDevTag(label, dataProperty, id) {
         console.log(tagsArray)
         // selectedRecipesArray = [...recipes]
         // tagsArray.forEach((tag) => {
-        //     // dynamicObjects = [...objects]
+        //     
         //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
         //     console.log(selectedRecipesArray)
         // });
@@ -806,8 +806,8 @@ export function createUteTag(label, dataProperty, id) {
     span.setAttribute("class", "tag-span")
     span.innerHTML = label
     const closeBtn = document.createElement("i")
-    closeBtn.classList.add("fas")
-    closeBtn.classList.add("fa-times")
+    closeBtn.classList.add("far")
+    closeBtn.classList.add("fa-times-circle")
     closeBtn.classList.add("close-button")
     closeBtn.setAttribute("data-item", label)
     closeBtn.addEventListener("click", closeTag)
@@ -825,7 +825,7 @@ export function createUteTag(label, dataProperty, id) {
         console.log(tagsArray)
         // selectedRecipesArray = [...recipes]
         // tagsArray.forEach((tag) => {
-        //     // dynamicObjects = [...objects]
+        //   
         //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
         //     console.log(selectedRecipesArray)
         // });
@@ -843,6 +843,13 @@ export function createUteTag(label, dataProperty, id) {
 
     return div
 }
+
+// export function filterByTags(recipesArr, tag) {
+//     const result = recipesArr.filter((object) => object.ingredients.ingredient.includes(tag.dataset.property)
+//     );
+//     return result;
+
+// }
 
 // RECYCLE BIN
 
