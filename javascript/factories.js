@@ -1,6 +1,13 @@
 
 
-import { createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray, transferSelectedRecipesArray, changeRecipesSection, displayRecipes } from "./search.js"
+import {
+    ingredientsInput, ingredientsMenu, ingredientsNav, devicesInput, devicesMenu, devicesNav,
+    utensilsInput, utensilsMenu, utensilsNav
+} from "./index.js"
+import {
+    createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray,
+    transferSelectedRecipesArray, changeRecipesSection, displayRecipes, closeMenu, translateMenus
+} from "./search.js"
 // import { recipes } from "./recipes.js"
 
 
@@ -91,6 +98,8 @@ export function ingredientsListFactory(ingArray) {
                     transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
 
+                closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+                translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
                 changeRecipesSection()
                 console.log(selectedRecipesArray)
                 displayRecipes(selectedRecipesArray)
@@ -123,6 +132,8 @@ export function devicesListFactory(devArray) {
                     transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
 
+                closeMenu(devicesInput, devicesMenu, devicesNav)
+                translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
                 changeRecipesSection()
                 console.log(selectedRecipesArray)
                 displayRecipes(selectedRecipesArray)
@@ -157,6 +168,8 @@ export function utensilsListFactory(uteArray) {
                     transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
 
+                closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+                translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
                 changeRecipesSection()
                 console.log(selectedRecipesArray)
                 displayRecipes(selectedRecipesArray)

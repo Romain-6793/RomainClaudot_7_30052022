@@ -770,7 +770,7 @@ export function createIngTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
         console.log(tagsArray)
-        selectedRecipesArray.prop = [...recipes]
+        selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
