@@ -1,7 +1,9 @@
 
 
-import { createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray, changeRecipesSection, displayRecipes } from "./search.js"
-import { recipes } from "./recipes.js"
+import { createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray, transferSelectedRecipesArray, changeRecipesSection, displayRecipes } from "./search.js"
+// import { recipes } from "./recipes.js"
+
+
 
 export function recipesFactory(data) {
 
@@ -78,20 +80,20 @@ export function ingredientsListFactory(ingArray) {
         span.setAttribute("class", "menu-name")
 
         for (let i = 0; i < ingArray.length; i++) {
-            span.textContent = `${ingArray} `
+            span.textContent = ingArray
         }
 
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
-                createIngTag(span.textContent, span.textContent.toLowerCase(), span.textContent)
+                createIngTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = [...recipes]
                     selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    console.log(selectedRecipesArray.prop)
+                    transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
 
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray.prop)
+                console.log(selectedRecipesArray)
+                displayRecipes(selectedRecipesArray)
             }
         })
         div.appendChild(span)
@@ -107,12 +109,23 @@ export function devicesListFactory(devArray) {
         div.setAttribute("class", "menu-tag")
         const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
+
         for (let i = 0; i < devArray.length; i++) {
             span.textContent = devArray
         }
+
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
                 createDevTag(span.textContent, span.textContent, span.textContent)
+                tagsArray.forEach((tag) => {
+                    // selectedRecipesArray.prop = [...recipes]
+                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    transferSelectedRecipesArray(selectedRecipesArray.prop)
+                });
+
+                changeRecipesSection()
+                console.log(selectedRecipesArray)
+                displayRecipes(selectedRecipesArray)
             }
         })
 
@@ -132,11 +145,21 @@ export function utensilsListFactory(uteArray) {
         span.setAttribute("class", "menu-name")
 
         for (let i = 0; i < uteArray.length; i++) {
-            span.textContent = uteArray
+            span.textContent = uteArray.charAt(0).toUpperCase() + uteArray.slice(1);
         }
+
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
                 createUteTag(span.textContent, span.textContent, span.textContent)
+                tagsArray.forEach((tag) => {
+                    // selectedRecipesArray.prop = [...recipes]
+                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    transferSelectedRecipesArray(selectedRecipesArray.prop)
+                });
+
+                changeRecipesSection()
+                console.log(selectedRecipesArray)
+                displayRecipes(selectedRecipesArray)
             }
         })
 

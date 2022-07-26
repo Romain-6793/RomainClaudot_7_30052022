@@ -11,7 +11,7 @@ export function findingIngredients(recipes) {
 
     console.log(tempIngredients)
 
-    tempIngredients = [...new Set(tempIngredients)]
+    tempIngredients = [...new Set(tempIngredients)].sort()
 
     return tempIngredients;
 }
@@ -27,7 +27,7 @@ export function findingDevices(recipes) {
 
     // console.log(tempDevices)
 
-    tempDevices = [...new Set(tempDevices)]
+    tempDevices = [...new Set(tempDevices)].sort()
 
     return tempDevices;
 }
@@ -39,13 +39,26 @@ export function findingUtensils(recipes) {
     for (let i = 0; i < recipes.length; i++) {
 
         for (let j = 0; j < recipes[i].ustensils.length; j++) {
-            tempUtensils.push(recipes[i].ustensils[j])
+            tempUtensils.push(recipes[i].ustensils[j].toLowerCase())
         }
     }
 
     // console.log(tempUtensils)
 
-    tempUtensils = [...new Set(tempUtensils)]
+    tempUtensils = [...new Set(tempUtensils)].sort((a, b) => {
+        // a = a.name;
+        // b = b.name;
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a - b;
+        }
+    })
 
     return tempUtensils;
 }

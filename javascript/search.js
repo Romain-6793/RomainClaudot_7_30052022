@@ -6,7 +6,8 @@ import {
     searchInput, recipesSection, ingredientsInput, devicesInput, utensilsInput, ingredientsMenu,
     devicesMenu, utensilsMenu, ingredientsSearchBar, devicesSearchBar, utensilsSearchBar,
     ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
-    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, tagsSpace
+    devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, tagsSpace,
+    ingredientsArrow, devicesArrow, utensilsArrow
 } from "./index.js"
 // import { selectedRecipesArray, selectedIngredients, selectedIngredientsArray, selectedDevices, selectedDevicesArray, selectedUtensils, selectedUtensilsArray } from "./index.js"
 
@@ -15,6 +16,9 @@ import {
 
 
 export let selectedRecipesArray = [...recipes]
+export function transferSelectedRecipesArray(sra) {
+    selectedRecipesArray = sra
+}
 
 // Modifié pour les besoins du test
 
@@ -33,6 +37,7 @@ const screen = {
     mobileLMQuery: window.matchMedia("(min-width: 425px)"),
     tabletMQuery: window.matchMedia("(min-width: 768px)"),
     desktopMQuery: window.matchMedia("(min-width: 1024px)"),
+    desktopLMQuery: window.matchMedia("(min-width: 1270px)"),
 
 
 
@@ -256,7 +261,8 @@ export function closeMenu(input, menu, nav) {
 
 
     if (input === ingredientsInput) {
-        // resetArrow(ingredientsArrow)
+        resetArrow(ingredientsArrow)
+
         ingredientsSearchButton.style.display = "block"
         ingredientsSearchBar.style.display = "none"
 
@@ -264,14 +270,16 @@ export function closeMenu(input, menu, nav) {
 
     }
     else if (input === devicesInput) {
-        // resetArrow(devicesArrow)
+        resetArrow(devicesArrow)
+
         devicesSearchButton.style.display = "block"
         devicesSearchBar.style.display = "none"
 
 
     }
     else if (input === utensilsInput) {
-        // resetArrow(utensilsArrow)
+        resetArrow(utensilsArrow)
+
         utensilsSearchButton.style.display = "block"
         utensilsSearchBar.style.display = "none"
 
@@ -297,7 +305,7 @@ export function translateMenus(input, menu, sidemenu1, sidemenu2) {
     sidemenu1.style.transform = "translateX(" + 0 + "px)"
     sidemenu2.style.transform = "translateX(" + 0 + "px)"
 
-    if (input.checked) {
+    if (input.checked && screen.desktopLMQuery.matches) {
         if (input === ingredientsInput) {
             menu.style.transform = "translateX(" + 0 + "px)"
             sidemenu1.style.transform = "translateX(" + 0 + "px)"
@@ -377,20 +385,32 @@ export function ingredientsListener() {
     console.log(ingredientsInput.checked)
 
 
-    if (ingredientsInput.checked) {
+    if (ingredientsInput.checked && screen.desktopLMQuery.matches) {
         closeMenu(devicesInput, devicesMenu, devicesNav)
         closeMenu(utensilsInput, utensilsMenu, utensilsNav)
         displayNav(ingredientsNav)
         toggleWidthMenu(ingredientsInput, ingredientsMenu)
 
-        // rotateArrow(ingredientsArrow)
+        rotateArrow(ingredientsArrow)
+
+
+    }
+
+    if (ingredientsInput.checked) {
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        displayNav(ingredientsNav)
+
+
+        rotateArrow(ingredientsArrow)
 
 
     }
 
     if (!ingredientsInput.checked) {
         closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
-        // resetArrow(ingredientsArrow)
+        resetArrow(ingredientsArrow)
+
     }
 
     translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
@@ -406,20 +426,30 @@ export function devicesListener() {
 
 
 
-    if (devicesInput.checked) {
+    if (devicesInput.checked && screen.desktopLMQuery.matches) {
         closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
         closeMenu(utensilsInput, utensilsMenu, utensilsNav)
         displayNav(devicesNav)
         toggleWidthMenu(devicesInput, devicesMenu)
 
-        // rotateArrow(devicesArrow)
+        rotateArrow(devicesArrow)
 
+
+    }
+
+    if (devicesInput.checked) {
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        closeMenu(utensilsInput, utensilsMenu, utensilsNav)
+        displayNav(devicesNav)
+
+        rotateArrow(devicesArrow)
 
     }
 
     if (!devicesInput.checked) {
         closeMenu(devicesInput, devicesMenu, devicesNav)
-        // resetArrow(devicesArrow)
+        resetArrow(devicesArrow)
+
     }
 
     translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
@@ -433,20 +463,28 @@ export function utensilsListener() {
     console.log(utensilsInput.checked)
 
 
-    if (utensilsInput.checked) {
+    if (utensilsInput.checked && screen.desktopLMQuery.matches) {
         closeMenu(devicesInput, devicesMenu, devicesNav)
         closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
         displayNav(utensilsNav)
         toggleWidthMenu(utensilsInput, utensilsMenu)
 
-        // rotateArrow(utensilsArrow)
+        rotateArrow(utensilsArrow)
+    }
+
+    if (utensilsInput.checked) {
+        closeMenu(devicesInput, devicesMenu, devicesNav)
+        closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
+        displayNav(utensilsNav)
 
 
+        rotateArrow(utensilsArrow)
     }
 
     if (!utensilsInput.checked) {
         closeMenu(utensilsInput, utensilsMenu, utensilsNav)
-        // resetArrow(utensilsArrow)
+        resetArrow(utensilsArrow)
+
     }
 
     translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
@@ -462,15 +500,7 @@ export function displayNav(nav) {
 
 }
 
-export function rotateArrow(arrow) {
-    arrow.style.transform = "translate(50%,50%)"
-    arrow.style.transform = "rotate(180deg)"
-}
 
-export function resetArrow(arrow) {
-    arrow.style.transform = "translate(0,0)"
-    arrow.style.transform = "rotate(0)"
-}
 
 
 export function tabListeners() {
@@ -493,20 +523,21 @@ function controlIngMiniSB() {
 
     }
 
-    if (ingredientsInput.checked) {
+    if (ingredientsInput.checked && screen.desktopMQuery.matches) {
         closeMenu(devicesInput, devicesMenu, devicesNav)
         closeMenu(utensilsInput, utensilsMenu, utensilsNav)
         displayNav(ingredientsNav)
         toggleWidthMenu(ingredientsInput, ingredientsMenu)
 
-        // rotateArrow(ingredientsArrow)
-
+        rotateArrow(ingredientsArrow)
 
     }
 
+
     if (!ingredientsInput.checked) {
         closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
-        // resetArrow(ingredientsArrow)
+        resetArrow(ingredientsArrow)
+
     }
 
     translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
@@ -526,14 +557,15 @@ function controlDevMiniSB() {
         displayNav(devicesNav)
         toggleWidthMenu(devicesInput, devicesMenu)
 
-        // rotateArrow(devicesArrow)
+        rotateArrow(devicesArrow)
 
 
     }
 
     if (!devicesInput.checked) {
         closeMenu(devicesInput, devicesMenu, devicesNav)
-        // resetArrow(devicesArrow)
+        resetArrow(devicesArrow)
+
     }
 
     translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
@@ -556,21 +588,30 @@ function controlUteMiniSB() {
         displayNav(utensilsNav)
         toggleWidthMenu(utensilsInput, utensilsMenu)
 
-        // rotateArrow(utensilsArrow)
+        rotateArrow(utensilsArrow)
 
 
     }
 
     if (!utensilsInput.checked) {
         closeMenu(utensilsInput, utensilsMenu, utensilsNav)
-        // resetArrow(utensilsArrow)
+        resetArrow(utensilsArrow)
+
     }
 
     translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
 
 }
 
+export function rotateArrow(arrow) {
+    // arrow.style.transform = "translate(50%,50%)"
+    arrow.style.transform = "rotate(180deg)"
+}
 
+export function resetArrow(arrow) {
+    // arrow.style.transform = "translate(0,0)"
+    arrow.style.transform = "rotate(0)"
+}
 
 
 export function miniSBListeners() {
@@ -725,15 +766,15 @@ export function createIngTag(label, dataProperty, id) {
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
         console.log(index)
         if (index === -1) {
-            return alert("PAS TROUVE")
+            return alert("NOT FOUND")
         }
         tagsArray.splice(index, 1)
         console.log(tagsArray)
         selectedRecipesArray.prop = [...recipes]
         tagsArray.forEach((tag) => {
 
-            selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-            console.log(selectedRecipesArray.prop)
+            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            console.log(selectedRecipesArray)
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
@@ -778,16 +819,16 @@ export function createDevTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
         console.log(tagsArray)
-        // selectedRecipesArray = [...recipes]
-        // tagsArray.forEach((tag) => {
-        //     
-        //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-        //     console.log(selectedRecipesArray)
-        // });
-        closeBtn.parentElement.remove()
-        // changeRecipesSection()
+        selectedRecipesArray = [...recipes]
+        tagsArray.forEach((tag) => {
 
-        // displayRecipes(selectedRecipesArray)
+            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            console.log(selectedRecipesArray)
+        });
+        closeBtn.parentElement.remove()
+        changeRecipesSection()
+
+        displayRecipes(selectedRecipesArray)
     }
 
     tagsSpace.appendChild(div)
@@ -826,16 +867,16 @@ export function createUteTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
         console.log(tagsArray)
-        // selectedRecipesArray = [...recipes]
-        // tagsArray.forEach((tag) => {
-        //   
-        //     selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-        //     console.log(selectedRecipesArray)
-        // });
-        closeBtn.parentElement.remove()
-        // changeRecipesSection()
+        selectedRecipesArray = [...recipes]
+        tagsArray.forEach((tag) => {
 
-        // displayRecipes(selectedRecipesArray)
+            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            console.log(selectedRecipesArray)
+        });
+        closeBtn.parentElement.remove()
+        changeRecipesSection()
+
+        displayRecipes(selectedRecipesArray)
     }
 
     tagsSpace.appendChild(div)
@@ -848,9 +889,13 @@ export function createUteTag(label, dataProperty, id) {
 }
 
 export function filterByTags(recipesArr, tag) {
+
+    // const value = e.target.getAttribute("data-property")
     const result = recipesArr.filter((object) => object.ingredients.some((ingObj) =>
-        ingObj.ingredient.toLowerCase().includes(tag.dataset.property.toLowerCase())
-    )
+        ingObj.ingredient.toLowerCase() === tag.dataset.property.toLowerCase())
+        || object.appliance.toLowerCase() === tag.dataset.property.toLowerCase()
+        || object.ustensils.some((uteObj) => uteObj.toLowerCase() === tag.dataset.property.toLowerCase()
+        )
     );
 
     return result;
