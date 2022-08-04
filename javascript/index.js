@@ -4,10 +4,11 @@ import { recipes } from "./recipes.js"
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
 import {
     search, displayRecipes, displayIngredientsList, displayDevicesList,
-    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers
+    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers,
+    searchInput,
 } from "./search.js"
 
-export const searchInput = document.querySelector(".search-bar")
+
 export const recipesSection = document.querySelector(".recipes-section")
 export const ingredientsInput = document.getElementById("ingredients-check")
 export const devicesInput = document.getElementById("devices-check")
@@ -39,9 +40,9 @@ export const tagsSpace = document.querySelector(".tags-space")
 
 let recipesArray = recipes
 // let filterBySearch = [...recipes];
-let ingredientsArray = []
-let devicesArray = []
-let utensilsArray = []
+export let ingredientsArray = []
+export let devicesArray = []
+export let utensilsArray = []
 
 // let namesArray = []
 // let descriptionsArray = []
@@ -58,10 +59,29 @@ let utensilsArray = []
 
 
 
+// function switchDisplayDevices () {
+//     if (searchInput.value >= 3) {
+//         displayDevicesList(selectedDevicesArray)
+//     } else {
+//         displayDevicesList(devicesArray)
+//     }
+
+// }
+
+// function switchDisplayUtensils () {
+//     if (searchInput.value >= 3) {
+//         displayUtensilsList(selectedUtensilsArray)
+//     } else {
+//         displayUtensilsList(utensilsArray)
+//     }
+
+// }
+
 function init() {
 
     tabListeners()
     // console.log(recipes)
+    console.log(searchInput.value.length)
     ingredientsArray = findingIngredients(recipes)
     devicesArray = findingDevices(recipes)
     utensilsArray = findingUtensils(recipes)
@@ -70,6 +90,7 @@ function init() {
     search()
     // filterBySearch = inputFilter(recipes, searchValue)
     // const result = inputFilterBytag(filterBySearch)
+    // displayIngredientsList(ingredientsArray)
     displayIngredientsList(ingredientsArray)
     displayDevicesList(devicesArray)
     displayUtensilsList(utensilsArray)

@@ -3,11 +3,12 @@
 import { ingredientsListFactory, devicesListFactory, utensilsListFactory, recipesFactory } from "./factories.js"
 import { recipes } from "./recipes.js"
 import {
-    searchInput, recipesSection, ingredientsInput, devicesInput, utensilsInput, ingredientsMenu,
+    recipesSection, ingredientsInput, devicesInput, utensilsInput, ingredientsMenu,
     devicesMenu, utensilsMenu, ingredientsSearchBar, devicesSearchBar, utensilsSearchBar,
     ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
     devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, tagsSpace,
     ingredientsArrow, devicesArrow, utensilsArrow
+    // ingredientsArray, devicesArray, utensilsArray
 } from "./index.js"
 // import { selectedRecipesArray, selectedIngredients, selectedIngredientsArray, selectedDevices, selectedDevicesArray, selectedUtensils, selectedUtensilsArray } from "./index.js"
 
@@ -15,7 +16,7 @@ import {
 // Les variables suivantes sont transformées par search()
 
 
-export let selectedRecipesArray = [...recipes]
+export let selectedRecipesArray = []
 export function transferSelectedRecipesArray(sra) {
     selectedRecipesArray = sra
 }
@@ -29,7 +30,7 @@ export let selectedDevicesArray = []
 export let selectedUtensils = ""
 export let selectedUtensilsArray = []
 export let tagsArray = []
-
+export const searchInput = document.querySelector(".search-bar")
 
 const screen = {
 
@@ -78,6 +79,10 @@ export function search() {
         // selectedRecipesArray = []
         let searchValue = searchInput.value
         let selectedRecipes = inputFilter(recipes, searchValue)
+
+        // let selectedIngredients3 = inputFilter(selectedIngredientsArray, searchValue)
+        // let selectedDevices3 = inputFilter(selectedDevicesArray, searchValue)
+        // let selectedUtensils3 = inputFilter(selectedUtensilsArray, searchValue)
 
         // Voici donc l'inputFilter qui vérifie que la valeur d'input matche avec le contenu des noms, 
         // descriptions ou ingredients de certaines recettes (les seules qui seront affichées) => 
@@ -193,25 +198,44 @@ export function search() {
     // Enfin nous avons l'eventListener duquel tout part. Si l'input est égal à 3 caractères ou plus, une 
     // nouvelle recherche est lancée. 
     // Sinon, on remet tous les tableaux utilisés à zéro.
+    // Trouver pourquoi cela ne fonctionne pas.
 
 
     searchInput.addEventListener("input", () => {
         if (searchInput.value.length >= 3) {
             launchResearch()
+            changeIngList()
+            displayIngredientsList(selectedIngredientsArray)
+            changeDevList()
+            displayDevicesList(selectedDevicesArray)
+            changeUteList()
+            displayUtensilsList(selectedUtensilsArray)
         } else {
-            // eslint-disable-next-line no-import-assign
-            selectedRecipesArray = []
-            // eslint-disable-next-line no-import-assign
-            selectedIngredientsArray = []
-            // eslint-disable-next-line no-import-assign
-            selectedDevicesArray = []
-            // eslint-disable-next-line no-import-assign
-            selectedUtensilsArray = []
-
+            resetResearch()
         }
     })
 
 
+}
+
+
+export function resetResearch() {
+    // eslint-disable-next-line no-import-assign
+    // selectedRecipesArray = recipes
+    selectedRecipesArray = []
+    console.log(selectedRecipesArray)
+    // eslint-disable-next-line no-import-assign
+    // selectedIngredientsArray = ingredientsArray
+    selectedIngredientsArray = []
+    // eslint-disable-next-line no-import-assign
+    // selectedDevicesArray = devicesArray
+    selectedDevicesArray = []
+    // eslint-disable-next-line no-import-assign
+    // selectedUtensilsArray = utensilsArray
+    selectedUtensilsArray = []
+
+    changeRecipesSection()
+    displayRecipes(recipes)
 }
 
 export function changeRecipesSection() {
