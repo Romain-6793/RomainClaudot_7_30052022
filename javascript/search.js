@@ -8,20 +8,14 @@ import {
     ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
     devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, tagsSpace,
     ingredientsArrow, devicesArrow, utensilsArrow
-    // ingredientsArray, devicesArray, utensilsArray
+
 } from "./index.js"
-// import { selectedRecipesArray, selectedIngredients, selectedIngredientsArray, selectedDevices, selectedDevicesArray, selectedUtensils, selectedUtensilsArray } from "./index.js"
-
-
-// Les variables suivantes sont transformées par search()
 
 
 export let selectedRecipesArray = []
-export function transferSelectedRecipesArray(sra) {
-    selectedRecipesArray = sra
-}
 
-// Modifié pour les besoins du test
+
+// Les variables suivantes sont transformées par search()
 
 export let selectedIngredients = ""
 export let selectedIngredientsArray = []
@@ -40,11 +34,11 @@ const screen = {
     desktopMQuery: window.matchMedia("(min-width: 1024px)"),
     desktopLMQuery: window.matchMedia("(min-width: 1270px)"),
 
-
-
 };
 
 
+// La boucle for ci-dessus ainsi que la fonction mqHandler permettent d'écouter le changement de dimensions 
+// de l'écran, et d'associer ainsi la propriété de screen à la taille de l'écran.
 
 // eslint-disable-next-line no-unused-vars
 for (let [scr, mq] of Object.entries(screen)) {
@@ -55,10 +49,18 @@ function mqHandler() {
 
     let size = null;
     for (let [scr, mq] of Object.entries(screen)) {
+        // eslint-disable-next-line no-unused-vars
         if (!mq || mq.matches) size = scr;
     }
 
-    console.log(size);
+}
+
+
+// La fonction ci-dessus permet de faire passer selectedRecipesArray au fichier factories sans avoir
+// de problèmes de copies.
+
+export function transferSelectedRecipesArray(sra) {
+    selectedRecipesArray = sra
 }
 
 export function search() {
@@ -76,13 +78,8 @@ export function search() {
 
     function launchResearch() {
 
-        // selectedRecipesArray = []
         let searchValue = searchInput.value
         let selectedRecipes = inputFilter(recipes, searchValue)
-
-        // let selectedIngredients3 = inputFilter(selectedIngredientsArray, searchValue)
-        // let selectedDevices3 = inputFilter(selectedDevicesArray, searchValue)
-        // let selectedUtensils3 = inputFilter(selectedUtensilsArray, searchValue)
 
         // Voici donc l'inputFilter qui vérifie que la valeur d'input matche avec le contenu des noms, 
         // descriptions ou ingredients de certaines recettes (les seules qui seront affichées) => 
@@ -122,7 +119,6 @@ export function search() {
 
         // eslint-disable-next-line no-import-assign
         selectedRecipesArray = [...selectedRecipes]
-        console.log(selectedRecipesArray)
 
         // Ci-dessous, on enregistre les ingrédients sélectionnés par le filtre car l'on passera 
         // selectedRecipesArray en argument. 
@@ -169,7 +165,6 @@ export function search() {
 
         function saveSelectedUtensils(slctRecipesArr) {
             for (let i = 0; i < slctRecipesArr.length; i++) {
-                // console.log(slctRecipesArr)
 
                 for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
                     // eslint-disable-next-line no-import-assign
@@ -221,17 +216,12 @@ export function search() {
 
 export function resetResearch() {
     // eslint-disable-next-line no-import-assign
-    // selectedRecipesArray = recipes
     selectedRecipesArray = []
-    console.log(selectedRecipesArray)
     // eslint-disable-next-line no-import-assign
-    // selectedIngredientsArray = ingredientsArray
     selectedIngredientsArray = []
     // eslint-disable-next-line no-import-assign
-    // selectedDevicesArray = devicesArray
     selectedDevicesArray = []
     // eslint-disable-next-line no-import-assign
-    // selectedUtensilsArray = utensilsArray
     selectedUtensilsArray = []
 
     changeRecipesSection()
@@ -353,11 +343,8 @@ export function translateMenus(input, menu, sidemenu1, sidemenu2) {
 // Cette fonction détermine la taille que doit prendre un menu avec input coché ou non .
 
 export function toggleWidthMenu(input, menu) {
-    // console.log(menu, input.checked)
-    if (input.checked && screen.desktopMQuery.matches) {
+    if (input.checked && screen.desktopLMQuery.matches) {
         menu.style.width = 667 + "px"
-        // } else if (input.checked && screen.mobileMMQuery.matches) {
-        //     menu.style.width = 90 + "%"
     } else {
         menu.style.width = 170 + "px"
     }
@@ -628,12 +615,10 @@ function controlUteMiniSB() {
 }
 
 export function rotateArrow(arrow) {
-    // arrow.style.transform = "translate(50%,50%)"
     arrow.style.transform = "rotate(180deg)"
 }
 
 export function resetArrow(arrow) {
-    // arrow.style.transform = "translate(0,0)"
     arrow.style.transform = "rotate(0)"
 }
 
@@ -786,7 +771,6 @@ export function createIngTag(label, dataProperty, id) {
     function closeTag(e) {
 
         const value = e.target.getAttribute("data-item")
-        // const index = tagsArray.indexOf(value)
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
         console.log(index)
         if (index === -1) {
@@ -835,7 +819,6 @@ export function createDevTag(label, dataProperty, id) {
     function closeTag(e) {
 
         const value = e.target.getAttribute("data-item")
-        // const index = tagsArray.indexOf(value)
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
         console.log(index)
         if (index === -1) {
@@ -883,7 +866,6 @@ export function createUteTag(label, dataProperty, id) {
     function closeTag(e) {
 
         const value = e.target.getAttribute("data-item")
-        // const index = tagsArray.indexOf(value)
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
         console.log(index)
         if (index === -1) {
@@ -914,7 +896,6 @@ export function createUteTag(label, dataProperty, id) {
 
 export function filterByTags(recipesArr, tag) {
 
-    // const value = e.target.getAttribute("data-property")
     const result = recipesArr.filter((object) => object.ingredients.some((ingObj) =>
         ingObj.ingredient.toLowerCase() === tag.dataset.property.toLowerCase())
         || object.appliance.toLowerCase() === tag.dataset.property.toLowerCase()
@@ -926,235 +907,3 @@ export function filterByTags(recipesArr, tag) {
 
 }
 
-// RECYCLE BIN
-
-// function miniSBspeParams(nav, menu) {
-//     nav.style.width = `${225}px`
-//     nav.style.height = `${50}px`
-//     nav.style.opacity = 1
-//     nav.style.overflow = "hidden"
-//     nav.style.paddingTop = `${20}px`
-//     nav.style.top = `${209}px`
-//     menu.style.width = `${225}px`
-// }
-
-// function miniSBmobileParams(nav, menu) {
-//     nav.style.width = 100 + "%"
-//     nav.style.height = 50 + "px"
-//     nav.style.overflow = "hidden"
-//     nav.style.paddingTop = `${20}px`
-//     menu.style.width = 100 + "%"
-// }
-
-// function miniSBtabletParams(nav, menu) {
-//     nav.style.width = `${50}px`
-//     nav.style.height = 50 + "px"
-//     nav.style.overflow = "hidden"
-//     nav.style.paddingTop = `${20}px`
-//     menu.style.width = `${50}px`
-// }
-
-// export function controlIngMiniSB() {
-
-//     if (ingredientsInput.checked === true) {
-//         ingredientsInput2.checked = true
-//         if (ingredientsInput2.checked === true) {
-//             if (ingredientsSearchBar.style.display === "none") {
-//                 ingredientsSearchBar.style.display = "block"
-//                 ingredientsSearchButton.style.display = "none"
-
-//             }
-
-//         }
-//     } else {
-//         ingredientsInput.checked = true
-//         if (ingredientsSearchBar.style.display === "none") {
-//             ingredientsSearchBar.style.display = "block"
-//             ingredientsSearchButton.style.display = "none"
-
-//         }
-
-//         // removeMiniSBspeParams(ingredientsNav)
-//         // cancelTranslateYMiniMenus(ingredientsNav)
-//         // tabListeners()
-//     }
-
-//     tabListeners()
-
-
-
-
-
-//     // if (ingredientsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
-//     //     miniSBtabletParams(ingredientsNav, ingredientsMenu)
-//     // }
-//     // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
-//     //     miniSBmobileParams(ingredientsNav, ingredientsMenu)
-//     // }
-
-// }
-
-// export function controlDevMiniSB() {
-
-
-//     if (devicesInput.checked === true) {
-//         devicesInput2.checked = true
-//         if (devicesInput2.checked === true) {
-//             if (devicesSearchBar.style.display === "none") {
-//                 devicesSearchBar.style.display = "block"
-//                 devicesSearchButton.style.display = "none"
-//             }
-//             closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-//             closeMiniMenu(utensilsInput2, utensilsNav, utensilsMenu)
-
-//             translateXMiniMenus(devicesInput2, devicesMenu, ingredientsMenu, utensilsMenu)
-//             translateYMiniMenus(devicesInput2, devicesNav)
-
-//             // miniSBspeParams(devicesNav, devicesMenu)
-//         }
-//     } else {
-//         devicesInput.checked = true
-//         if (devicesSearchBar.style.display === "none") {
-//             devicesSearchBar.style.display = "block"
-//             devicesSearchButton.style.display = "none"
-
-//         }
-
-//         // removeMiniSBspeParams(devicesNav)
-//         // cancelTranslateYMiniMenus(devicesNav)
-//         // tabListeners()
-//     }
-//     // if (devicesMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
-//     //     miniSBtabletParams(devicesNav, devicesMenu)
-//     // }
-//     // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
-//     //     miniSBmobileParams(devicesNav, devicesMenu)
-//     // }
-
-//     tabListeners()
-
-// }
-
-// export function controlUteMiniSB() {
-
-//     if (utensilsInput.checked === true) {
-//         utensilsInput2.checked = true
-//         if (utensilsInput2.checked === true) {
-//             if (utensilsSearchBar.style.display === "none") {
-//                 utensilsSearchBar.style.display = "block"
-//                 utensilsSearchButton.style.display = "none"
-
-//             }
-//             closeMiniMenu(devicesInput2, devicesNav, devicesMenu)
-//             closeMiniMenu(ingredientsInput2, ingredientsNav, ingredientsMenu)
-
-//             translateXMiniMenus(utensilsInput2, utensilsMenu, devicesMenu, ingredientsMenu)
-//             translateYMiniMenus(utensilsInput2, utensilsNav)
-
-//             // miniSBspeParams(utensilsNav, utensilsMenu)
-
-//         }
-//     } else {
-//         utensilsInput.checked = true
-//         if (utensilsSearchBar.style.display === "none") {
-//             utensilsSearchBar.style.display = "block"
-//             utensilsSearchButton.style.display = "none"
-
-//         }
-
-//         removeMiniSBspeParams(utensilsNav)
-//         cancelTranslateYMiniMenus(utensilsNav)
-//         // tabListeners()
-//     }
-//     // if (utensilsMenu.style.width < 667 + "px" && screen.tabletMQuery.matches && !screen.desktopMQuery.matches) {
-//     //     console.log(screen)
-//     //     miniSBtabletParams(utensilsNav, utensilsMenu)
-//     // }
-//     // if (!screen.tabletMQuery.matches || !screen.desktopMQuery.matches) {
-//     //     miniSBmobileParams(utensilsNav, utensilsMenu)
-//     // }
-
-//     tabListeners()
-// }
-
-
-// function removeMiniSBspeParams(nav) {
-//     nav.style.width = 667 + "px"
-//     nav.style.height = 1600 + "px"
-// }
-
-// export function closeMiniMenu(input, nav, menu) {
-//     // console.trace(closeMenu)
-//     input.checked = false
-//     nav.style.opacity = "0"
-//     menu.style.transform = "translateX(" + 0 + "px)"
-//     menu.style.width = 170 + "px"
-
-
-//     if (nav === ingredientsNav) {
-//         // resetArrow(ingredientsArrow)
-//         ingredientsSearchButton.style.display = "block"
-//         ingredientsSearchBar.style.display = "none"
-
-
-
-//     }
-//     else if (nav === devicesNav) {
-//         // resetArrow(devicesArrow)
-//         devicesSearchButton.style.display = "block"
-//         devicesSearchBar.style.display = "none"
-
-
-
-//     }
-//     else if (nav === utensilsNav) {
-//         // resetArrow(utensilsArrow)
-//         utensilsSearchButton.style.display = "block"
-//         utensilsSearchBar.style.display = "none"
-
-
-
-//     }
-
-//     tabListeners()
-
-
-
-// }
-
-// Cette fonction est la même que la précédente, mais seulement dans le cas où ce sont uniquement les mini
-// SB qui sont ouvertes.
-
-// export function translateXMiniMenus(input, menu, sidemenu1, sidemenu2) {
-//     menu.style.transform = "translateX(" + 0 + "px)"
-//     sidemenu1.style.transform = "translateX(" + 0 + "px)"
-//     sidemenu2.style.transform = "translateX(" + 0 + "px)"
-
-//     if (input.checked === true) {
-//         if (input === ingredientsInput2) {
-//             menu.style.transform = "translateX(" + 0 + "px)"
-//             sidemenu1.style.transform = "translateX(" + 0 + "px)"
-//             sidemenu2.style.transform = "translateX(" + 0 + "px)"
-//         }
-//         else if (input === devicesInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
-//             menu.style.transform = "translateX(" + -190 + "px)"
-//             sidemenu1.style.transform = "translateX(" + 245 + "px)"
-//             sidemenu2.style.transform = "translateX(" + 0 + "%)"
-//         }
-//         else if (input === utensilsInput2 && (screen.desktopMQuery.matches || screen.tabletMQuery.matches)) {
-//             menu.style.transform = "translateX(" + -380 + "px)"
-//             sidemenu1.style.transform = "translateX(" + 245 + "px)"
-//             sidemenu2.style.transform = "translateX(" + 245 + "px)"
-//         }
-//     }
-// }
-
-// export function translateYMiniMenus(input, nav) {
-//     if (input.checked === true) {
-//         nav.style.top = 210 + "px"
-//     }
-// }
-
-// export function cancelTranslateYMiniMenus(nav) {
-//     nav.style.top = 63 + "px"
-// }

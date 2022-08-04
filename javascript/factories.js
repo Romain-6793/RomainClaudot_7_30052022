@@ -8,15 +8,13 @@ import {
     createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray,
     transferSelectedRecipesArray, changeRecipesSection, displayRecipes, closeMenu, translateMenus
 } from "./search.js"
-// import { recipes } from "./recipes.js"
+
 
 
 
 export function recipesFactory(data) {
 
     const { name, time, ingredients, description } = data
-
-    // Faire un push de l'ingrédient trouvé
 
     function getUserRecipe() {
         const article = document.createElement("article")
@@ -37,6 +35,10 @@ export function recipesFactory(data) {
 
         for (let i = 0; i < ingredients.length; i++) {
 
+
+            let row = `<li>${ingredients[i].ingredient} ${ingredients[i].quantity || ""} ${ingredients[i].unit || ""}</li>`
+
+            // Solution Alternative
             // if (ingredients[j].unit === undefined) {
             //     ingredients[j].unit = ""
             // }
@@ -45,9 +47,10 @@ export function recipesFactory(data) {
             //     ingredients[j].quantity = ""
             // }
 
-            let row = `<li>${ingredients[i].ingredient} ${ingredients[i].quantity || ""} ${ingredients[i].unit || ""}</li>`
 
             ingredientsString += row
+
+            // La row permet d'avoir une string constituée de plusieurs éléments pris sur mon tableau d'objets.
 
         }
 
@@ -101,7 +104,6 @@ export function ingredientsListFactory(ingArray) {
                 closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
                 translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
                 changeRecipesSection()
-                console.log(selectedRecipesArray)
                 displayRecipes(selectedRecipesArray)
             }
         })
@@ -127,7 +129,6 @@ export function devicesListFactory(devArray) {
             if (!document.getElementById(span.textContent)) {
                 createDevTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    // selectedRecipesArray.prop = [...recipes]
                     selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
                     transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
@@ -135,7 +136,6 @@ export function devicesListFactory(devArray) {
                 closeMenu(devicesInput, devicesMenu, devicesNav)
                 translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
                 changeRecipesSection()
-                console.log(selectedRecipesArray)
                 displayRecipes(selectedRecipesArray)
             }
         })
@@ -163,7 +163,6 @@ export function utensilsListFactory(uteArray) {
             if (!document.getElementById(span.textContent)) {
                 createUteTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    // selectedRecipesArray.prop = [...recipes]
                     selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
                     transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
@@ -171,7 +170,6 @@ export function utensilsListFactory(uteArray) {
                 closeMenu(utensilsInput, utensilsMenu, utensilsNav)
                 translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
                 changeRecipesSection()
-                console.log(selectedRecipesArray)
                 displayRecipes(selectedRecipesArray)
             }
         })

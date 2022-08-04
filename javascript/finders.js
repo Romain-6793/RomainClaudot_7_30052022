@@ -25,8 +25,6 @@ export function findingDevices(recipes) {
         tempDevices.push(recipes[i].appliance)
     }
 
-    // console.log(tempDevices)
-
     tempDevices = [...new Set(tempDevices)].sort()
 
     return tempDevices;
@@ -43,11 +41,7 @@ export function findingUtensils(recipes) {
         }
     }
 
-    // console.log(tempUtensils)
-
     tempUtensils = [...new Set(tempUtensils)].sort((a, b) => {
-        // a = a.name;
-        // b = b.name;
 
         if (a < b) {
             return -1;
@@ -62,32 +56,3 @@ export function findingUtensils(recipes) {
 
     return tempUtensils;
 }
-
-
-// function findingNames(recipes) {
-
-
-
-//     for (let i = 0; i < recipes.length; i++) {
-
-//         namesArray.push(recipes[i].name)
-//     }
-
-//     // console.log(namesArray)
-
-//     return namesArray;
-// }
-
-// function findingDescriptions(recipes) {
-
-
-
-//     for (let i = 0; i < recipes.length; i++) {
-
-//         descriptionsArray.push(recipes[i].description)
-//     }
-
-//     // console.log(descriptionsArray)
-
-//     return descriptionsArray;
-// }

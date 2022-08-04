@@ -4,8 +4,7 @@ import { recipes } from "./recipes.js"
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
 import {
     search, displayRecipes, displayIngredientsList, displayDevicesList,
-    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers,
-    searchInput,
+    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers
 } from "./search.js"
 
 
@@ -39,58 +38,17 @@ export const tagsSpace = document.querySelector(".tags-space")
 
 
 let recipesArray = recipes
-// let filterBySearch = [...recipes];
 export let ingredientsArray = []
 export let devicesArray = []
 export let utensilsArray = []
 
-// let namesArray = []
-// let descriptionsArray = []
-
-// export let selectedRecipesArray = []
-// export let selectedIngredients = ""
-// export let selectedIngredientsArray = []
-// export let selectedDevices = ""
-// export let selectedDevicesArray = []
-// export let selectedUtensils = ""
-// export let selectedUtensilsArray = []
-
-
-
-
-
-// function switchDisplayDevices () {
-//     if (searchInput.value >= 3) {
-//         displayDevicesList(selectedDevicesArray)
-//     } else {
-//         displayDevicesList(devicesArray)
-//     }
-
-// }
-
-// function switchDisplayUtensils () {
-//     if (searchInput.value >= 3) {
-//         displayUtensilsList(selectedUtensilsArray)
-//     } else {
-//         displayUtensilsList(utensilsArray)
-//     }
-
-// }
-
 function init() {
 
     tabListeners()
-    // console.log(recipes)
-    console.log(searchInput.value.length)
     ingredientsArray = findingIngredients(recipes)
     devicesArray = findingDevices(recipes)
     utensilsArray = findingUtensils(recipes)
-    // findingNames(recipes)
-    // findingDescriptions(recipes)
     search()
-    // filterBySearch = inputFilter(recipes, searchValue)
-    // const result = inputFilterBytag(filterBySearch)
-    // displayIngredientsList(ingredientsArray)
     displayIngredientsList(ingredientsArray)
     displayDevicesList(devicesArray)
     displayUtensilsList(utensilsArray)
