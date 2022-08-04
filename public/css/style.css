@@ -54,7 +54,6 @@ ol, ul {
   right: 20px;
   z-index: 3;
   color: black;
-  border: 1px solid black;
 }
 
 .search-bar, .tab {
@@ -74,13 +73,11 @@ ol, ul {
   width: 100%;
   display: flex;
   flex-flow: row wrap;
-  border: 1px solid black;
   margin-bottom: 20px;
 }
 
 .tag {
   height: 45px;
-  border: 1px solid black;
   margin-right: 20px;
   margin-bottom: 5px;
   padding: 20px;
@@ -105,6 +102,10 @@ ol, ul {
 
 .tag-span {
   margin-right: 10px;
+}
+
+.close-button {
+  cursor: pointer;
 }
 
 .menu {
@@ -180,7 +181,6 @@ ol, ul {
 .dropdown-button {
   position: absolute;
   right: 20px;
-  border: 1px solid black;
   background: transparent;
   text-align: center;
   color: #fff;
@@ -292,9 +292,12 @@ ol, ul {
   max-width: 220px;
   margin-bottom: 20px;
 }
-@media all and (max-width: 767px) {
+@media all and (min-width: 375px) and (max-width: 767px) {
   .recipe-name {
     max-width: 200px;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -315,17 +318,18 @@ ol, ul {
   position: absolute;
   width: 170px;
   top: 60px;
-  border: 1px solid black;
   font-size: 12px;
 }
 @media all and (max-width: 450px) {
   .ingredients-list, .recipe-description {
     width: 150px;
+    text-overflow: ellipsis;
   }
 }
 @media all and (min-width: 450px) and (max-width: 767px) {
   .ingredients-list, .recipe-description {
     width: 175px;
+    text-overflow: ellipsis;
   }
 }
 
