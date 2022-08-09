@@ -141,27 +141,15 @@ export function search() {
 
         selectedRecipesArray = []
 
-        // Voici donc l'inputFilter qui vérifie que la valeur d'input matche avec le contenu des noms, 
-        // descriptions ou ingredients de certaines recettes (les seules qui seront affichées) => 
-        // selectedRecipes. Pour vérifier cela, on utilise la méthode includes() 
-        // Tout y est mis en lowerCase pour ignorer les majuscules.
-        // recipeObj est le paramètre de l'argument "recipes".
-        // recipesFilter est le paramètre de l'argument "searchValue".
+        // Dans cette version du projet , on remet selectedRecipesArray à zéro dès que la recherche est lancée.
+        // Puis la fonction inputFilter va explorer le tableau recipes et selon les conditions décrites plus
+        // bas , elle va insérer ou non dans le tableau des recettes sélectionnées la recette. 
+        // Dans cette version, on n'utilise pas filter, mais une boucle "for".
 
         inputFilter(recipes, searchInput.value)
 
         function inputFilter(recipes, searchVal) {
 
-
-            // return recipes.filter((recipeObj) => {
-
-            //     return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
-            //         || recipeObj.description.toLowerCase().includes(recipesFilter.toLowerCase())
-            //         || recipeObj.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
-
-            //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
-
-            // })
 
             for (let i = 0; i < recipes.length; i++) {
                 if (recipes[i].name.toLowerCase().includes(searchVal.toLowerCase()) ||
@@ -169,9 +157,6 @@ export function search() {
                     recipes[i].ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(searchVal.toLowerCase()))) {
                     selectedRecipesArray.push(recipes[i])
                 }
-                // let result = recipes[i].name.toLowerCase().includes(searchVal.toLowerCase())
-                //     || recipes[i].description.toLowerCase().includes(searchVal.toLowerCase())
-                //     || recipes[i].ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(searchVal.toLowerCase()))
 
                 //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
 
