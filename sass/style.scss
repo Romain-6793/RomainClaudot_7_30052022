@@ -188,6 +188,9 @@ ol, ul
     background: transparent;
     color: #fff;
     cursor: text;
+    width: 70%;
+    height: 60px;
+    text-align: start;
 }
 
 .mini-searchbar {
@@ -256,17 +259,17 @@ ol, ul
 .ingredients-nav {
 
     background: #3282F7;
-    height: 1600px;
+    max-height: 1620px;
 }
 
 .devices-nav {
     background:#68D9A4;
-    height: 200px
+    max-height: 200px
 }
 
 .utensils-nav {
     background:#ED6454;
-    height: 350px
+    max-height: 350px
 }
 
 
@@ -328,9 +331,9 @@ ol, ul
 .recipe-name {
     max-width: 220px;
     margin-bottom: 20px;
-    @media all and (min-width: 375px) and (max-width: 767px) {
+    @media all and (min-width: 375px) and (max-width: 1023px) {
         max-width: 200px;
-        height: 45px;
+        height: 25px;
         overflow: hidden;
         text-overflow: ellipsis;
         }
@@ -351,7 +354,6 @@ ol, ul
 
 .ingredients-list, .recipe-description {
     position: absolute;
-    width: 170px;
     top: 60px;
     font-size: 12px;
     @media all and (max-width: 450px) {
@@ -366,7 +368,16 @@ ol, ul
 
 }
 
+.ingredients-list {
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
 .recipe-description {
+    width: 170px;
+    overflow-wrap: break-word;
     @media all and (min-width: 450px) and (max-width: 767px) {
         margin-left: 70px;
         

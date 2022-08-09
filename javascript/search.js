@@ -12,7 +12,7 @@ import {
 } from "./index.js"
 
 
-export let selectedRecipesArray = []
+export let selectedRecipesArray = [...recipes]
 
 
 // Les variables suivantes sont transformées par search()
@@ -25,6 +25,63 @@ export let selectedUtensils = ""
 export let selectedUtensilsArray = []
 export let tagsArray = []
 export const searchInput = document.querySelector(".search-bar")
+
+//////////////////////////////////////////////////////////////////
+function saveSelectedIngredients(slctRecipesArr) {
+    for (let i = 0; i < slctRecipesArr.length; i++) {
+        console.log(slctRecipesArr)
+
+        for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
+            // eslint-disable-next-line no-import-assign
+            selectedIngredients = slctRecipesArr[i].ingredients[j].ingredient
+            console.log(selectedIngredients)
+            selectedIngredientsArray.push(selectedIngredients)
+        }
+        // eslint-disable-next-line no-import-assign
+        selectedIngredientsArray = [...new Set(selectedIngredientsArray)]
+        console.log(selectedIngredientsArray)
+    }
+
+
+}
+saveSelectedIngredients(recipes);
+
+function saveSelectedDevices(slctRecipesArr) {
+    for (let i = 0; i < slctRecipesArr.length; i++) {
+        console.log(slctRecipesArr)
+
+        // eslint-disable-next-line no-import-assign
+        selectedDevices = slctRecipesArr[i].appliance
+        console.log(selectedDevices)
+        selectedDevicesArray.push(selectedDevices)
+
+        // eslint-disable-next-line no-import-assign
+        selectedDevicesArray = [...new Set(selectedDevicesArray)]
+        console.log(selectedDevicesArray)
+    }
+
+
+}
+saveSelectedDevices(recipes)
+
+function saveSelectedUtensils(slctRecipesArr) {
+    for (let i = 0; i < slctRecipesArr.length; i++) {
+
+        for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
+            // eslint-disable-next-line no-import-assign
+            selectedUtensils = slctRecipesArr[i].ustensils[j]
+            console.log(selectedUtensils)
+            selectedUtensilsArray.push(selectedUtensils)
+        }
+        // eslint-disable-next-line no-import-assign
+        selectedUtensilsArray = [...new Set(selectedUtensilsArray)]
+        console.log(selectedUtensilsArray)
+    }
+
+
+}
+saveSelectedUtensils(recipes)
+/////////////////////////////////////////////////////////////////
 
 const screen = {
 
@@ -128,57 +185,6 @@ export function search() {
         // Le procédé en 2 boucles est quasiment le même pour enregistrer les ustensiles. 
         // Pour les appareils, c'est la même idée mais avec une boucle.
 
-        function saveSelectedIngredients(slctRecipesArr) {
-            for (let i = 0; i < slctRecipesArr.length; i++) {
-                console.log(slctRecipesArr)
-
-                for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
-                    // eslint-disable-next-line no-import-assign
-                    selectedIngredients = slctRecipesArr[i].ingredients[j].ingredient
-                    console.log(selectedIngredients)
-                    selectedIngredientsArray.push(selectedIngredients)
-                }
-                // eslint-disable-next-line no-import-assign
-                selectedIngredientsArray = [...new Set(selectedIngredientsArray)]
-                console.log(selectedIngredientsArray)
-            }
-
-
-        }
-
-        function saveSelectedDevices(slctRecipesArr) {
-            for (let i = 0; i < slctRecipesArr.length; i++) {
-                console.log(slctRecipesArr)
-
-                // eslint-disable-next-line no-import-assign
-                selectedDevices = slctRecipesArr[i].appliance
-                console.log(selectedDevices)
-                selectedDevicesArray.push(selectedDevices)
-
-                // eslint-disable-next-line no-import-assign
-                selectedDevicesArray = [...new Set(selectedDevicesArray)]
-                console.log(selectedDevicesArray)
-            }
-
-
-        }
-
-        function saveSelectedUtensils(slctRecipesArr) {
-            for (let i = 0; i < slctRecipesArr.length; i++) {
-
-                for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
-                    // eslint-disable-next-line no-import-assign
-                    selectedUtensils = slctRecipesArr[i].ustensils[j]
-                    console.log(selectedUtensils)
-                    selectedUtensilsArray.push(selectedUtensils)
-                }
-                // eslint-disable-next-line no-import-assign
-                selectedUtensilsArray = [...new Set(selectedUtensilsArray)]
-                console.log(selectedUtensilsArray)
-            }
-
-
-        }
 
         // Ici, on appelle les 3 fonctions de sauvegarde des éléments avec comme paramètre le tableau
         // selectedRecipesArray (résultat du filtre), ainsi on pourra réutiliser ces éléments sauvegardés,
@@ -197,7 +203,7 @@ export function search() {
 
 
     searchInput.addEventListener("input", () => {
-        if (searchInput.value.length >= 3) {
+        if (searchInput.value.length >= 3 || searchInput.value.length === 4) {
             launchResearch()
             changeIngList()
             displayIngredientsList(selectedIngredientsArray)
@@ -216,7 +222,7 @@ export function search() {
 
 export function resetResearch() {
     // eslint-disable-next-line no-import-assign
-    selectedRecipesArray = []
+    selectedRecipesArray = [...recipes]
     // eslint-disable-next-line no-import-assign
     selectedIngredientsArray = []
     // eslint-disable-next-line no-import-assign
@@ -534,7 +540,7 @@ function controlIngMiniSB() {
 
     }
 
-    if (ingredientsInput.checked && screen.desktopMQuery.matches) {
+    if (ingredientsInput.checked) {
         closeMenu(devicesInput, devicesMenu, devicesNav)
         closeMenu(utensilsInput, utensilsMenu, utensilsNav)
         displayNav(ingredientsNav)
@@ -648,10 +654,10 @@ export function ingTabSearch() {
             // Cela me retourne l'objet x (les mots clés qui vont apparaître), contenant des valeurs de
             // 3 lettres similaires à ce qui est rentré dans l'input.
 
-            return ingArray.filter((recipeObj) => {
+            return ingArray.filter((ing) => {
 
 
-                return recipeObj.toLowerCase().includes(textValue.toLowerCase())
+                return ing.toLowerCase().includes(textValue.toLowerCase())
 
             })
 
@@ -783,6 +789,7 @@ export function createIngTag(label, dataProperty, id) {
 
             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
             console.log(selectedRecipesArray)
+
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
