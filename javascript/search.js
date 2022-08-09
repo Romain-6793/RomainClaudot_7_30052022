@@ -148,15 +148,23 @@ export function search() {
         function inputFilter(recipes, recipesFilter) {
 
 
-            return recipes.filter((recipeObj) => {
+            // return recipes.filter((recipeObj) => {
 
-                return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
-                    || recipeObj.description.toLowerCase().includes(recipesFilter.toLowerCase())
-                    || recipeObj.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
+            //     return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+            //         || recipeObj.description.toLowerCase().includes(recipesFilter.toLowerCase())
+            //         || recipeObj.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
 
-                // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
+            //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
 
-            })
+            // })
+
+            for (let i = 0; i < recipes.length; i++) {
+                return i.name.toLowerCase().includes(recipesFilter.toLowerCase())
+                    || i.description.toLowerCase().includes(recipesFilter.toLowerCase())
+                    || i.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
+
+                //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
+            }
 
         }
 
