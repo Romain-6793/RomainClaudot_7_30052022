@@ -135,8 +135,11 @@ export function search() {
 
     function launchResearch() {
 
-        let searchValue = searchInput.value
-        let selectedRecipes = inputFilter(recipes, searchValue)
+        // let searchValue = searchInput.value
+        // let selectedRecipes = inputFilter(recipes, searchValue)
+        // console.log(selectedRecipes);
+
+        selectedRecipesArray = []
 
         // Voici donc l'inputFilter qui vérifie que la valeur d'input matche avec le contenu des noms, 
         // descriptions ou ingredients de certaines recettes (les seules qui seront affichées) => 
@@ -145,7 +148,9 @@ export function search() {
         // recipeObj est le paramètre de l'argument "recipes".
         // recipesFilter est le paramètre de l'argument "searchValue".
 
-        function inputFilter(recipes, recipesFilter) {
+        inputFilter(recipes, searchInput.value)
+
+        function inputFilter(recipes, searchVal) {
 
 
             // return recipes.filter((recipeObj) => {
@@ -159,11 +164,18 @@ export function search() {
             // })
 
             for (let i = 0; i < recipes.length; i++) {
-                return i.name.toLowerCase().includes(recipesFilter.toLowerCase())
-                    || i.description.toLowerCase().includes(recipesFilter.toLowerCase())
-                    || i.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
+                if (recipes[i].name.toLowerCase().includes(searchVal.toLowerCase()) ||
+                    recipes[i].description.toLowerCase().includes(searchVal.toLowerCase()) ||
+                    recipes[i].ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(searchVal.toLowerCase()))) {
+                    selectedRecipesArray.push(recipes[i])
+                }
+                // let result = recipes[i].name.toLowerCase().includes(searchVal.toLowerCase())
+                //     || recipes[i].description.toLowerCase().includes(searchVal.toLowerCase())
+                //     || recipes[i].ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(searchVal.toLowerCase()))
 
                 //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
+
+                console.log(selectedRecipesArray)
             }
 
         }
@@ -176,14 +188,16 @@ export function search() {
         // Puis on affiche les recettes selon selectedRecipes, variable qui est elle-même le résultat 
         // de l'inputFilter.
 
-        displayRecipes(selectedRecipes)
+        displayRecipes(selectedRecipesArray)
 
         // Ci dessous, on attribue un nouveau tableau à selectedRecipesArray (qui était vide), on le fait 
         // à l'aide des ... Cette solution a permis de tout refondre dans un seul tableau
         // au lieu de renvoyer un tableau de tableaux.
 
         // eslint-disable-next-line no-import-assign
-        selectedRecipesArray = [...selectedRecipes]
+
+
+        // selectedRecipesArray = [...selectedRecipes]
 
         // Ci-dessous, on enregistre les ingrédients sélectionnés par le filtre car l'on passera 
         // selectedRecipesArray en argument. 
