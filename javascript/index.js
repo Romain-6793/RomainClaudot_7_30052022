@@ -4,7 +4,7 @@ import { recipes } from "./recipes.js"
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
 import {
     search, displayRecipes, displayIngredientsList, displayDevicesList,
-    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers
+    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers, recipesListener
 } from "./search.js"
 
 
@@ -37,10 +37,12 @@ export const tagsSpace = document.querySelector(".tags-space")
 
 
 
-let recipesArray = recipes
+
 export let ingredientsArray = []
 export let devicesArray = []
 export let utensilsArray = []
+
+
 
 function init() {
 
@@ -54,7 +56,9 @@ function init() {
     displayUtensilsList(utensilsArray)
     miniSBListeners()
     tabSearchers()
-    displayRecipes(recipesArray)
+    //CORRECTIF
+    displayRecipes(recipes)
+    recipesListener()
 
 }
 

@@ -6,7 +6,9 @@ import {
 } from "./index.js"
 import {
     createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray,
-    transferSelectedRecipesArray, changeRecipesSection, displayRecipes, closeMenu, translateMenus
+    transferSelectedRecipesArray, changeRecipesSection, displayRecipes, closeMenu, translateMenus,
+    saveSelectedIngredients, changeIngList, displayIngredientsList, changeDevList, displayDevicesList,
+    saveSelectedDevices, changeUteList, displayUtensilsList, saveSelectedUtensils
 } from "./search.js"
 
 
@@ -19,6 +21,7 @@ export function recipesFactory(data) {
     function getUserRecipe() {
         const article = document.createElement("article")
         article.setAttribute("class", "recipe-article")
+        article.setAttribute("id", "recipe-article")
         const pictureDiv = document.createElement("div")
         pictureDiv.setAttribute("class", "picture-div")
         const recipeDiv = document.createElement("div")
@@ -90,21 +93,52 @@ export function ingredientsListFactory(ingArray) {
         span.setAttribute("class", "menu-name")
 
         for (let i = 0; i < ingArray.length; i++) {
-            span.textContent = ingArray
+            // CORRECTIF
+            span.textContent = ingArray.charAt(0).toUpperCase() + ingArray.slice(1)
         }
 
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
                 createIngTag(span.textContent, span.textContent, span.textContent)
+                let tempSra = [...selectedRecipesArray];
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    transferSelectedRecipesArray(selectedRecipesArray.prop)
-                });
+                    tempSra = filterByTags(tempSra, tag);
+                }
+                );
 
+                /////////////////////////////////// CORRECTIF WIP
                 closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
                 translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray)
+                console.log(tempSra)
+                displayRecipes(tempSra)
+
+                // Après l'affichage des recettes, je déclare des ingrédients sélect à 0, ainsi qu'un 
+                // tableau vide censé les accueillir, la fonction saveSelectedIngredients va les 
+                // parcourir pour voir ceux correspondant aux recettes affichées et les mettre dans mon 
+                // tableau, tableau qui va servir à l'affichage de ces ingrédients
+                // dans displayIngredientsList()
+
+                let selectedIngredients = ""
+                let selectedIngredientsArray2 = []
+                saveSelectedIngredients(tempSra, selectedIngredients, selectedIngredientsArray2)
+                let selectedDevices = ""
+                let selectedDevicesArray2 = []
+                saveSelectedDevices(tempSra, selectedDevices, selectedDevicesArray2)
+                let selectedUtensils = ""
+                let selectedUtensilsArray2 = []
+                saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
+
+
+                console.log(selectedIngredientsArray2)
+                changeIngList()
+                console.log(selectedIngredientsArray2)
+                displayIngredientsList(selectedIngredientsArray2)
+                changeDevList()
+                displayDevicesList(selectedDevicesArray2)
+                changeUteList()
+                displayUtensilsList(selectedUtensilsArray2)
+
             }
         })
         div.appendChild(span)

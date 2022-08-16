@@ -7,81 +7,9 @@ import {
     devicesMenu, utensilsMenu, ingredientsSearchBar, devicesSearchBar, utensilsSearchBar,
     ingredientsSearchButton, devicesSearchButton, utensilsSearchButton, ingredientsList,
     devicesList, utensilsList, ingredientsNav, devicesNav, utensilsNav, tagsSpace,
-    ingredientsArrow, devicesArrow, utensilsArrow
+    ingredientsArrow, devicesArrow, utensilsArrow, ingredientsArray, devicesArray, utensilsArray
 
 } from "./index.js"
-
-
-export let selectedRecipesArray = [...recipes]
-
-
-// Les variables suivantes sont transformées par search()
-
-export let selectedIngredients = ""
-export let selectedIngredientsArray = []
-export let selectedDevices = ""
-export let selectedDevicesArray = []
-export let selectedUtensils = ""
-export let selectedUtensilsArray = []
-export let tagsArray = []
-export const searchInput = document.querySelector(".search-bar")
-
-//////////////////////////////////////////////////////////////////
-function saveSelectedIngredients(slctRecipesArr) {
-    for (let i = 0; i < slctRecipesArr.length; i++) {
-        console.log(slctRecipesArr)
-
-        for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
-            // eslint-disable-next-line no-import-assign
-            selectedIngredients = slctRecipesArr[i].ingredients[j].ingredient
-            console.log(selectedIngredients)
-            selectedIngredientsArray.push(selectedIngredients)
-        }
-        // eslint-disable-next-line no-import-assign
-        selectedIngredientsArray = [...new Set(selectedIngredientsArray)]
-        console.log(selectedIngredientsArray)
-    }
-
-
-}
-saveSelectedIngredients(recipes);
-
-function saveSelectedDevices(slctRecipesArr) {
-    for (let i = 0; i < slctRecipesArr.length; i++) {
-        console.log(slctRecipesArr)
-
-        // eslint-disable-next-line no-import-assign
-        selectedDevices = slctRecipesArr[i].appliance
-        console.log(selectedDevices)
-        selectedDevicesArray.push(selectedDevices)
-
-        // eslint-disable-next-line no-import-assign
-        selectedDevicesArray = [...new Set(selectedDevicesArray)]
-        console.log(selectedDevicesArray)
-    }
-
-
-}
-saveSelectedDevices(recipes)
-
-function saveSelectedUtensils(slctRecipesArr) {
-    for (let i = 0; i < slctRecipesArr.length; i++) {
-
-        for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
-            // eslint-disable-next-line no-import-assign
-            selectedUtensils = slctRecipesArr[i].ustensils[j]
-            console.log(selectedUtensils)
-            selectedUtensilsArray.push(selectedUtensils)
-        }
-        // eslint-disable-next-line no-import-assign
-        selectedUtensilsArray = [...new Set(selectedUtensilsArray)]
-        console.log(selectedUtensilsArray)
-    }
-
-
-}
-saveSelectedUtensils(recipes)
-/////////////////////////////////////////////////////////////////
 
 const screen = {
 
@@ -102,6 +30,107 @@ for (let [scr, mq] of Object.entries(screen)) {
     if (mq) mq.addEventListener('change', mqHandler);
 }
 
+
+export let selectedRecipesArray = [...recipes]
+
+
+// Les variables suivantes sont transformées par search()
+
+export let selectedIngredients = ""
+export let selectedIngredientsArray = []
+export let selectedDevices = ""
+export let selectedDevicesArray = []
+export let selectedUtensils = ""
+export let selectedUtensilsArray = []
+export let tagsArray = []
+export const searchInput = document.querySelector(".search-bar")
+
+////////////////////////////////////////////////////////////////// CORRECTIF POUR TOUS LES SAVE
+export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr = []) {
+    //let filteredArray = [];
+    console.log(slctRecipesArr)
+
+
+
+    for (let i = 0; i < slctRecipesArr.length; i++) {
+        console.log(slctRecipesArr)
+
+
+        for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
+            // eslint-disable-next-line no-import-assign
+            slctIng = slctRecipesArr[i].ingredients[j].ingredient
+            console.log(slctIng)
+            slctIngArr.push(slctIng)
+        }
+
+
+        let filteredArray = [...new Set(slctIngArr)]
+        slctIngArr.length = 0
+
+        // La ligne ci-dessus permet de casser la référence de slctIngArr
+
+        filteredArray.forEach((recipe) => slctIngArr.push(recipe))
+
+
+    }
+    console.log(slctIngArr)
+    return slctIngArr;
+
+    //return indispensable pour récupérer la valeur de slctIngArr dans factories après le new Set où
+    // j'ai cassé la référence
+}
+// saveSelectedIngredients(recipes, selectedIngredients, selectedIngredientsArray);
+
+export function saveSelectedDevices(slctRecipesArr, slctDev, slctDevArr) {
+    for (let i = 0; i < slctRecipesArr.length; i++) {
+        // console.log(slctRecipesArr)
+
+        // eslint-disable-next-line no-import-assign
+        slctDev = slctRecipesArr[i].appliance
+        // console.log(slctDev)
+        slctDevArr.push(slctDev)
+
+        // eslint-disable-next-line no-import-assign
+        // slctDevArr = [...new Set(slctDevArr)]
+        // console.log(slctDevArr)
+
+    }
+
+    let filteredArray = [...new Set(slctDevArr)]
+    slctDevArr.length = 0
+
+    // La ligne ci-dessus permet de casser la référence de slctIngArr en passant par
+    // l'intermédiaire de filteredArray
+
+    filteredArray.forEach((recipe) => slctDevArr.push(recipe))
+
+    return slctDevArr
+
+
+}
+// saveSelectedDevices(recipes, selectedDevices, selectedDevicesArray)
+
+export function saveSelectedUtensils(slctRecipesArr, slctUte, slctUteArr) {
+    for (let i = 0; i < slctRecipesArr.length; i++) {
+
+        for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
+            // eslint-disable-next-line no-import-assign
+            slctUte = slctRecipesArr[i].ustensils[j]
+            // console.log(slctUte)
+            slctUteArr.push(slctUte)
+        }
+        // eslint-disable-next-line no-import-assign
+        slctUteArr = [...new Set(slctUteArr)]
+        //     console.log(slctUteArr)
+    }
+    return slctUteArr
+
+}
+// saveSelectedUtensils(recipes, selectedUtensils, selectedUtensilsArray)
+/////////////////////////////////////////////////////////////////
+
+
+
 function mqHandler() {
 
     let size = null;
@@ -119,6 +148,19 @@ function mqHandler() {
 export function transferSelectedRecipesArray(sra) {
     selectedRecipesArray = sra
 }
+
+
+export function recipesListener() {
+    recipesSection.addEventListener("change", () => {
+        if (recipesSection.innerHTML === "") {
+            const message = document.createElement("p")
+            message.classList.add("no-match-message")
+            message.innerText = "Nous sommes désolés, aucune recette ne correspond à ce que vous recherchez..."
+            recipesSection.appendChild(message)
+        }
+    })
+}
+
 
 export function search() {
 
@@ -150,7 +192,6 @@ export function search() {
 
         function inputFilter(recipes, searchVal) {
 
-
             for (let i = 0; i < recipes.length; i++) {
                 if (recipes[i].name.toLowerCase().includes(searchVal.toLowerCase()) ||
                     recipes[i].description.toLowerCase().includes(searchVal.toLowerCase()) ||
@@ -160,8 +201,12 @@ export function search() {
 
                 //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
 
-                console.log(selectedRecipesArray)
+                // console.log(selectedRecipesArray)
             }
+
+            //CORRECTIF SANS DOUTE INUTILE
+
+            // return selectedRecipesArray
 
         }
 
@@ -173,7 +218,12 @@ export function search() {
         // Puis on affiche les recettes selon selectedRecipes, variable qui est elle-même le résultat 
         // de l'inputFilter.
 
-        displayRecipes(selectedRecipesArray)
+        if (selectedRecipesArray.length > 0) {
+            displayRecipes(selectedRecipesArray)
+        } else {
+            alert("NOPPPPP")
+        }
+
 
         // Ci dessous, on attribue un nouveau tableau à selectedRecipesArray (qui était vide), on le fait 
         // à l'aide des ... Cette solution a permis de tout refondre dans un seul tableau
@@ -197,9 +247,11 @@ export function search() {
         // selectedRecipesArray (résultat du filtre), ainsi on pourra réutiliser ces éléments sauvegardés,
         // pour l'affichage dans les onglets par exemple.
 
-        saveSelectedIngredients(selectedRecipesArray)
-        saveSelectedDevices(selectedRecipesArray)
-        saveSelectedUtensils(selectedRecipesArray)
+        //CORRECTIF
+
+        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
 
     }
 
@@ -210,8 +262,14 @@ export function search() {
 
 
     searchInput.addEventListener("input", () => {
-        if (searchInput.value.length >= 3 || searchInput.value.length === 4) {
+        if (searchInput.value.length >= 3) {
+
+            // WIP
+
             launchResearch()
+            // selectedIngredients = ""
+            // selectedIngredientsArray = []
+            // selectedIngredientsArray = saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
             changeIngList()
             displayIngredientsList(selectedIngredientsArray)
             changeDevList()
@@ -220,6 +278,13 @@ export function search() {
             displayUtensilsList(selectedUtensilsArray)
         } else {
             resetResearch()
+            //CORRECTIF
+            changeIngList()
+            displayIngredientsList(ingredientsArray)
+            changeDevList()
+            displayDevicesList(devicesArray)
+            changeUteList()
+            displayUtensilsList(utensilsArray)
         }
     })
 
@@ -285,6 +350,10 @@ export function closeMenu(input, menu, nav) {
     menu.style.width = 170 + "px"
     nav.style.opacity = 0
     nav.style.zIndex = 0
+
+    //CORRECTIF
+    nav.style.transform = "translateY(" + -2000 + "px)"
+
 
 
     if (input === ingredientsInput) {
@@ -367,6 +436,22 @@ export function toggleWidthMenu(input, menu) {
 
 export function displayIngredientsList(ingredientsL) {
 
+
+    //CORRECTIF
+
+    ingredientsL.sort((a, b) => {
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.name - b.name;
+        }
+    })
+
     ingredientsL.forEach((ingredient) => {
         const ingredientsListModel = ingredientsListFactory(ingredient)
         const userIngredientsList = ingredientsListModel.getUserIngredientsList()
@@ -376,6 +461,21 @@ export function displayIngredientsList(ingredientsL) {
 }
 
 export function displayDevicesList(devicesL) {
+
+    //CORRECTIF
+
+    devicesL.sort((a, b) => {
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.name - b.name;
+        }
+    })
 
 
     const devicesList = document.getElementById("devices-list")
@@ -389,6 +489,22 @@ export function displayDevicesList(devicesL) {
 }
 
 export function displayUtensilsList(utensilsL) {
+
+    //CORRECTIF
+
+    utensilsL.sort((a, b) => {
+
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        if (a === b) {
+            return a.name - b.name;
+        }
+    })
+
     const utensilsList = document.getElementById("utensils-list")
 
     utensilsL.forEach((utensil) => {
@@ -406,7 +522,7 @@ export function displayUtensilsList(utensilsL) {
 
 export function ingredientsListener() {
 
-    console.log(ingredientsInput.checked)
+    // console.log(ingredientsInput.checked)
 
 
     if (ingredientsInput.checked && screen.desktopLMQuery.matches) {
@@ -446,7 +562,7 @@ export function ingredientsListener() {
 export function devicesListener() {
 
 
-    console.log(devicesInput.checked)
+    // console.log(devicesInput.checked)
 
 
 
@@ -484,7 +600,7 @@ export function devicesListener() {
 
 export function utensilsListener() {
 
-    console.log(utensilsInput.checked)
+    // console.log(utensilsInput.checked)
 
 
     if (utensilsInput.checked && screen.desktopLMQuery.matches) {
@@ -521,7 +637,6 @@ export function displayNav(nav) {
     nav.style.transform = "translateX(0)"
     nav.style.zIndex = 1
     nav.style.top = 63 + "px"
-
 }
 
 
@@ -747,15 +862,15 @@ export function uteTabSearch() {
 }
 
 
-function changeIngList() {
+export function changeIngList() {
     ingredientsList.innerHTML = ""
 }
 
-function changeDevList() {
+export function changeDevList() {
     devicesList.innerHTML = ""
 }
 
-function changeUteList() {
+export function changeUteList() {
     utensilsList.innerHTML = ""
 }
 
@@ -785,30 +900,36 @@ export function createIngTag(label, dataProperty, id) {
 
         const value = e.target.getAttribute("data-item")
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
-        console.log(index)
+        // console.log(index)
         if (index === -1) {
             return alert("NOT FOUND")
         }
         tagsArray.splice(index, 1)
-        console.log(tagsArray)
-        selectedRecipesArray = [...recipes]
+        // console.log(tagsArray)
+        let recipesFilteredByTag = [...selectedRecipesArray]
+        // selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
-            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-            console.log(selectedRecipesArray)
+            // selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            recipesFilteredByTag = filterByTags(recipesFilteredByTag, tag);
+            // console.log(selectedRecipesArray)
 
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
+        displayRecipes(recipesFilteredByTag)
+        let selectedIngredientsArray2 = []
+        saveSelectedIngredients(recipesFilteredByTag, selectedIngredients, selectedIngredientsArray2)
+        changeIngList()
+        displayIngredientsList(selectedIngredientsArray2)
 
-        displayRecipes(selectedRecipesArray)
     }
 
     tagsSpace.appendChild(div)
     div.appendChild(span)
     div.appendChild(closeBtn)
     tagsArray.push(div)
-    console.log(tagsArray)
+    // console.log(tagsArray)
 
     return div
 }
@@ -834,17 +955,17 @@ export function createDevTag(label, dataProperty, id) {
 
         const value = e.target.getAttribute("data-item")
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
-        console.log(index)
+        // console.log(index)
         if (index === -1) {
             return alert("PAS TROUVE")
         }
         tagsArray.splice(index, 1)
-        console.log(tagsArray)
+        // console.log(tagsArray)
         selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-            console.log(selectedRecipesArray)
+            // console.log(selectedRecipesArray)
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
@@ -856,7 +977,7 @@ export function createDevTag(label, dataProperty, id) {
     div.appendChild(span)
     div.appendChild(closeBtn)
     tagsArray.push(div)
-    console.log(tagsArray)
+    // console.log(tagsArray)
 
     return div
 }
@@ -881,17 +1002,17 @@ export function createUteTag(label, dataProperty, id) {
 
         const value = e.target.getAttribute("data-item")
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
-        console.log(index)
+        // console.log(index)
         if (index === -1) {
             return alert("PAS TROUVE")
         }
         tagsArray.splice(index, 1)
-        console.log(tagsArray)
+        // console.log(tagsArray)
         selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-            console.log(selectedRecipesArray)
+            // console.log(selectedRecipesArray)
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
@@ -903,11 +1024,14 @@ export function createUteTag(label, dataProperty, id) {
     div.appendChild(span)
     div.appendChild(closeBtn)
     tagsArray.push(div)
-    console.log(tagsArray)
+    // console.log(tagsArray)
 
     return div
 }
 
+/**
+ * @param recipiesArr an array of recipes
+ */
 export function filterByTags(recipesArr, tag) {
 
     const result = recipesArr.filter((object) => object.ingredients.some((ingObj) =>
