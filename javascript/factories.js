@@ -6,7 +6,7 @@ import {
 } from "./index.js"
 import {
     createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray,
-    transferSelectedRecipesArray, changeRecipesSection, displayRecipes, closeMenu, translateMenus,
+    changeRecipesSection, displayRecipes, closeMenu, translateMenus,
     saveSelectedIngredients, changeIngList, displayIngredientsList, changeDevList, displayDevicesList,
     saveSelectedDevices, changeUteList, displayUtensilsList, saveSelectedUtensils
 } from "./search.js"
@@ -93,7 +93,6 @@ export function ingredientsListFactory(ingArray) {
         span.setAttribute("class", "menu-name")
 
         for (let i = 0; i < ingArray.length; i++) {
-            // CORRECTIF
             span.textContent = ingArray.charAt(0).toUpperCase() + ingArray.slice(1)
         }
 
@@ -130,13 +129,15 @@ export function ingredientsListFactory(ingArray) {
                 saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
 
 
-                console.log(selectedIngredientsArray2)
+
                 changeIngList()
                 console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
                 changeDevList()
+                console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
                 changeUteList()
+                console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
             }
@@ -155,6 +156,8 @@ export function devicesListFactory(devArray) {
         const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
 
+        let tempSra = [...selectedRecipesArray];
+
         for (let i = 0; i < devArray.length; i++) {
             span.textContent = devArray
         }
@@ -163,14 +166,38 @@ export function devicesListFactory(devArray) {
             if (!document.getElementById(span.textContent)) {
                 createDevTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    transferSelectedRecipesArray(selectedRecipesArray.prop)
+                    tempSra = filterByTags(tempSra, tag);
+                    // selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    // transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
 
                 closeMenu(devicesInput, devicesMenu, devicesNav)
                 translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray)
+                displayRecipes(tempSra)
+
+                let selectedIngredients = ""
+                let selectedIngredientsArray2 = []
+                saveSelectedIngredients(tempSra, selectedIngredients, selectedIngredientsArray2)
+                let selectedDevices = ""
+                let selectedDevicesArray2 = []
+                saveSelectedDevices(tempSra, selectedDevices, selectedDevicesArray2)
+                let selectedUtensils = ""
+                let selectedUtensilsArray2 = []
+                saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
+
+
+
+                changeIngList()
+                console.log(selectedIngredientsArray2)
+                displayIngredientsList(selectedIngredientsArray2)
+                changeDevList()
+                console.log(selectedDevicesArray2)
+                displayDevicesList(selectedDevicesArray2)
+                changeUteList()
+                console.log(selectedUtensilsArray2)
+                displayUtensilsList(selectedUtensilsArray2)
+
             }
         })
 
@@ -189,6 +216,8 @@ export function utensilsListFactory(uteArray) {
         const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
 
+        let tempSra = [...selectedRecipesArray];
+
         for (let i = 0; i < uteArray.length; i++) {
             span.textContent = uteArray.charAt(0).toUpperCase() + uteArray.slice(1);
         }
@@ -197,14 +226,37 @@ export function utensilsListFactory(uteArray) {
             if (!document.getElementById(span.textContent)) {
                 createUteTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    transferSelectedRecipesArray(selectedRecipesArray.prop)
+                    // selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    // transferSelectedRecipesArray(selectedRecipesArray.prop)
+                    tempSra = filterByTags(tempSra, tag);
                 });
 
                 closeMenu(utensilsInput, utensilsMenu, utensilsNav)
                 translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray)
+                displayRecipes(tempSra)
+
+
+                let selectedIngredients = ""
+                let selectedIngredientsArray2 = []
+                saveSelectedIngredients(tempSra, selectedIngredients, selectedIngredientsArray2)
+                let selectedDevices = ""
+                let selectedDevicesArray2 = []
+                saveSelectedDevices(tempSra, selectedDevices, selectedDevicesArray2)
+                let selectedUtensils = ""
+                let selectedUtensilsArray2 = []
+                saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
+
+                changeIngList()
+                console.log(selectedIngredientsArray2)
+                displayIngredientsList(selectedIngredientsArray2)
+                changeDevList()
+                console.log(selectedDevicesArray2)
+                displayDevicesList(selectedDevicesArray2)
+                changeUteList()
+                console.log(selectedUtensilsArray2)
+                displayUtensilsList(selectedUtensilsArray2)
+
             }
         })
 

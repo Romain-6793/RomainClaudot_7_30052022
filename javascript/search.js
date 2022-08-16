@@ -47,7 +47,6 @@ export const searchInput = document.querySelector(".search-bar")
 
 ////////////////////////////////////////////////////////////////// CORRECTIF POUR TOUS LES SAVE
 export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr = []) {
-    //let filteredArray = [];
     console.log(slctRecipesArr)
 
 
@@ -57,7 +56,6 @@ export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr
 
 
         for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
-            // eslint-disable-next-line no-import-assign
             slctIng = slctRecipesArr[i].ingredients[j].ingredient
             console.log(slctIng)
             slctIngArr.push(slctIng)
@@ -81,7 +79,7 @@ export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr
 }
 // saveSelectedIngredients(recipes, selectedIngredients, selectedIngredientsArray);
 
-export function saveSelectedDevices(slctRecipesArr, slctDev, slctDevArr) {
+export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = []) {
     for (let i = 0; i < slctRecipesArr.length; i++) {
         // console.log(slctRecipesArr)
 
@@ -92,7 +90,7 @@ export function saveSelectedDevices(slctRecipesArr, slctDev, slctDevArr) {
 
         // eslint-disable-next-line no-import-assign
         // slctDevArr = [...new Set(slctDevArr)]
-        // console.log(slctDevArr)
+        console.log(slctDevArr)
 
     }
 
@@ -104,24 +102,27 @@ export function saveSelectedDevices(slctRecipesArr, slctDev, slctDevArr) {
 
     filteredArray.forEach((recipe) => slctDevArr.push(recipe))
 
+    console.log(slctDevArr)
     return slctDevArr
 
 
 }
 // saveSelectedDevices(recipes, selectedDevices, selectedDevicesArray)
 
-export function saveSelectedUtensils(slctRecipesArr, slctUte, slctUteArr) {
+export function saveSelectedUtensils(slctRecipesArr, slctUte = "", slctUteArr = []) {
     for (let i = 0; i < slctRecipesArr.length; i++) {
 
         for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {
-            // eslint-disable-next-line no-import-assign
+
             slctUte = slctRecipesArr[i].ustensils[j]
-            // console.log(slctUte)
+
             slctUteArr.push(slctUte)
         }
-        // eslint-disable-next-line no-import-assign
-        slctUteArr = [...new Set(slctUteArr)]
-        //     console.log(slctUteArr)
+
+        let filteredArray = [...new Set(slctUteArr)]
+        slctUteArr.length = 0
+
+        filteredArray.forEach((recipe) => slctUteArr.push(recipe))
     }
     return slctUteArr
 
@@ -145,9 +146,7 @@ function mqHandler() {
 // La fonction ci-dessus permet de faire passer selectedRecipesArray au fichier factories sans avoir
 // de problèmes de copies.
 
-export function transferSelectedRecipesArray(sra) {
-    selectedRecipesArray = sra
-}
+
 
 
 export function recipesListener() {
@@ -906,23 +905,31 @@ export function createIngTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
         // console.log(tagsArray)
-        let recipesFilteredByTag = [...selectedRecipesArray]
+        // let recipesFilteredByTag = [...selectedRecipesArray]
         // selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
             // selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
-            recipesFilteredByTag = filterByTags(recipesFilteredByTag, tag);
+            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
             // console.log(selectedRecipesArray)
 
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
-        displayRecipes(recipesFilteredByTag)
-        let selectedIngredientsArray2 = []
-        saveSelectedIngredients(recipesFilteredByTag, selectedIngredients, selectedIngredientsArray2)
-        changeIngList()
-        displayIngredientsList(selectedIngredientsArray2)
+        displayRecipes(selectedRecipesArray)
 
+        //CORRECTIF
+
+
+        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        changeIngList()
+        displayIngredientsList(selectedIngredientsArray)
+        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        changeDevList()
+        displayDevicesList(selectedDevicesArray)
+        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
+        changeUteList()
+        displayUtensilsList(selectedUtensilsArray)
     }
 
     tagsSpace.appendChild(div)
@@ -971,6 +978,16 @@ export function createDevTag(label, dataProperty, id) {
         changeRecipesSection()
 
         displayRecipes(selectedRecipesArray)
+
+        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        changeIngList()
+        displayIngredientsList(selectedIngredientsArray)
+        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        changeDevList()
+        displayDevicesList(selectedDevicesArray)
+        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
+        changeUteList()
+        displayUtensilsList(selectedUtensilsArray)
     }
 
     tagsSpace.appendChild(div)
@@ -1018,6 +1035,16 @@ export function createUteTag(label, dataProperty, id) {
         changeRecipesSection()
 
         displayRecipes(selectedRecipesArray)
+
+        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        changeIngList()
+        displayIngredientsList(selectedIngredientsArray)
+        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        changeDevList()
+        displayDevicesList(selectedDevicesArray)
+        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
+        changeUteList()
+        displayUtensilsList(selectedUtensilsArray)
     }
 
     tagsSpace.appendChild(div)
