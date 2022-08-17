@@ -1,5 +1,3 @@
-
-
 import {
     ingredientsInput, ingredientsMenu, ingredientsNav, devicesInput, devicesMenu, devicesNav,
     utensilsInput, utensilsMenu, utensilsNav

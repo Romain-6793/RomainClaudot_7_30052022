@@ -10,6 +10,7 @@ import {
     ingredientsArrow, devicesArrow, utensilsArrow, ingredientsArray, devicesArray, utensilsArray
 
 } from "./index.js"
+import { findingIngredients, findingDevices, findingUtensils } from "./finders.js";
 
 const screen = {
 
@@ -37,15 +38,25 @@ export let selectedRecipesArray = [...recipes]
 // Les variables suivantes sont transformées par search()
 
 export let selectedIngredients = ""
-export let selectedIngredientsArray = []
+export let selectedIngredientsArray = findingIngredients(recipes)
 export let selectedDevices = ""
-export let selectedDevicesArray = []
+export let selectedDevicesArray = findingDevices(recipes)
 export let selectedUtensils = ""
-export let selectedUtensilsArray = []
+export let selectedUtensilsArray = findingUtensils(recipes)
 export let tagsArray = []
 export const searchInput = document.querySelector(".search-bar")
 
+
 ////////////////////////////////////////////////////////////////// CORRECTIF POUR TOUS LES SAVE
+
+// Ci-dessous, on enregistre les ingrédients sélectionnés par le filtre car l'on passera 
+// selectedRecipesArray en argument. 
+// On commence par une boucle for qui explore toutes les recettes, on fait une 2ème boucle pour 
+// examiner tous les ingredients un par un puis on les push dans un tableau que l'on met 
+// ensuite en new Set pour éviter les doublons.
+// Le procédé en 2 boucles est quasiment le même pour enregistrer les ustensiles. 
+// Pour les appareils, c'est la même idée mais avec une boucle.
+
 export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr = []) {
     console.log(slctRecipesArr)
 
@@ -168,7 +179,7 @@ export function search() {
 
     // launchResearch s'active au moment où l'input contient 3 caractères. On y déclare une searchValue, 
     // variable qui sontient la valeur d'input (3 caractères), ainsi que selectedRecipes, liste des recettes
-    // passées à la moulinette de l'inputFilter.
+    // passées à la moulinette de bigInputFilter.
     // Cette fonction est capitale, elle fait plusieurs choses : 1) elle passe l'input au filtre
     // 2) elle gère l'affichage des recettes avec la valeur passée au filtre 3) elle crée des tableaux 
     // avec les données x utilisées pour une recherche x, avant chaque nouvelle recherche, ces tableaux
@@ -176,20 +187,16 @@ export function search() {
 
     function launchResearch() {
 
-        // let searchValue = searchInput.value
-        // let selectedRecipes = inputFilter(recipes, searchValue)
-        // console.log(selectedRecipes);
-
         selectedRecipesArray = []
 
         // Dans cette version du projet , on remet selectedRecipesArray à zéro dès que la recherche est lancée.
-        // Puis la fonction inputFilter va explorer le tableau recipes et selon les conditions décrites plus
+        // Puis la fonction bigInputFilter va explorer le tableau recipes et selon les conditions décrites plus
         // bas , elle va insérer ou non dans le tableau des recettes sélectionnées la recette. 
         // Dans cette version, on n'utilise pas filter, mais une boucle "for".
 
-        inputFilter(recipes, searchInput.value)
+        bigInputFilter(recipes, searchInput.value)
 
-        function inputFilter(recipes, searchVal) {
+        function bigInputFilter(recipes, searchVal) {
 
             for (let i = 0; i < recipes.length; i++) {
                 if (recipes[i].name.toLowerCase().includes(searchVal.toLowerCase()) ||
@@ -200,12 +207,8 @@ export function search() {
 
                 //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
 
-                // console.log(selectedRecipesArray)
+
             }
-
-            //CORRECTIF SANS DOUTE INUTILE
-
-            // return selectedRecipesArray
 
         }
 
@@ -215,38 +218,24 @@ export function search() {
         changeRecipesSection()
 
         // Puis on affiche les recettes selon selectedRecipes, variable qui est elle-même le résultat 
-        // de l'inputFilter.
+        // de bigInputFilter. Dans le cas où il y a des recettes sélectionnées. Dans le cas contraire,
+        // un message d'erreur est affiché.
 
         if (selectedRecipesArray.length > 0) {
+            recipesSection.innerHTML = ""
             displayRecipes(selectedRecipesArray)
         } else {
-            alert("NOPPPPP")
+            // alert("NOPPPPP")
+            recipesSection.innerHTML = ""
+            const noMatchMessage = document.createElement("p")
+            noMatchMessage.classList.add("no-match-message")
+            noMatchMessage.innerText = "Nous sommes désolés, aucune recette ne correspond à votre recherche. Veuillez actualiser la page ou faire une nouvelle recherche."
+            recipesSection.appendChild(noMatchMessage)
         }
-
-
-        // Ci dessous, on attribue un nouveau tableau à selectedRecipesArray (qui était vide), on le fait 
-        // à l'aide des ... Cette solution a permis de tout refondre dans un seul tableau
-        // au lieu de renvoyer un tableau de tableaux.
-
-        // eslint-disable-next-line no-import-assign
-
-
-        // selectedRecipesArray = [...selectedRecipes]
-
-        // Ci-dessous, on enregistre les ingrédients sélectionnés par le filtre car l'on passera 
-        // selectedRecipesArray en argument. 
-        // On commence par une boucle for qui explore toutes les recettes, on fait une 2ème boucle pour 
-        // examiner tous les ingredients un par un puis on les push dans un tableau que l'on met 
-        // ensuite en new Set pour éviter les doublons.
-        // Le procédé en 2 boucles est quasiment le même pour enregistrer les ustensiles. 
-        // Pour les appareils, c'est la même idée mais avec une boucle.
-
 
         // Ici, on appelle les 3 fonctions de sauvegarde des éléments avec comme paramètre le tableau
         // selectedRecipesArray (résultat du filtre), ainsi on pourra réutiliser ces éléments sauvegardés,
         // pour l'affichage dans les onglets par exemple.
-
-        //CORRECTIF
 
         saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
         saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
@@ -256,19 +245,13 @@ export function search() {
 
     // Enfin nous avons l'eventListener duquel tout part. Si l'input est égal à 3 caractères ou plus, une 
     // nouvelle recherche est lancée. 
-    // Sinon, on remet tous les tableaux utilisés à zéro.
-    // Trouver pourquoi cela ne fonctionne pas.
+    // Sinon, on remet tous les tableaux utilisés à zéro. Sauf selectedRecipesArray.
 
 
     searchInput.addEventListener("input", () => {
         if (searchInput.value.length >= 3) {
 
-            // WIP
-
             launchResearch()
-            // selectedIngredients = ""
-            // selectedIngredientsArray = []
-            // selectedIngredientsArray = saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
             changeIngList()
             displayIngredientsList(selectedIngredientsArray)
             changeDevList()
@@ -277,7 +260,6 @@ export function search() {
             displayUtensilsList(selectedUtensilsArray)
         } else {
             resetResearch()
-            //CORRECTIF
             changeIngList()
             displayIngredientsList(ingredientsArray)
             changeDevList()
@@ -292,13 +274,10 @@ export function search() {
 
 
 export function resetResearch() {
-    // eslint-disable-next-line no-import-assign
+
     selectedRecipesArray = [...recipes]
-    // eslint-disable-next-line no-import-assign
     selectedIngredientsArray = []
-    // eslint-disable-next-line no-import-assign
     selectedDevicesArray = []
-    // eslint-disable-next-line no-import-assign
     selectedUtensilsArray = []
 
     changeRecipesSection()
@@ -326,7 +305,7 @@ export function displayRecipes(recipes) {
         }
     })
 
-    const recipesSection = document.querySelector(".recipes-section");
+
 
     recipes.forEach((recipe) => {
         const recipeModel = recipesFactory(recipe)
@@ -767,6 +746,7 @@ export function ingTabSearch() {
     const ingTabSearchInput = document.querySelector(".ingredients-searchbar")
 
     ingTabSearchInput.addEventListener("input", () => {
+
         function inputFilter(ingArray, textValue) {
 
 
@@ -787,6 +767,7 @@ export function ingTabSearch() {
         }
 
         let searchValue = ingTabSearchInput.value
+
         let selectedIngredients2 = inputFilter(selectedIngredientsArray, searchValue)
 
         if (ingTabSearchInput.value.length >= 3) {
