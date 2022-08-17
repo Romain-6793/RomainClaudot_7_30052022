@@ -106,7 +106,6 @@ export function ingredientsListFactory(ingArray) {
                 }
                 );
 
-                /////////////////////////////////// CORRECTIF WIP
                 closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
                 translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
                 changeRecipesSection()
@@ -128,8 +127,6 @@ export function ingredientsListFactory(ingArray) {
                 let selectedUtensils = ""
                 let selectedUtensilsArray2 = []
                 saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
-
-
 
                 changeItemsList(ingredientsList)
                 console.log(selectedIngredientsArray2)

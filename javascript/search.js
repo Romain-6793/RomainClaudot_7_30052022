@@ -521,14 +521,6 @@ export function changeItemsList(itemsList) {
     itemsList.innerHTML = ""
 }
 
-// export function changeDevList() {
-//     devicesList.innerHTML = ""
-// }
-
-// export function changeUteList() {
-//     utensilsList.innerHTML = ""
-// }
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // CREATING TAGS
