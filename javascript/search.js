@@ -95,19 +95,19 @@ export function search() {
         if (searchInput.value.length >= 3) {
 
             launchResearch()
-            changeIngList()
+            changeItemsList(ingredientsList)
             displayIngredientsList(selectedIngredientsArray)
-            changeDevList()
+            changeItemsList(devicesList)
             displayDevicesList(selectedDevicesArray)
-            changeUteList()
+            changeItemsList(utensilsList)
             displayUtensilsList(selectedUtensilsArray)
         } else {
             resetResearch()
-            changeIngList()
+            changeItemsList(ingredientsList)
             displayIngredientsList(ingredientsArray)
-            changeDevList()
+            changeItemsList(devicesList)
             displayDevicesList(devicesArray)
-            changeUteList()
+            changeItemsList(utensilsList)
             displayUtensilsList(utensilsArray)
         }
     })
@@ -441,11 +441,11 @@ export function ingTabSearch() {
         let selectedIngredients2 = inputFilter(selectedIngredientsArray, searchValue)
 
         if (ingTabSearchInput.value.length >= 3) {
-            changeIngList()
+            changeItemsList(ingredientsList)
             displayIngredientsList(selectedIngredients2)
         }
         else {
-            changeIngList()
+            changeItemsList(ingredientsList)
             displayIngredientsList(selectedIngredientsArray)
         }
     })
@@ -472,10 +472,10 @@ export function devTabSearch() {
         let selectedDevices2 = inputFilter(selectedDevicesArray, searchValue)
 
         if (devTabSearchInput.value.length >= 3) {
-            changeDevList()
+            changeItemsList(devicesList)
             displayDevicesList(selectedDevices2)
         } else {
-            changeDevList()
+            changeItemsList(devicesList)
             displayDevicesList(selectedDevicesArray)
         }
     })
@@ -502,10 +502,10 @@ export function uteTabSearch() {
         let selectedUtensils2 = inputFilter(selectedUtensilsArray, searchValue)
 
         if (uteTabSearchInput.value.length >= 3) {
-            changeUteList()
+            changeItemsList(utensilsList)
             displayUtensilsList(selectedUtensils2)
         } else {
-            changeUteList()
+            changeItemsList(utensilsList)
             displayUtensilsList(selectedUtensilsArray)
         }
     })
@@ -517,17 +517,17 @@ export function uteTabSearch() {
 // CHANGING LISTS OF ITEMS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-export function changeIngList() {
-    ingredientsList.innerHTML = ""
+export function changeItemsList(itemsList) {
+    itemsList.innerHTML = ""
 }
 
-export function changeDevList() {
-    devicesList.innerHTML = ""
-}
+// export function changeDevList() {
+//     devicesList.innerHTML = ""
+// }
 
-export function changeUteList() {
-    utensilsList.innerHTML = ""
-}
+// export function changeUteList() {
+//     utensilsList.innerHTML = ""
+// }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -572,13 +572,13 @@ export function createIngTag(label, dataProperty, id) {
         displayRecipes(selectedRecipesArray)
 
         saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
-        changeIngList()
+        changeItemsList(ingredientsList)
         displayIngredientsList(selectedIngredientsArray)
         saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
-        changeDevList()
+        changeItemsList(devicesList)
         displayDevicesList(selectedDevicesArray)
         saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
-        changeUteList()
+        changeItemsList(utensilsList)
         displayUtensilsList(selectedUtensilsArray)
     }
 
@@ -626,13 +626,13 @@ export function createDevTag(label, dataProperty, id) {
         displayRecipes(selectedRecipesArray)
 
         saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
-        changeIngList()
+        changeItemsList(ingredientsList)
         displayIngredientsList(selectedIngredientsArray)
         saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
-        changeDevList()
+        changeItemsList(devicesList)
         displayDevicesList(selectedDevicesArray)
         saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
-        changeUteList()
+        changeItemsList(utensilsList)
         displayUtensilsList(selectedUtensilsArray)
     }
 
@@ -681,13 +681,13 @@ export function createUteTag(label, dataProperty, id) {
         displayRecipes(selectedRecipesArray)
 
         saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
-        changeIngList()
+        changeItemsList(ingredientsList)
         displayIngredientsList(selectedIngredientsArray)
         saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
-        changeDevList()
+        changeItemsList(devicesList)
         displayDevicesList(selectedDevicesArray)
         saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
-        changeUteList()
+        changeItemsList(utensilsList)
         displayUtensilsList(selectedUtensilsArray)
     }
 

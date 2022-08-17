@@ -1,11 +1,11 @@
 import {
     ingredientsInput, ingredientsMenu, ingredientsNav, devicesInput, devicesMenu, devicesNav,
-    utensilsInput, utensilsMenu, utensilsNav
+    utensilsInput, utensilsMenu, utensilsNav, ingredientsList, devicesList, utensilsList
 } from "./index.js"
 import {
     createIngTag, createDevTag, createUteTag, tagsArray, selectedRecipesArray,
-    changeIngList, displayIngredientsList, changeDevList, displayDevicesList,
-    changeUteList, displayUtensilsList
+    changeItemsList, displayIngredientsList, displayDevicesList,
+    displayUtensilsList
 } from "./search.js"
 import {
     changeRecipesSection, closeMenu, displayRecipes, translateMenus, saveSelectedIngredients,
@@ -131,13 +131,13 @@ export function ingredientsListFactory(ingArray) {
 
 
 
-                changeIngList()
+                changeItemsList(ingredientsList)
                 console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
-                changeDevList()
+                changeItemsList(devicesList)
                 console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
-                changeUteList()
+                changeItemsList(utensilsList)
                 console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
@@ -189,13 +189,13 @@ export function devicesListFactory(devArray) {
 
 
 
-                changeIngList()
+                changeItemsList(ingredientsList)
                 console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
-                changeDevList()
+                changeItemsList(devicesList)
                 console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
-                changeUteList()
+                changeItemsList(utensilsList)
                 console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
@@ -248,13 +248,13 @@ export function utensilsListFactory(uteArray) {
                 let selectedUtensilsArray2 = []
                 saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
 
-                changeIngList()
+                changeItemsList(ingredientsList)
                 console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
-                changeDevList()
+                changeItemsList(devicesList)
                 console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
-                changeUteList()
+                changeItemsList(utensilsList)
                 console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
