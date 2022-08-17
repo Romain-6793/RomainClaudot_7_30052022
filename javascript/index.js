@@ -1,11 +1,12 @@
-
-
 import { recipes } from "./recipes.js"
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js"
 import {
-    search, displayRecipes, displayIngredientsList, displayDevicesList,
-    displayUtensilsList, tabListeners, miniSBListeners, tabSearchers, recipesListener
+    search, displayIngredientsList, displayDevicesList,
+    displayUtensilsList,
 } from "./search.js"
+import {
+    screenListener, displayRecipes, tabListeners, tabSearchers, miniSBListeners
+} from "./utils.js"
 
 
 export const recipesSection = document.querySelector(".recipes-section")
@@ -56,9 +57,8 @@ function init() {
     displayUtensilsList(utensilsArray)
     miniSBListeners()
     tabSearchers()
-    //CORRECTIF
     displayRecipes(recipes)
-    recipesListener()
+    screenListener()
 
 }
 

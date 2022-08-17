@@ -3,11 +3,14 @@ import {
     utensilsInput, utensilsMenu, utensilsNav
 } from "./index.js"
 import {
-    createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray,
-    changeRecipesSection, displayRecipes, closeMenu, translateMenus,
-    saveSelectedIngredients, changeIngList, displayIngredientsList, changeDevList, displayDevicesList,
-    saveSelectedDevices, changeUteList, displayUtensilsList, saveSelectedUtensils
+    createIngTag, createDevTag, createUteTag, tagsArray, selectedRecipesArray,
+    changeIngList, displayIngredientsList, changeDevList, displayDevicesList,
+    changeUteList, displayUtensilsList
 } from "./search.js"
+import {
+    changeRecipesSection, closeMenu, displayRecipes, translateMenus, saveSelectedIngredients,
+    saveSelectedDevices, saveSelectedUtensils, filterByTags
+} from "./utils.js"
 
 
 
