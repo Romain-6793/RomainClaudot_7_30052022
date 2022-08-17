@@ -5,7 +5,7 @@ import {
     utensilsSearchButton, ingredientsArrow, devicesArrow, utensilsArrow,
 } from "./index.js";
 import {
-    selectedRecipesArray, ingredientsListener, utensilsListener,
+    ingredientsListener, utensilsListener,
     devicesListener, ingTabSearch, devTabSearch, uteTabSearch, controlIngMiniSB, controlDevMiniSB,
     controlUteMiniSB
 } from "./search.js";
@@ -143,32 +143,7 @@ export function saveSelectedUtensils(slctRecipesArr, slctUte = "", slctUteArr = 
 // saveSelectedUtensils(recipes, selectedUtensils, selectedUtensilsArray)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// MAIN SEARCH ALGORITHM
-//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Cette fonction va insérer ou non dans le tableau des recettes sélectionnées la recette. 
-// Elle se base sur la barre la barre de recherche principale.
-// Dans cette version, on n'utilise pas filter, mais une boucle "for".
-
-export function bigInputFilter(recipes, searchVal) {
-
-    for (let i = 0; i < recipes.length; i++) {
-        if (recipes[i].name.toLowerCase().includes(searchVal.toLowerCase()) ||
-            recipes[i].description.toLowerCase().includes(searchVal.toLowerCase()) ||
-            recipes[i].ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(searchVal.toLowerCase()))) {
-            selectedRecipesArray.push(recipes[i])
-        }
-
-        //     // La méthode some() évite de faire une boucle for pour parcourir chaque ingrédient
-
-
-    }
-
-    return selectedRecipesArray
-
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TAG SEARCH ALGORITHM 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

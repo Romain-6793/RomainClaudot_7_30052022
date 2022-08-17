@@ -14,7 +14,7 @@ import {
 import { findingIngredients, findingDevices, findingUtensils } from "./finders.js";
 import {
     screen, saveSelectedIngredients, saveSelectedDevices, saveSelectedUtensils,
-    bigInputFilter, changeRecipesSection, displayRecipes, closeMenu, toggleWidthMenu, translateMenus,
+    changeRecipesSection, displayRecipes, closeMenu, toggleWidthMenu, translateMenus,
     displayNav, rotateArrow, resetArrow, filterByTags
 } from "./utils.js";
 
@@ -54,7 +54,10 @@ export function search() {
         // la déclaration de la fonction.
 
 
-        bigInputFilter(recipes, searchInput.value)
+        // bigInputFilter(recipes, searchInput.value)
+
+        let selectedRecipes = bigInputFilter(recipes, searchInput.value)
+        selectedRecipesArray = [...selectedRecipes]
 
         // D'abord on appelle changeRecipesSection() afin de vider le contenu de la section avant un nouvel
         // affichage.
@@ -126,6 +129,31 @@ export function resetResearch() {
     changeRecipesSection()
     displayRecipes(recipes)
 }
+
+
+// MAIN SEARCH ALGORITHM
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Cette fonction va insérer ou non dans le tableau des recettes sélectionnées la recette. 
+// Elle se base sur la barre la barre de recherche principale.
+// Dans cette version, on n'utilise pas filter, mais une boucle "for".
+
+export function bigInputFilter(recipes, recipesFilter) {
+
+
+    return recipes.filter((recipeObj) => {
+
+
+        return recipeObj.name.toLowerCase().includes(recipesFilter.toLowerCase())
+            || recipeObj.description.toLowerCase().includes(recipesFilter.toLowerCase())
+            || recipeObj.ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(recipesFilter.toLowerCase()))
+
+    })
+
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // DISPLAYING ITEMS
