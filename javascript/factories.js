@@ -1,13 +1,16 @@
-
-
 import {
     ingredientsInput, ingredientsMenu, ingredientsNav, devicesInput, devicesMenu, devicesNav,
-    utensilsInput, utensilsMenu, utensilsNav
+    utensilsInput, utensilsMenu, utensilsNav, ingredientsList, devicesList, utensilsList
 } from "./index.js"
 import {
-    createIngTag, createDevTag, createUteTag, tagsArray, filterByTags, selectedRecipesArray,
-    transferSelectedRecipesArray, changeRecipesSection, displayRecipes, closeMenu, translateMenus
+    createIngTag, createDevTag, createUteTag, tagsArray, selectedRecipesArray,
+    changeItemsList, displayIngredientsList, displayDevicesList,
+    displayUtensilsList
 } from "./search.js"
+import {
+    changeRecipesSection, closeMenu, displayRecipes, translateMenus, saveSelectedIngredients,
+    saveSelectedDevices, saveSelectedUtensils, filterByTags
+} from "./utils.js"
 
 
 
@@ -19,6 +22,7 @@ export function recipesFactory(data) {
     function getUserRecipe() {
         const article = document.createElement("article")
         article.setAttribute("class", "recipe-article")
+        article.setAttribute("id", "recipe-article")
         const pictureDiv = document.createElement("div")
         pictureDiv.setAttribute("class", "picture-div")
         const recipeDiv = document.createElement("div")
@@ -90,21 +94,50 @@ export function ingredientsListFactory(ingArray) {
         span.setAttribute("class", "menu-name")
 
         for (let i = 0; i < ingArray.length; i++) {
-            span.textContent = ingArray
+            span.textContent = ingArray.charAt(0).toUpperCase() + ingArray.slice(1)
         }
 
         div.addEventListener("click", () => {
             if (!document.getElementById(span.textContent)) {
                 createIngTag(span.textContent, span.textContent, span.textContent)
+                let tempSra = [...selectedRecipesArray];
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    transferSelectedRecipesArray(selectedRecipesArray.prop)
-                });
+                    tempSra = filterByTags(tempSra, tag);
+                }
+                );
 
                 closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
                 translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray)
+                console.log(tempSra)
+                displayRecipes(tempSra)
+
+                // Après l'affichage des recettes, je déclare des ingrédients sélect à 0, ainsi qu'un 
+                // tableau vide censé les accueillir, la fonction saveSelectedIngredients va les 
+                // parcourir pour voir ceux correspondant aux recettes affichées et les mettre dans mon 
+                // tableau, tableau qui va servir à l'affichage de ces ingrédients
+                // dans displayIngredientsList()
+
+                let selectedIngredients = ""
+                let selectedIngredientsArray2 = []
+                saveSelectedIngredients(tempSra, selectedIngredients, selectedIngredientsArray2)
+                let selectedDevices = ""
+                let selectedDevicesArray2 = []
+                saveSelectedDevices(tempSra, selectedDevices, selectedDevicesArray2)
+                let selectedUtensils = ""
+                let selectedUtensilsArray2 = []
+                saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
+
+                changeItemsList(ingredientsList)
+                console.log(selectedIngredientsArray2)
+                displayIngredientsList(selectedIngredientsArray2)
+                changeItemsList(devicesList)
+                console.log(selectedDevicesArray2)
+                displayDevicesList(selectedDevicesArray2)
+                changeItemsList(utensilsList)
+                console.log(selectedUtensilsArray2)
+                displayUtensilsList(selectedUtensilsArray2)
+
             }
         })
         div.appendChild(span)
@@ -121,6 +154,8 @@ export function devicesListFactory(devArray) {
         const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
 
+        let tempSra = [...selectedRecipesArray];
+
         for (let i = 0; i < devArray.length; i++) {
             span.textContent = devArray
         }
@@ -129,14 +164,38 @@ export function devicesListFactory(devArray) {
             if (!document.getElementById(span.textContent)) {
                 createDevTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    transferSelectedRecipesArray(selectedRecipesArray.prop)
+                    tempSra = filterByTags(tempSra, tag);
+                    // selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    // transferSelectedRecipesArray(selectedRecipesArray.prop)
                 });
 
                 closeMenu(devicesInput, devicesMenu, devicesNav)
                 translateMenus(devicesInput, devicesMenu, ingredientsMenu, utensilsMenu)
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray)
+                displayRecipes(tempSra)
+
+                let selectedIngredients = ""
+                let selectedIngredientsArray2 = []
+                saveSelectedIngredients(tempSra, selectedIngredients, selectedIngredientsArray2)
+                let selectedDevices = ""
+                let selectedDevicesArray2 = []
+                saveSelectedDevices(tempSra, selectedDevices, selectedDevicesArray2)
+                let selectedUtensils = ""
+                let selectedUtensilsArray2 = []
+                saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
+
+
+
+                changeItemsList(ingredientsList)
+                console.log(selectedIngredientsArray2)
+                displayIngredientsList(selectedIngredientsArray2)
+                changeItemsList(devicesList)
+                console.log(selectedDevicesArray2)
+                displayDevicesList(selectedDevicesArray2)
+                changeItemsList(utensilsList)
+                console.log(selectedUtensilsArray2)
+                displayUtensilsList(selectedUtensilsArray2)
+
             }
         })
 
@@ -155,6 +214,8 @@ export function utensilsListFactory(uteArray) {
         const span = document.createElement("span")
         span.setAttribute("class", "menu-name")
 
+        let tempSra = [...selectedRecipesArray];
+
         for (let i = 0; i < uteArray.length; i++) {
             span.textContent = uteArray.charAt(0).toUpperCase() + uteArray.slice(1);
         }
@@ -163,14 +224,37 @@ export function utensilsListFactory(uteArray) {
             if (!document.getElementById(span.textContent)) {
                 createUteTag(span.textContent, span.textContent, span.textContent)
                 tagsArray.forEach((tag) => {
-                    selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
-                    transferSelectedRecipesArray(selectedRecipesArray.prop)
+                    // selectedRecipesArray.prop = filterByTags(selectedRecipesArray, tag);
+                    // transferSelectedRecipesArray(selectedRecipesArray.prop)
+                    tempSra = filterByTags(tempSra, tag);
                 });
 
                 closeMenu(utensilsInput, utensilsMenu, utensilsNav)
                 translateMenus(utensilsInput, utensilsMenu, devicesMenu, ingredientsMenu)
                 changeRecipesSection()
-                displayRecipes(selectedRecipesArray)
+                displayRecipes(tempSra)
+
+
+                let selectedIngredients = ""
+                let selectedIngredientsArray2 = []
+                saveSelectedIngredients(tempSra, selectedIngredients, selectedIngredientsArray2)
+                let selectedDevices = ""
+                let selectedDevicesArray2 = []
+                saveSelectedDevices(tempSra, selectedDevices, selectedDevicesArray2)
+                let selectedUtensils = ""
+                let selectedUtensilsArray2 = []
+                saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
+
+                changeItemsList(ingredientsList)
+                console.log(selectedIngredientsArray2)
+                displayIngredientsList(selectedIngredientsArray2)
+                changeItemsList(devicesList)
+                console.log(selectedDevicesArray2)
+                displayDevicesList(selectedDevicesArray2)
+                changeItemsList(utensilsList)
+                console.log(selectedUtensilsArray2)
+                displayUtensilsList(selectedUtensilsArray2)
+
             }
         })
 
