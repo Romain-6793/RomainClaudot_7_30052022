@@ -561,6 +561,14 @@ export function createIngTag(label, dataProperty, id) {
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
+
+
+        // Quick Fix
+
+        if (tagsArray.length < 1 && searchInput.value < 3) {
+            resetResearch()
+        }
+
         displayRecipes(selectedRecipesArray)
 
         saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
@@ -607,7 +615,7 @@ export function createDevTag(label, dataProperty, id) {
             return alert("PAS TROUVE")
         }
         tagsArray.splice(index, 1)
-        selectedRecipesArray = [...recipes]
+        // selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
@@ -661,7 +669,7 @@ export function createUteTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
 
-        selectedRecipesArray = [...recipes]
+        // selectedRecipesArray = [...recipes]
         tagsArray.forEach((tag) => {
 
             selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
