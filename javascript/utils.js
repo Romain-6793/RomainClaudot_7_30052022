@@ -96,7 +96,7 @@ export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr
     return slctIngArr;
 
 }
-// saveSelectedIngredients(recipes, selectedIngredients, selectedIngredientsArray);
+
 
 export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = []) {
 
@@ -133,7 +133,7 @@ export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = [
 
 
 }
-// saveSelectedDevices(recipes, selectedDevices, selectedDevicesArray)
+
 
 export function saveSelectedUtensils(slctRecipesArr, slctUte = "", slctUteArr = []) {
     slctUteArr.splice(0, slctUteArr.length)
@@ -155,7 +155,7 @@ export function saveSelectedUtensils(slctRecipesArr, slctUte = "", slctUteArr = 
     return slctUteArr
 
 }
-// saveSelectedUtensils(recipes, selectedUtensils, selectedUtensilsArray)
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
