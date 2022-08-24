@@ -109,7 +109,7 @@ export function ingredientsListFactory(ingArray) {
                 closeMenu(ingredientsInput, ingredientsMenu, ingredientsNav)
                 translateMenus(ingredientsInput, ingredientsMenu, devicesMenu, utensilsMenu)
                 changeRecipesSection()
-                console.log(tempSra)
+                // console.log(tempSra)
                 displayRecipes(tempSra)
 
                 // Après l'affichage des recettes, je déclare des ingrédients sélect à 0, ainsi qu'un 
@@ -129,13 +129,13 @@ export function ingredientsListFactory(ingArray) {
                 saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
 
                 changeItemsList(ingredientsList)
-                console.log(selectedIngredientsArray2)
+                // console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
                 changeItemsList(devicesList)
-                console.log(selectedDevicesArray2)
+                // console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
                 changeItemsList(utensilsList)
-                console.log(selectedUtensilsArray2)
+                // console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
             }
@@ -187,13 +187,13 @@ export function devicesListFactory(devArray) {
 
 
                 changeItemsList(ingredientsList)
-                console.log(selectedIngredientsArray2)
+                // console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
                 changeItemsList(devicesList)
-                console.log(selectedDevicesArray2)
+                // console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
                 changeItemsList(utensilsList)
-                console.log(selectedUtensilsArray2)
+                // console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
             }
@@ -246,13 +246,13 @@ export function utensilsListFactory(uteArray) {
                 saveSelectedUtensils(tempSra, selectedUtensils, selectedUtensilsArray2)
 
                 changeItemsList(ingredientsList)
-                console.log(selectedIngredientsArray2)
+                // console.log(selectedIngredientsArray2)
                 displayIngredientsList(selectedIngredientsArray2)
                 changeItemsList(devicesList)
-                console.log(selectedDevicesArray2)
+                // console.log(selectedDevicesArray2)
                 displayDevicesList(selectedDevicesArray2)
                 changeItemsList(utensilsList)
-                console.log(selectedUtensilsArray2)
+                // console.log(selectedUtensilsArray2)
                 displayUtensilsList(selectedUtensilsArray2)
 
             }

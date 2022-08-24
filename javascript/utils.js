@@ -62,17 +62,23 @@ function mqHandler() {
 
 
 export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr = []) {
-    console.log(slctRecipesArr)
+
+    // On évite de faire slctIngArr = [] pour ne pas pointer vers une autre adresse (ce qui se passe
+    // avec un paramètre). à la place , la méthode splice() permet de vider le tableau sans effet  
+    // de bord
+    slctIngArr.splice(0, slctIngArr.length)
+
+    // console.log(slctRecipesArr)
 
 
 
     for (let i = 0; i < slctRecipesArr.length; i++) {
-        console.log(slctRecipesArr)
+        // console.log(slctRecipesArr)
 
 
         for (let j = 0; j < slctRecipesArr[i].ingredients.length; j++) {
             slctIng = slctRecipesArr[i].ingredients[j].ingredient
-            console.log(slctIng)
+            // console.log(slctIng)
             slctIngArr.push(slctIng)
         }
 
@@ -86,14 +92,21 @@ export function saveSelectedIngredients(slctRecipesArr, slctIng = "", slctIngArr
 
 
     }
-    console.log(slctIngArr)
+    // console.log(slctIngArr)
     return slctIngArr;
 
 }
 // saveSelectedIngredients(recipes, selectedIngredients, selectedIngredientsArray);
 
 export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = []) {
+
+    slctDevArr.splice(0, slctDevArr.length)
+
     for (let i = 0; i < slctRecipesArr.length; i++) {
+
+
+
+
         // console.log(slctRecipesArr)
 
         // eslint-disable-next-line no-import-assign
@@ -103,7 +116,7 @@ export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = [
 
         // eslint-disable-next-line no-import-assign
         // slctDevArr = [...new Set(slctDevArr)]
-        console.log(slctDevArr)
+        // console.log(slctDevArr)
 
     }
 
@@ -115,7 +128,7 @@ export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = [
 
     filteredArray.forEach((recipe) => slctDevArr.push(recipe))
 
-    console.log(slctDevArr)
+    // console.log(slctDevArr)
     return slctDevArr
 
 
@@ -123,6 +136,8 @@ export function saveSelectedDevices(slctRecipesArr, slctDev = "", slctDevArr = [
 // saveSelectedDevices(recipes, selectedDevices, selectedDevicesArray)
 
 export function saveSelectedUtensils(slctRecipesArr, slctUte = "", slctUteArr = []) {
+    slctUteArr.splice(0, slctUteArr.length)
+
     for (let i = 0; i < slctRecipesArr.length; i++) {
 
         for (let j = 0; j < slctRecipesArr[i].ustensils.length; j++) {

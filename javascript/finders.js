@@ -9,7 +9,7 @@ export function findingIngredients(recipes) {
         }
     }
 
-    console.log(tempIngredients)
+    // console.log(tempIngredients)
 
     tempIngredients = [...new Set(tempIngredients)].sort()
 

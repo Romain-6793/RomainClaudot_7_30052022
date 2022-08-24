@@ -106,12 +106,7 @@ export function search() {
             displayUtensilsList(selectedUtensilsArray)
         } else {
             resetResearch()
-            changeItemsList(ingredientsList)
-            displayIngredientsList(ingredientsArray)
-            changeItemsList(devicesList)
-            displayDevicesList(devicesArray)
-            changeItemsList(utensilsList)
-            displayUtensilsList(utensilsArray)
+
         }
     })
 
@@ -128,6 +123,12 @@ export function resetResearch() {
 
     changeRecipesSection()
     displayRecipes(recipes)
+    changeItemsList(ingredientsList)
+    displayIngredientsList(ingredientsArray)
+    changeItemsList(devicesList)
+    displayDevicesList(devicesArray)
+    changeItemsList(utensilsList)
+    displayUtensilsList(utensilsArray)
 }
 
 
@@ -570,8 +571,9 @@ export function createIngTag(label, dataProperty, id) {
     closeBtn.setAttribute("data-item", label)
     closeBtn.addEventListener("click", closeTag)
 
-    function closeTag(e) {
 
+    function closeTag(e) {
+        let recipesFilteredByTag = [...selectedRecipesArray]
         const value = e.target.getAttribute("data-item")
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
 
@@ -580,24 +582,26 @@ export function createIngTag(label, dataProperty, id) {
         }
         tagsArray.splice(index, 1)
 
-        // let recipesFilteredByTag = [...selectedRecipesArray]
-
         tagsArray.forEach((tag) => {
 
-            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            recipesFilteredByTag = filterByTags(recipesFilteredByTag, tag);
 
         });
         closeBtn.parentElement.remove()
+        console.log(tagsArray)
         changeRecipesSection()
-        displayRecipes(selectedRecipesArray)
 
-        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        displayRecipes(recipesFilteredByTag)
+
+        selectedIngredients = ""
+        selectedIngredientsArray = []
+        saveSelectedIngredients(recipesFilteredByTag, selectedIngredients, selectedIngredientsArray)
         changeItemsList(ingredientsList)
         displayIngredientsList(selectedIngredientsArray)
-        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        saveSelectedDevices(recipesFilteredByTag, selectedDevices, selectedDevicesArray)
         changeItemsList(devicesList)
         displayDevicesList(selectedDevicesArray)
-        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
+        saveSelectedUtensils(recipesFilteredByTag, selectedUtensils, selectedUtensilsArray)
         changeItemsList(utensilsList)
         displayUtensilsList(selectedUtensilsArray)
     }
@@ -627,31 +631,34 @@ export function createDevTag(label, dataProperty, id) {
     closeBtn.setAttribute("data-item", label)
     closeBtn.addEventListener("click", closeTag)
 
+
     function closeTag(e) {
 
+        let recipesFilteredByTag = [...selectedRecipesArray]
         const value = e.target.getAttribute("data-item")
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
         if (index === -1) {
-            return alert("PAS TROUVE")
+            return alert("NOT FOUND")
         }
         tagsArray.splice(index, 1)
-        selectedRecipesArray = [...recipes]
+
         tagsArray.forEach((tag) => {
 
-            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            recipesFilteredByTag = filterByTags(recipesFilteredByTag, tag);
         });
         closeBtn.parentElement.remove()
+        console.log(tagsArray)
         changeRecipesSection()
 
-        displayRecipes(selectedRecipesArray)
+        displayRecipes(recipesFilteredByTag)
 
-        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        saveSelectedIngredients(recipesFilteredByTag, selectedIngredients, selectedIngredientsArray)
         changeItemsList(ingredientsList)
         displayIngredientsList(selectedIngredientsArray)
-        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        saveSelectedDevices(recipesFilteredByTag, selectedDevices, selectedDevicesArray)
         changeItemsList(devicesList)
         displayDevicesList(selectedDevicesArray)
-        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
+        saveSelectedUtensils(recipesFilteredByTag, selectedUtensils, selectedUtensilsArray)
         changeItemsList(utensilsList)
         displayUtensilsList(selectedUtensilsArray)
     }
@@ -680,33 +687,35 @@ export function createUteTag(label, dataProperty, id) {
     closeBtn.setAttribute("data-item", label)
     closeBtn.addEventListener("click", closeTag)
 
+
     function closeTag(e) {
 
+        let recipesFilteredByTag = [...selectedRecipesArray]
         const value = e.target.getAttribute("data-item")
         const index = tagsArray.findIndex((div) => div.getAttribute("data-property").toLowerCase() === value.toLowerCase());
         if (index === -1) {
-            return alert("PAS TROUVE")
+            return alert("NOT FOUND")
         }
         tagsArray.splice(index, 1)
 
-        selectedRecipesArray = [...recipes]
+
         tagsArray.forEach((tag) => {
 
-            selectedRecipesArray = filterByTags(selectedRecipesArray, tag);
+            recipesFilteredByTag = filterByTags(recipesFilteredByTag, tag);
 
         });
         closeBtn.parentElement.remove()
         changeRecipesSection()
 
-        displayRecipes(selectedRecipesArray)
+        displayRecipes(recipesFilteredByTag)
 
-        saveSelectedIngredients(selectedRecipesArray, selectedIngredients, selectedIngredientsArray)
+        saveSelectedIngredients(recipesFilteredByTag, selectedIngredients, selectedIngredientsArray)
         changeItemsList(ingredientsList)
         displayIngredientsList(selectedIngredientsArray)
-        saveSelectedDevices(selectedRecipesArray, selectedDevices, selectedDevicesArray)
+        saveSelectedDevices(recipesFilteredByTag, selectedDevices, selectedDevicesArray)
         changeItemsList(devicesList)
         displayDevicesList(selectedDevicesArray)
-        saveSelectedUtensils(selectedRecipesArray, selectedUtensils, selectedUtensilsArray)
+        saveSelectedUtensils(recipesFilteredByTag, selectedUtensils, selectedUtensilsArray)
         changeItemsList(utensilsList)
         displayUtensilsList(selectedUtensilsArray)
     }
